@@ -9,7 +9,7 @@ package ru.job4j;
 public class Calculate {
     /**
      * Method main
-     * The poin of enter to programm
+     * The point of enter to program
      *
      * @param args - array String.
      */
