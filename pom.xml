@@ -16,6 +16,7 @@
     <modules>
         <module>chapter_001</module>
     </modules>
+
 <dependencies>
     <dependency>
         <groupId>org.hamcrest</groupId>
@@ -32,6 +33,12 @@
 </dependencies>
     <build>
         <plugins>
+            <plugin>
+                <inherited>true</inherited>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
