@@ -1,5 +1,6 @@
 target
-/out
+/.idea
+
 # Compiled class file
 *.class
 *.idea
@@ -8,7 +9,7 @@ target
 # Log file
 *.log
 *.iml
-*.gitignor
+
 
 # BlueJ files
 *.ctxt
