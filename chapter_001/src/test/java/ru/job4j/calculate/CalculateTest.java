@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.calculate;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertThat;
 /**
  * Test.
  *
- * @author Maxim Vrnsky
+ * @author Maxim Vanny
  * @version $Id$
  * @since 0.1
  */

@@ -1,15 +1,15 @@
-package ru.job4j;
+package ru.job4j.calculate;
 
 /**
- * Calculate
- * It prints string to console
+ * Calculate.
+ * It prints string to console.
  *
- * @author Maxim Vrnsky
+ * @author Maxim Vanny
  */
 public class Calculate {
     /**
-     * Method main
-     * The point of enter to program
+     * Method main.
+     * The point of enter to program.
      *
      * @param args - array String.
      */
