@@ -18,6 +18,7 @@ public class CalculatorTest {
 
     @Test
     public void whenAddOnePlusOneThenTwo() {
+
         Calculator calc = new Calculator();
 
         calc.add(1D, 1D);
@@ -29,10 +30,12 @@ public class CalculatorTest {
     @Test
     public void whenMinusOneMinusOneThenTwo() {
         Calculator calc = new Calculator();
+
         calc.minus(2D, 1D);
         result = calc.getResult();
         expected = 1D;
         assertThat(result, is(expected));
+
         calc.minus(1D, 2D);
         result = calc.getResult();
         expected = -1D;
@@ -92,6 +95,5 @@ public class CalculatorTest {
         result = calc.getResult();
         expected = 0D;
         assertThat(result, is(expected));
-
     }
 }
