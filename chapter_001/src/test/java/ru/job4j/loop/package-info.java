@@ -1,5 +1,5 @@
 /**
- * Package for test counter.
+ * Package for test counter, factorial.
  *
  * @author Maxim Vanny
  * @version 1.0

@@ -1,5 +1,5 @@
 /**
- * Package for counter.
+ * Package for counter, factorial.
  *
  * @author Maxim Vanny
  * @version 1.0
