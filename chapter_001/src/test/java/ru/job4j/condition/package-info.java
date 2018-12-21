@@ -1,5 +1,5 @@
 /**
- * Package for test point.
+ * Package for test point and triangle.
  *
  * @author Maxim Vanny
  * @version 1.0

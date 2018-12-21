@@ -1,5 +1,5 @@
 /**
- * Package for point.
+ * Package for point,triangle.
  *
  * @author Maxim Vanny
  * @version 1.0
