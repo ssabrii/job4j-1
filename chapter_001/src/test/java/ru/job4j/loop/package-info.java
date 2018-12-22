@@ -1,5 +1,5 @@
 /**
- * Package for test counter, factorial, board.
+ * Package for test counter, factorial, board, pyramid.
  *
  * @author Maxim Vanny
  * @version 1.0
