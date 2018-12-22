@@ -15,10 +15,8 @@ public class Factorial {
      */
     public int calc(int n) {
         int multi = 1;
-        if (n != 0) {
-            for (int i = 1; i <= n; i++) {
-                multi = multi * i;
-            }
+        for (int i = 1; i <= n; i++) {
+            multi = multi * i;
         }
         return multi;
     }
