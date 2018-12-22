@@ -1,5 +1,5 @@
 /**
- * Package for test counter, factorial, board, pyramid.
+ * Package for test counter, factorial, board, pyramid, pyramid(lambda).
  *
  * @author Maxim Vanny
  * @version 1.0

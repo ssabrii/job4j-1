@@ -1,5 +1,5 @@
 /**
- * Package for counter, factorial, board, pyramid.
+ * Package for counter, factorial, board, pyramid, pyramid(lambda).
  *
  * @author Maxim Vanny.
  * @version 1.0
