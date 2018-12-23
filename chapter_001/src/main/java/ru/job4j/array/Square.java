@@ -15,7 +15,7 @@ public class Square {
      * @param bound the length of array.
      * @return array.
      */
-    public static int[] calculate(int bound) {
+    public int[] calculate(int bound) {
         int[] rst = new int[bound];
 
         // заполнить массив через цикл элементами от 1 до bound возведенными в квадрат
