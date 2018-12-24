@@ -21,6 +21,10 @@ public class LogicTest {
             }
         };
         assertThat(logic.isWin(), is(true));
+        //непойму как связывается с нужным массивом true в is()?
+        //b как метод понимает, что он массив table из Logic.java совпадают
+        // с new int[][] в public int[][] convert()?
+
     }
 
     @Test

@@ -67,6 +67,7 @@ public class Logic {
     }
 
     public boolean isWin() {
+        //всё работает но есть чувство что то не так.
         int[][] table = this.convert();
         boolean result = true;
         boolean tmpH = true;
