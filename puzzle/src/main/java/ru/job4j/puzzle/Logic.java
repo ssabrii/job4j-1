@@ -69,23 +69,21 @@ public class Logic {
     public boolean isWin() {
         //всё работает но есть чувство что то не так.
         int[][] table = this.convert();
-        boolean result = true;
-        boolean tmpH = true;
-        boolean tmpV = true;
-        for (int out = 1; out < table.length; out++) {
-            for (int in = 1; in < table.length; in++) {
-                while (table[out - 1][in] != table[out - 1][in - 1]) {
-                    tmpH = false;
-                    break;
+        boolean result = false;
+        int countOut = 0;
+        int countIn = 0;
+        for (int out = 0; out < table.length; out++) {
+            for (int in = 0; in < table.length; in++) {
+                if (table[out][in] == 1) {
+                    countOut++;
                 }
-                while (table[out - 1][in] != table[out][in]) {
-                    tmpV = false;
-                    break;
+                if (table[in][out] == 1) {
+                    countIn++;
                 }
             }
         }
-        if (!tmpH && !tmpV) {
-            result = false;
+        if (countOut == table.length || countIn == table.length) {
+            result = true;
         }
         return result;
     }

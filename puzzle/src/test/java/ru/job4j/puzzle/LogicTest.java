@@ -3,7 +3,7 @@ package ru.job4j.puzzle;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class LogicTest {
     @Test
@@ -11,7 +11,7 @@ public class LogicTest {
         Logic logic = new Logic(5) {
             @Override
             public int[][] convert() {
-                return new int[][] {
+                return new int[][]{
                         {0, 0, 1, 0, 0},
                         {0, 0, 1, 0, 0},
                         {0, 0, 1, 0, 0},
@@ -21,10 +21,6 @@ public class LogicTest {
             }
         };
         assertThat(logic.isWin(), is(true));
-        //непойму как связывается с нужным массивом true в is()?
-        //b как метод понимает, что он массив table из Logic.java совпадают
-        // с new int[][] в public int[][] convert()?
-
     }
 
     @Test
@@ -32,7 +28,7 @@ public class LogicTest {
         Logic logic = new Logic(5) {
             @Override
             public int[][] convert() {
-                return new int[][] {
+                return new int[][]{
                         {0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0},
                         {1, 1, 1, 1, 1},
@@ -49,7 +45,7 @@ public class LogicTest {
         Logic logic = new Logic(5) {
             @Override
             public int[][] convert() {
-                return new int[][] {
+                return new int[][]{
                         {0, 0, 1, 0, 0},
                         {0, 0, 1, 0, 0},
                         {1, 1, 0, 1, 1},
