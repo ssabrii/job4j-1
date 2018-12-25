@@ -73,17 +73,15 @@ public class Logic {
         boolean tmpH = true;
         boolean tmpV = true;
         for (int out = 1; out < table.length; out++) {
-            for (int in = 1; in < table.length; in++) {
-                while (table[out - 1][in] != table[out - 1][in - 1]) {
+                while (table[out - 1][out] != table[out - 1][out - 1]) {
                     tmpH = false;
                     break;
                 }
-                while (table[out - 1][in] != table[out][in]) {
+                while (table[out - 1][out] != table[out][out]) {
                     tmpV = false;
                     break;
                 }
             }
-        }
         if (!tmpH && !tmpV) {
             result = false;
         }
