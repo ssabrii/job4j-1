@@ -67,12 +67,11 @@ public class Logic {
     }
 
     public boolean isWin() {
-        //всё работает но есть чувство что то не так.
         int[][] table = this.convert();
         boolean result = false;
-        int countOut = 0;
-        int countIn = 0;
         for (int out = 0; out < table.length; out++) {
+            int countOut = 0;
+            int countIn = 0;
             for (int in = 0; in < table.length; in++) {
                 if (table[out][in] == 1) {
                     countOut++;
@@ -81,9 +80,10 @@ public class Logic {
                     countIn++;
                 }
             }
-        }
-        if (countOut == table.length || countIn == table.length) {
-            result = true;
+            if (countOut == table.length || countIn == table.length) {
+                result = true;
+                break;
+            }
         }
         return result;
     }
