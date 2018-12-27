@@ -30,7 +30,7 @@ public class Item {
      *
      * @param name        название заявки.
      * @param description описание заявки.
-     * @param create      создание заявки
+     * @param create      создание заявки.
      */
     public Item(String name, String description, long create) {
         this.name = name;

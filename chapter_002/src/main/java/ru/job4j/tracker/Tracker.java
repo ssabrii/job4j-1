@@ -25,6 +25,7 @@ public class Tracker {
      * Метод реализущий добавление заявки в хранилище.
      *
      * @param item новая заявка.
+     * @return возвращает добавленную заявку
      */
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -119,8 +120,6 @@ public class Tracker {
      */
     private String generateId() {
         //Реализовать метод генерации.
-        int start = 0;
-        int end = 10;
-        return String.valueOf(String.valueOf((start + Math.random() + end)).hashCode());
+        return String.valueOf(String.valueOf((Math.random())).hashCode());
     }
 }
