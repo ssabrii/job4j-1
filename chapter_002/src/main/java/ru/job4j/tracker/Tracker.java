@@ -28,8 +28,10 @@ public class Tracker {
      * @return возвращает добавленную заявку
      */
     public Item add(Item item) {
-        item.setId(this.generateId());
-        this.items[this.position++] = item;
+        if (position < this.items.length - 1) {
+            item.setId(this.generateId());
+            this.items[this.position++] = item;
+        }
         return item;
     }
 
@@ -42,9 +44,9 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean check = false;
-        for (int i = 0; i < items.length; i++) {
-            if (id.equals(items[i].getId())) {
-                items[i] = item;
+        for (int i = 0; i < this.items.length; i++) {
+            if (id.equals(this.items[i].getId())) {
+                this.items[i] = item;
                 check = true;
                 break;
             }
@@ -60,9 +62,9 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean check = false;
-        for (int i = 0; i < items.length; i++) {
-            if (id.equals(items[i].getId())) {
-                System.arraycopy(items, i + 1, items, i, position);
+        for (int i = 0; i < this.items.length; i++) {
+            if (id.equals(this.items[i].getId())) {
+                System.arraycopy(this.items, i + 1, this.items, i, this.position);
                 check = true;
                 break;
             }
@@ -76,7 +78,7 @@ public class Tracker {
      * @return Item[] массив заявок.
      */
     public Item[] findAll() {
-        return Arrays.copyOfRange(items, 0, position);
+        return Arrays.copyOfRange(this.items, 0, this.position);
     }
 
     /**
@@ -87,7 +89,7 @@ public class Tracker {
      */
     public Item findByName(String key) {
         Item seeker = null;
-        for (Item item1 : items) {
+        for (Item item1 : this.items) {
             if (key.equals(item1.getName())) {
                 seeker = item1;
                 break;
@@ -104,7 +106,7 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item seeker = null;
-        for (Item item : items) {
+        for (Item item : this.items) {
             if (id.equals(item.getId())) {
                 seeker = item;
                 break;
