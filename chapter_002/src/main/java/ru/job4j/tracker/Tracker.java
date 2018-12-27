@@ -15,7 +15,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
+    private final Item[] items = new Item[5];
     /**
      * Указатель ячейки для новой заявки.
      */
@@ -57,7 +57,15 @@ public class Tracker {
      * @param id уникальный номер заявки.
      */
     public boolean delete(String id) {
-        return false;
+        boolean check = false;
+        for (int i = 0; i < items.length; i++) {
+            if (id.equals(items[i].getId())) {
+                System.arraycopy(items, i + 1, items, i, position);
+                check = true;
+                break;
+            }
+        }
+        return check;
     }
 
     /**
@@ -76,14 +84,14 @@ public class Tracker {
      * @return item возвращает найденую заявку.
      */
     public Item findByName(String key) {
-        Item item = null;
+        Item seeker = null;
         for (Item item1 : items) {
             if (key.equals(item1.getName())) {
-                item = item1;
+                seeker = item1;
                 break;
             }
         }
-        return item;
+        return seeker;
     }
 
     /**
@@ -111,6 +119,8 @@ public class Tracker {
      */
     private String generateId() {
         //Реализовать метод генерации.
-        return String.valueOf(this.hashCode());
+        int start = 0;
+        int end = 10;
+        return String.valueOf(start + Math.random() + end);
     }
 }
