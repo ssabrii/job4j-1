@@ -121,6 +121,6 @@ public class Tracker {
         //Реализовать метод генерации.
         int start = 0;
         int end = 10;
-        return String.valueOf(start + Math.random() + end);
+        return String.valueOf(String.valueOf((start + Math.random() + end)).hashCode());
     }
 }
