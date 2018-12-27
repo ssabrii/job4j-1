@@ -56,6 +56,7 @@ public class Tracker {
      * Метод реализущий удаление заявки из хранилища.
      *
      * @param id уникальный номер заявки.
+     * @return возвращает статус выполнения метода.
      */
     public boolean delete(String id) {
         boolean check = false;
