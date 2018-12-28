@@ -15,15 +15,15 @@ public class Item {
     /**
      * имя заявки.
      */
-    public String name;
+    private String name;
     /**
      * описание заявки.
      */
-    public String description;
+    private String description;
     /**
      * создание заявки.
      */
-    public long create;
+    private long create;
 
     /**
      * констуртор заявки.
