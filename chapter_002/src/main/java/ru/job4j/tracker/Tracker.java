@@ -44,9 +44,10 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean check = false;
+        // position исправил. но перебора всего массива нигде нет.тк везде используется оператор break.
         for (int i = 0; i < position; i++) {
             if (id.equals(this.items[i].getId())) {
-                item.setId(id);
+                item.setId(id);//зачем добавлять если id перезапишется из item?
                 this.items[i] = item;
                 check = true;
                 break;
@@ -66,6 +67,7 @@ public class Tracker {
         for (int i = 0; i < position; i++) {
             if (id.equals(this.items[i].getId())) {
                 System.arraycopy(this.items, i + 1, this.items, i, this.position);
+                position--;
                 check = true;
                 break;
             }
