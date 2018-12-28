@@ -15,7 +15,7 @@ public class Tracker {
     /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[5];
+    private final Item[] items = new Item[100];
     /**
      * Указатель ячейки для новой заявки.
      */
@@ -44,10 +44,12 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean check = false;
-        // position исправил. но перебора всего массива нигде нет.тк везде используется оператор break.
+        // position исправил. но перебора всего массива нигде нет, кроме findByName(),
+        // тк везде используется оператор break.
         for (int i = 0; i < position; i++) {
             if (id.equals(this.items[i].getId())) {
-                item.setId(id);//зачем добавлять если id перезапишется из item?
+                //зачем устанавливать, если id перезапишется из item?
+                item.setId(id);
                 this.items[i] = item;
                 check = true;
                 break;
@@ -85,19 +87,20 @@ public class Tracker {
     }
 
     /**
-     * Метод реализущий поиск заявки в хранилище по полю name.
+     * Метод реализущий поиск заявки в хранилище по полю key.
      *
      * @param key имя заявки.
-     * @return item возвращает найденую заявку.
+     * @return item возвращает массив найденных заявок.
      */
-    public Item findByName(String key) {
-        Item seeker = null;
-        for (Item item1 : this.items) {
-            if (key.equals(item1.getName())) {
-                seeker = item1;
-                break;
+    public Item[] findByName(String key) {
+        Item[] seeker = new Item[100];
+        int count = 0;
+        for (int i = 0; i < position; i++) {
+            if (key.equals(items[i].getName())) {
+                seeker[count++] = items[i];
             }
         }
+        seeker = Arrays.copyOf(seeker, count);
         return seeker;
     }
 

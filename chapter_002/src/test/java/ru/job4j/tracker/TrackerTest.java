@@ -52,11 +52,17 @@ public class TrackerTest {
         Item first = new Item("test1", "testDescription", 1L);
         Item second = new Item("test2", "testDescription2", 12L);
         Item thirst = new Item("test3", "testDescription3", 123L);
+        Item fourth = new Item("test3", "testDescription4", 1234L);
+        Item fifth = new Item("test3", "testDescription5", 12345L);
         tracker.add(first);
         tracker.add(second);
         tracker.add(thirst);
-        Item result = tracker.findByName("test2");
-        assertThat(result.getName(), is("test2"));
+        tracker.add(fourth);
+        tracker.add(fifth);
+        Item[] result = tracker.findByName("test3");
+        assertThat(result[0].getName(), is("test3"));
+        assertThat(result[1].getName(), is("test3"));
+        assertThat(result[2].getName(), is("test3"));
     }
 
     @Test
