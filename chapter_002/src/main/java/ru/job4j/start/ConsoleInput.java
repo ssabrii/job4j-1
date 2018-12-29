@@ -16,10 +16,10 @@ public class ConsoleInput implements Input {
     private Scanner scanner = new Scanner(System.in);
 
     /**
-     * получение полей заявки по запросу.
+     * получение ответа на запрос.
      *
      * @param question запрос для пользователя.
-     * @return возвращает последнее введённое поле заявки по запросу.
+     * @return возвращает ответ пользователя на запрос.
      */
     @Override
     public String ask(String question) {

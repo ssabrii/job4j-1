@@ -39,6 +39,17 @@ public class Item {
     }
 
     /**
+     * констуртор заявки.
+     *
+     * @param name        название заявки.
+     * @param description описание заявки.
+     */
+    public Item(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    /**
      * получение имени заявки.
      *
      * @return возвращает имя заявки.
@@ -90,5 +101,17 @@ public class Item {
      */
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return  '\n'
+                + "Заявка: id '"
+                + id
+                + "', name='"
+                + name
+                + "', description='"
+                + description
+                + "'";
     }
 }
