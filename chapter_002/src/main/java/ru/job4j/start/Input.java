@@ -1,4 +1,5 @@
 package ru.job4j.start;
+
 /**
  * Input.
  *
@@ -8,7 +9,10 @@ package ru.job4j.start;
  */
 public interface Input {
     /**
-     * получение данных от пользователя с консоли по запросу.
+     * получение полей заявки по запросу.
+     *
+     * @param question запрос для пользователя.
+     * @return возвращает последнее введённое поле заявки по запросу.
      */
     String ask(String question);
 }

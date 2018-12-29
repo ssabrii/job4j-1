@@ -1,6 +1,7 @@
 package ru.job4j.start;
 
 import java.util.Scanner;
+
 /**
  * ConsoleInput.
  *
@@ -13,9 +14,11 @@ public class ConsoleInput implements Input {
      * получение данных от пользователя с консоли.
      */
     private Scanner scanner = new Scanner(System.in);
+
     /**
      * получение полей заявки по запросу.
      *
+     * @param question запрос для пользователя.
      * @return возвращает последнее введённое поле заявки по запросу.
      */
     @Override
