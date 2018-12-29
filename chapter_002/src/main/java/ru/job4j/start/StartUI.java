@@ -4,7 +4,9 @@ import ru.job4j.models.Item;
 import ru.job4j.tracker.Tracker;
 
 /**
- * @version $Id$
+ * StartUI.
+ *
+ * @version 2.0
  * @since 0.1
  */
 public class StartUI {
@@ -15,9 +17,9 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        new StartUI(
-                new StubInput(new String[]{"create stub Item"})
-        ).init();
+        //  Input input = new StubInput(new String[]{"create stub Item"});
+        Input input = new ConsoleInput();
+        new StartUI(input).init();
     }
 
     public void init() {
