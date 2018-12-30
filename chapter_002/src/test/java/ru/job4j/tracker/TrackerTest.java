@@ -62,10 +62,9 @@ public class TrackerTest {
         tracker.add(thirst);
         tracker.add(fourth);
         tracker.add(fifth);
+        Item[] expected = {thirst, fourth, fifth};
         Item[] result = tracker.findByName("test3");
-        assertThat(result[0].getName(), is("test3"));
-        assertThat(result[1].getName(), is("test3"));
-        assertThat(result[2].getName(), is("test3"));
+        assertThat(result, is(expected));
     }
 
     @Test
