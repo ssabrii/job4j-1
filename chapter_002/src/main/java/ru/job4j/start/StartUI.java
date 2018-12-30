@@ -99,6 +99,25 @@ public class StartUI {
     }
 
     /**
+     * Метод реализует добавление новой заявки в хранилище.
+     */
+    private void createItem() {
+        System.out.println("------------ Добавление новой заявки --------------");
+        String name = this.input.ask("Введите имя заявки: ");
+        String desc = this.input.ask("Введите описание заявки: ");
+        Item item = new Item(name, desc);
+        this.tracker.add(item);
+        System.out.println("------------ Новая заявка с ID: " + item.getId() + "-----------");
+    }
+
+    /**
+     * Метод отображает все заявки из хранилища.
+     */
+    private void findAllItems() {
+        System.out.println(Arrays.toString(this.tracker.findAll()));
+    }
+
+    /**
      * Метод заменяет заявки в хранилище.
      */
     private void updateItemById() {
@@ -124,29 +143,6 @@ public class StartUI {
     }
 
     /**
-     * Метод ищет заявку из хранилища по имени.
-     */
-    private void findByName() {
-        String name = input.ask("Введите название требуемой заявки: ");
-        System.out.println(Arrays.toString(tracker.findByName(name)));
-    }
-
-    /**
-     * Метод ищет заявку из хранилища по ID.
-     */
-    private void findByID() {
-        String id = input.ask("Введите ID требуемой заявки: ");
-        System.out.println(tracker.findById(id));
-    }
-
-    /**
-     * Метод отображает все заявки из хранилища.
-     */
-    private void findAllItems() {
-        System.out.println(Arrays.toString(this.tracker.findAll()));
-    }
-
-    /**
      * Метод удаляет заявку из хранилища.
      */
     private void deleteItem() {
@@ -159,16 +155,34 @@ public class StartUI {
     }
 
     /**
-     * Метод реализует добавление новой заявки в хранилище.
+     * Метод ищет заявку из хранилища по ID.
      */
-    private void createItem() {
-        System.out.println("------------ Добавление новой заявки --------------");
-        String name = this.input.ask("Введите имя заявки: ");
-        String desc = this.input.ask("Введите описание заявки: ");
-        Item item = new Item(name, desc);
-        this.tracker.add(item);
-        System.out.println("------------ Новая заявка с ID: " + item.getId() + "-----------");
+    private void findByID() {
+        String id = input.ask("Поиск, введите ID заявки: ");
+        try {
+            Item byId = tracker.findById(id);
+            System.out.println(byId);
+        } catch (NullPointerException e) {
+            System.out.println("Заявка не обнаружена. Уточните ID");
+        }
     }
+
+    /**
+     * Метод ищет заявку из хранилища по имени.
+     */
+    private void findByName() {
+        String name = input.ask("Поиск, введите название заявки:");
+        Item[] byNames = tracker.findByName(name);
+        if (byNames.length == 0) {
+            System.out.println("Заявка \"" + name + "\" не обнаружена. Уточните название.");
+        } else {
+            System.out.println(Arrays.toString(byNames));
+        }
+    }
+
+    /**
+     * Метод показывает пункты меню для пользователя.
+     */
 
     private void showMenu() {
         System.out.println();
