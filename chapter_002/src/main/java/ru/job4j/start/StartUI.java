@@ -148,12 +148,13 @@ public class StartUI {
      */
     private void findByID() {
         String id = input.ask("Поиск, введите ID заявки: ");
-        try {
-            Item byId = tracker.findById(id);
-            System.out.println(byId);
-        } catch (NullPointerException e) {
+        Item byId = tracker.findById(id);
+        if (byId == null) {
             System.out.println("Заявка не обнаружена. Уточните ID");
+        } else {
+            System.out.println(byId);
         }
+
     }
 
     /**

@@ -68,7 +68,7 @@ public class StartUITest {
         String id = "1234567890";
         Input input = new StubInput(new String[]{"4", id, "6"});
         new StartUI(input, tracker).init();
-    //    assertThat(tracker.findById(id), is(NullPointerException));
+   //     assertThat(tracker.findById(id), is(null);
     }
 
     @Test
