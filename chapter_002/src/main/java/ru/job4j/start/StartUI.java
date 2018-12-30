@@ -68,20 +68,31 @@ public class StartUI {
         while (!exit) {
             this.showMenu();
             String answer = this.input.ask("Введите пункт Carte: ");
-            if (ADD.equals(answer)) {
-                this.createItem();
-            } else if (ALL.equals(answer)) {
-                this.findAllItems();
-            } else if (EDIT.equals(answer)) {
-                this.replaceItemById();
-            } else if (DEL.equals(answer)) {
-                this.deleteItem();
-            } else if (FINDID.equals(answer)) {
-                this.findByID();
-            } else if (FINDNAME.equals(answer)) {
-                this.findByName();
-            } else if (EXIT.equals(answer)) {
-                exit = true;
+            switch (answer) {
+                case ADD:
+                    this.createItem();
+                    break;
+                case ALL:
+                    this.findAllItems();
+                    break;
+                case EDIT:
+                    this.updateItemById();
+                    break;
+                case DEL:
+                    this.deleteItem();
+                    break;
+                case FINDID:
+                    this.findByID();
+                    break;
+                case FINDNAME:
+                    this.findByName();
+                    break;
+                case EXIT:
+                    exit = true;
+                    break;
+                default:
+                    System.out.println("Введите корректный пункт Carte");
+                    break;
             }
 
         }
@@ -90,14 +101,25 @@ public class StartUI {
     /**
      * Метод заменяет заявки в хранилище.
      */
-    private void replaceItemById() {
-        String oldID = input.ask("Введите ID обновляемой заявки: ");
-        String newsID = input.ask("Введите ID заменяющей заявки: ");
-        Item item = this.tracker.findById(newsID);
-        if (this.tracker.replace(oldID, item)) {
-            System.out.println("Замена произошла успешно!");
-        } else {
-            System.out.println("Замена отклонена! Уточните ID заявок.");
+    private void updateItemById() {
+        String id = input.ask("Введите ID обновляемой заявки: ");
+        Item[] items = this.tracker.findAll();
+        for (int i = 0; i < items.length; i++) {
+            if (id.equals(items[i].getId())) {
+                System.out.println("------------ Обновление заявки + " + items[i].getId() + "--------------");
+                String name = this.input.ask("Введите имя заявки: ");
+                String desc = this.input.ask("Введите описание заявки: ");
+                Item item = new Item(name, desc);
+                if (this.tracker.replace(id, item)) {
+                    System.out.println("Заявка ID: " + items[i].getId() + " обновлена.");
+                    break;
+                } else {
+                    System.out.println("Заявка ID: " + items[i].getId() + " не обновлена.");
+                    break;
+                }
+            } else if (i == items.length - 1) {
+                System.out.println("Заявка ID: " + items[i].getId() + " Отказано. Уточните ID заявки.");
+            }
         }
     }
 
@@ -149,6 +171,8 @@ public class StartUI {
     }
 
     private void showMenu() {
+        System.out.println();
+        System.out.println("-----------------------------------------------");
         System.out.println("Carte.");
         System.out.println("-----------------------------------------------");
         System.out.println("0. Add new Item");
