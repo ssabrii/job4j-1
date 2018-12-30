@@ -48,6 +48,7 @@ public class StartUI {
      * Функциональное Хранилище заявок.
      */
     private final Tracker tracker;
+
     /**
      * Конструтор.
      *
@@ -58,6 +59,7 @@ public class StartUI {
         this.input = input;
         this.tracker = tracker;
     }
+
     /**
      * Основой цикл программы.
      */
@@ -84,6 +86,7 @@ public class StartUI {
 
         }
     }
+
     /**
      * Метод заменяет заявки в хранилище.
      */
@@ -91,9 +94,13 @@ public class StartUI {
         String oldID = input.ask("Введите ID обновляемой заявки: ");
         String newsID = input.ask("Введите ID заменяющей заявки: ");
         Item item = this.tracker.findById(newsID);
-        this.tracker.replace(oldID, item);
-        System.out.println("Замена произошла успешно!");
+        if (this.tracker.replace(oldID, item)) {
+            System.out.println("Замена произошла успешно!");
+        } else {
+            System.out.println("Замена отклонена! Уточните ID заявок.");
+        }
     }
+
     /**
      * Метод ищет заявку из хранилища по имени.
      */
@@ -109,12 +116,14 @@ public class StartUI {
         String id = input.ask("Введите ID требуемой заявки: ");
         System.out.println(tracker.findById(id));
     }
+
     /**
      * Метод отображает все заявки из хранилища.
      */
     private void findAllItems() {
         System.out.println(Arrays.toString(this.tracker.findAll()));
     }
+
     /**
      * Метод удаляет заявку из хранилища.
      */
@@ -126,6 +135,7 @@ public class StartUI {
             System.out.println("Заявка не удалена. Уточните ID заявки.");
         }
     }
+
     /**
      * Метод реализует добавление новой заявки в хранилище.
      */
