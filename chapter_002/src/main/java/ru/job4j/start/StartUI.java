@@ -122,23 +122,12 @@ public class StartUI {
      */
     private void updateItemById() {
         String id = input.ask("Введите ID обновляемой заявки: ");
-        Item[] items = this.tracker.findAll();
-        for (int i = 0; i < items.length; i++) {
-            if (id.equals(items[i].getId())) {
-                System.out.println("------------ Обновление заявки + " + items[i].getId() + "--------------");
-                String name = this.input.ask("Введите имя заявки: ");
-                String desc = this.input.ask("Введите описание заявки: ");
-                Item item = new Item(name, desc);
-                if (this.tracker.replace(id, item)) {
-                    System.out.println("Заявка ID: " + items[i].getId() + " обновлена.");
-                    break;
-                } else {
-                    System.out.println("Заявка ID: " + items[i].getId() + " не обновлена.");
-                    break;
-                }
-            } else if (i == items.length - 1) {
-                System.out.println("Заявка ID: " + items[i].getId() + " Отказано. Уточните ID заявки.");
-            }
+        String name = this.input.ask("Введите имя заявки: ");
+        String desc = this.input.ask("Введите описание заявки: ");
+        if (this.tracker.replace(id, new Item(name, desc))) {
+            System.out.println("Заявка ID: " + id + " обновлена.");
+        } else {
+            System.out.println("Заявка ID: " + id + " не обновлена.");
         }
     }
 
@@ -201,7 +190,7 @@ public class StartUI {
     /**
      * Запуск программы.
      *
-     * @param args simbols.
+     * @param args symbols.
      */
     public static void main(String[] args) {
         new StartUI(new ConsoleInput(), new Tracker()).init();
