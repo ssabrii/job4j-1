@@ -6,6 +6,7 @@ import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
@@ -59,6 +60,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0], is(item1));
     }
+
     @Test
     public void whenFindByIDFall() {
         Tracker tracker = new Tracker();
@@ -68,7 +70,7 @@ public class StartUITest {
         String id = "1234567890";
         Input input = new StubInput(new String[]{"4", id, "6"});
         new StartUI(input, tracker).init();
-   //     assertThat(tracker.findById(id), is(null);
+        assertNull(tracker.findById(id));
     }
 
     @Test
@@ -84,6 +86,7 @@ public class StartUITest {
         new StartUI(input, tracker).init();
         assertThat(tracker.findByName(name), is(expected));
     }
+
     @Test
     public void whenFindByNameFall() {
         Tracker tracker = new Tracker();
