@@ -13,91 +13,103 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+/**
+ * StartUITest.
+ *
+ * @author Maxim Vanny.
+ * @version 2.0
+ * @since 0.1
+ */
 public class StartUITest {
-    private final Tracker TRACKER = new Tracker();
+    private final Tracker tracker = new Tracker();
+    private Input input;
+
+    public void start() {
+        new StartUI(input, tracker).init();
+    }
 
     @Before
     public void addItemInStorage() {
-        TRACKER.add(new Item("test1", "desc1"));
-        TRACKER.add(new Item("test2", "desc2"));
-        TRACKER.add(new Item("test3", "desc3"));
-        TRACKER.add(new Item("test3", "desc4"));
+        tracker.add(new Item("test1", "desc1"));
+        tracker.add(new Item("test2", "desc2"));
+        tracker.add(new Item("test3", "desc3"));
+        tracker.add(new Item("test3", "desc4"));
     }
 
     @After
     public void cleanItems() {
-        Arrays.fill(TRACKER.findAll(), 0, TRACKER.findAll().length, null);
+        Arrays.fill(tracker.findAll(), 0, tracker.findAll().length, null);
         //тесты прохошел, но не вижу обнуление хранилища @After
         // почему так?
         System.out.println("ARRAY IS EMPTY");
-        System.out.println(Arrays.toString(TRACKER.findAll()));
+        System.out.println(Arrays.toString(tracker.findAll()));
     }
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Input input = new StubInput(new String[]{"0", "test5", "desc", "6"});
-        new StartUI(input, TRACKER).init();
-        assertThat(TRACKER.findAll()[4].getName(), is("test5"));
+        input = new StubInput(new String[]{"0", "test5", "desc", "6"});
+        start();
+        assertThat(tracker.findAll()[4].getName(), is("test5"));
     }
 
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
-        String id = TRACKER.findAll()[0].getId();
-        Input input = new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"});
-        new StartUI(input, TRACKER).init();
-        assertThat(TRACKER.findById(id).getName(), is("test replace"));
+        String id = tracker.findAll()[0].getId();
+        input = new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"});
+        start();
+        assertThat(tracker.findById(id).getName(), is("test replace"));
     }
 
     @Test
     public void whenFindByID() {
-        String id = TRACKER.findAll()[0].getId();
-        Input input = new StubInput(new String[]{"4", id, "1", "6"});
-        new StartUI(input, TRACKER).init();
-        assertThat(TRACKER.findAll()[0].getName(), is("test1"));
+        String id = tracker.findAll()[0].getId();
+        input = new StubInput(new String[]{"4", id, "1", "6"});
+        start();
+        assertThat(tracker.findAll()[0].getName(), is("test1"));
     }
 
     @Test
     public void whenFindByIDFall() {
         String id = "1234567890";
-        Input input = new StubInput(new String[]{"4", id, "6"});
-        new StartUI(input, TRACKER).init();
-        assertNull(TRACKER.findById(id));
+        input = new StubInput(new String[]{"4", id, "6"});
+        start();
+        assertNull(tracker.findById(id));
     }
 
     @Test
     public void whenFindByName() {
-        Item item1 = TRACKER.findAll()[2];
-        Item item2 = TRACKER.findAll()[3];
+        Item item1 = tracker.findAll()[2];
+        Item item2 = tracker.findAll()[3];
         String name = item2.getName();
         Item[] expected = {item1, item2};
-        Input input = new StubInput(new String[]{"5", name, "6"});
-        new StartUI(input, TRACKER).init();
-        assertThat(TRACKER.findByName(name), is(expected));
+        input = new StubInput(new String[]{"5", name, "6"});
+        start();
+        assertThat(tracker.findByName(name), is(expected));
     }
 
     @Test
     public void whenFindByNameFall() {
         String name = "test6";
-        Input input = new StubInput(new String[]{"4", name, "6"});
+        input = new StubInput(new String[]{"4", name, "6"});
         Item[] expected = {};
-        new StartUI(input, TRACKER).init();
-        assertThat(TRACKER.findByName(name), is(expected));
+        start();
+        assertThat(tracker.findByName(name), is(expected));
     }
 
     @Test
     public void whenDeleteItemFromItems() {
-        String id = TRACKER.findAll()[0].getId();
-        Input input = new StubInput(new String[]{"3", id, "6"});
-        new StartUI(input, TRACKER).init();
-        assertThat(TRACKER.findAll()[0].getName(), is("test2"));
-        assertThat(TRACKER.findAll().length, is(3));
+        String id = tracker.findAll()[0].getId();
+        input = new StubInput(new String[]{"3", id, "6"});
+        start();
+        assertThat(tracker.findAll()[0].getName(), is("test2"));
+        assertThat(tracker.findAll().length, is(3));
     }
 
     @Test
     public void whenDeleteItemFromItemsFall() {
         String id = "1234567890";
-        Input input = new StubInput(new String[]{"3", id, "6"});
-        new StartUI(input, TRACKER).init();
-        assertThat(TRACKER.findAll().length, is(4));
+        input = new StubInput(new String[]{"3", id, "6"});
+        start();
+        assertThat(tracker.findAll().length, is(4));
     }
 }
