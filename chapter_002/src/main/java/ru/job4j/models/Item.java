@@ -70,7 +70,7 @@ public class Item {
     /**
      * получение создания заявки.
      *
-     * @return возращает создание заявки
+     * @return возращает создание заявки.
      */
     public long getCreate() {
         return this.create;
@@ -86,9 +86,9 @@ public class Item {
     }
 
     /**
-     * устанавливает уникальный ключ для заявки
+     * устанавливает уникальный ключ для заявки.
      *
-     * @param id уникальный ключ заявки
+     * @param id уникальный ключ заявки.
      */
     public void setId(String id) {
         this.id = id;
@@ -97,7 +97,7 @@ public class Item {
     /**
      * получение уникального ключа заявки.
      *
-     * @return уникальный ключ заявки
+     * @return уникальный ключ заявки.
      */
     public String getId() {
         return id;

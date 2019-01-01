@@ -102,12 +102,12 @@ public class StartUI {
      * Метод реализует добавление новой заявки в хранилище.
      */
     private void createItem() {
-        System.out.println("------------ Добавление новой заявки --------------");
+        System.out.println("--------- Добавление новой заявки -----------");
         String name = this.input.ask("Введите имя заявки: ");
         String desc = this.input.ask("Введите описание заявки: ");
         Item item = new Item(name, desc);
         this.tracker.add(item);
-        System.out.println("------------ Новая заявка с ID: " + item.getId() + "-----------");
+        System.out.println("----- Новая заявка с ID: " + item.getId() + "----");
     }
 
     /**
@@ -164,7 +164,7 @@ public class StartUI {
         String name = input.ask("Поиск, введите название заявки:");
         Item[] byNames = tracker.findByName(name);
         if (byNames.length == 0) {
-            System.out.println("Заявка \"" + name + "\" не обнаружена. Уточните название.");
+            System.out.println("Заявка не обнаружена. Уточните название.");
         } else {
             System.out.println(Arrays.toString(byNames));
         }

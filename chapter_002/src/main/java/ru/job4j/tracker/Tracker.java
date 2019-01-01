@@ -13,9 +13,13 @@ import java.util.Arrays;
  */
 public class Tracker {
     /**
+     * Количество элементов массива.
+     */
+    private final int index = 100;
+    /**
      * Массив для хранение заявок.
      */
-    private final Item[] items = new Item[100];
+    private final Item[] items = new Item[this.index];
     /**
      * Указатель ячейки для новой заявки.
      */
@@ -90,7 +94,7 @@ public class Tracker {
      * @return item возвращает массив найденных заявок.
      */
     public Item[] findByName(String key) {
-        Item[] seeker = new Item[100];
+        Item[] seeker = new Item[this.index];
         int count = 0;
         for (int i = 0; i < this.position; i++) {
             if (key.equals(this.items[i].getName())) {
@@ -120,7 +124,6 @@ public class Tracker {
 
     /**
      * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
      *
      * @return Уникальный ключ.
      */

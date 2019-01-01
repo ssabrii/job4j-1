@@ -2,6 +2,13 @@ package ru.job4j.tracker;
 
 import ru.job4j.start.Input;
 
+/**
+ * Input for StartUITest.
+ *
+ * @author Maxim Vanny.
+ * @version 2.0
+ * @since 0.1
+ */
 public class StubInput implements Input {
     /**
      * Это поле содержит последовательность ответов пользователя.
@@ -20,6 +27,10 @@ public class StubInput implements Input {
      */
     private int position;
 
+    /**
+     * Конструктор.
+     * @param value массив ответов пользователя.
+     */
     public StubInput(final String[] value) {
         this.value = value;
     }
