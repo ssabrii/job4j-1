@@ -44,11 +44,8 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean check = false;
-        // position исправил. но перебора всего массива нигде нет, кроме findByName(),
-        // тк везде используется оператор break.
-        for (int i = 0; i < position; i++) {
+        for (int i = 0; i < this.position; i++) {
             if (id.equals(this.items[i].getId())) {
-                //зачем устанавливать, если id перезапишется из item?
                 item.setId(id);
                 this.items[i] = item;
                 check = true;
@@ -66,10 +63,10 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean check = false;
-        for (int i = 0; i < position; i++) {
+        for (int i = 0; i < this.position; i++) {
             if (id.equals(this.items[i].getId())) {
                 System.arraycopy(this.items, i + 1, this.items, i, this.position);
-                position--;
+                this.position--;
                 check = true;
                 break;
             }
@@ -95,9 +92,9 @@ public class Tracker {
     public Item[] findByName(String key) {
         Item[] seeker = new Item[100];
         int count = 0;
-        for (int i = 0; i < position; i++) {
-            if (key.equals(items[i].getName())) {
-                seeker[count++] = items[i];
+        for (int i = 0; i < this.position; i++) {
+            if (key.equals(this.items[i].getName())) {
+                seeker[count++] = this.items[i];
             }
         }
         seeker = Arrays.copyOf(seeker, count);
@@ -112,10 +109,9 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item seeker = null;
-        Item[] items = this.items;
-        for (int i = 0; i < position; i++) {
-            if (id.equals(items[i].getId())) {
-                seeker = items[i];
+        for (int i = 0; i < this.position; i++) {
+            if (id.equals(this.items[i].getId())) {
+                seeker = this.items[i];
                 break;
             }
         }
