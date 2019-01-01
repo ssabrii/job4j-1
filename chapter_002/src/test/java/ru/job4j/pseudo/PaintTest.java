@@ -16,17 +16,20 @@ import static org.junit.Assert.assertThat;
  * @since 0.1
  */
 public class PaintTest {
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    public void loadOutput() {
+        System.setOut(new PrintStream(this.out));
+    }
+
+    public void backOutput() {
+        System.setOut(this.stdout);
+    }
 
     @Test
     public void whenDrawSquare() {
-        //сылка на стандартный вывод в консоль.
-        PrintStream stdout = System.out;
-        // This class implements an output stream in which the data is
-        // written into a byte array
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        //Reassigns the "standard" output stream.
-        //изменение потока вывода.
-        System.setOut(new PrintStream(out));
+        this.loadOutput();
         new Paint().draw(new Square());
         assertThat(new String(out.toByteArray()), is(new StringBuilder()
                         .append("+++++")
@@ -40,18 +43,12 @@ public class PaintTest {
                         .toString()
                 )
         );
-        System.setOut(stdout);
+        this.backOutput();
     }
 
     @Test
     public void whenDrawTriangle() {
-        //reference to standard output stream
-        PrintStream stdout = System.out;
-        //reference to byte array in stream
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        //change output stream
-        System.setOut(new PrintStream(out));
-        //create Paint c method draw() with object Triangle
+        this.loadOutput();
         new Paint().draw(new Triangle());
         assertThat(new String(out.toByteArray()), is(
                 new StringBuilder()
@@ -66,6 +63,6 @@ public class PaintTest {
                         .toString()
                 )
         );
-        System.setOut(stdout);
+        this.backOutput();
     }
 }
