@@ -175,7 +175,6 @@ public class StartUI {
      */
 
     private void showMenu() {
-        System.out.println();
         System.out.println("-----------------------------------------------");
         System.out.println("Carte.");
         System.out.println("-----------------------------------------------");
