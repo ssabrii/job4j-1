@@ -7,13 +7,70 @@ import ru.job4j.models.Item;
 import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
-    private final Tracker tracker = new Tracker();
     private Input input;
+    private final Tracker tracker = new Tracker();
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    public String showCarte() {
+        StringBuilder all = new StringBuilder()
+                .append("-----------------------------------------------\\r")
+                .append(System.lineSeparator())
+                .append("Carte.\\r")
+                .append(System.lineSeparator())
+                .append("-----------------------------------------------\\r")
+                .append(System.lineSeparator())
+                .append("0. Add new Item\\r")
+                .append(System.lineSeparator())
+                .append("1. Show all items\\r")
+                .append(System.lineSeparator())
+                .append("2. Edit item\\r")
+                .append(System.lineSeparator())
+                .append("3. Delete item\\r")
+                .append(System.lineSeparator())
+                .append("4. Find item by Id\\r")
+                .append(System.lineSeparator())
+                .append("5. Find items by name\\r")
+                .append(System.lineSeparator())
+                .append("6. Exit Program\\r")
+                .append(System.lineSeparator());
+        return all.toString();
+
+    }
+
+    public String showAllItems() {
+        Item[] items = tracker.findAll();
+        StringBuilder all = new StringBuilder();
+        all.append("[");
+        all.append(System.lineSeparator());
+        for (int i = 0; i < items.length; i++) {
+            all.append("Заявка: id '");
+            all.append(tracker.findAll()[i].getId());
+            all.append("', name='");
+            all.append(tracker.findAll()[i].getName());
+            all.append("', description='");
+            all.append(tracker.findAll()[i].getDescription());
+            all.append("'");
+            if (i != items.length - 1) {
+                all.append(", ");
+            }
+            if (i == items.length - 1) {
+                all.append("]\\r");
+                all.append(System.lineSeparator());
+                all.append("\\r");
+            }
+            all.append(System.lineSeparator());
+        }
+        return all.toString();
+    }
 
     public void start() {
         new StartUI(input, tracker).init();
@@ -33,6 +90,24 @@ public class StartUITest {
         for (Item item : items) {
             tracker.delete(item.getId());
         }
+    }
+
+    @Test
+    public void whenShowsAllItemsInStorage() {
+        System.setOut(new PrintStream(out));
+        input = new StubInput(new String[]{"1", "6"});
+        start();
+        assertThat(new String(out.toByteArray()),
+                is(new StringBuilder()
+                        .append("\"\\r")
+                        .append(System.lineSeparator())
+                        .append(showCarte())
+                        .append(showAllItems())
+                        .append(System.lineSeparator())
+                        .append(showCarte())
+                        .append("\"")
+                ));
+        System.setOut(stdout);
     }
 
     @Test
