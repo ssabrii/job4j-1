@@ -20,27 +20,31 @@ public class StartUITest {
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
+    public void start() {
+        new StartUI(input, tracker).init();
+    }
+
     public String showCarte() {
         StringBuilder all = new StringBuilder()
-                .append("-----------------------------------------------\\r")
+                .append("-----------------------------------------------")
                 .append(System.lineSeparator())
-                .append("Carte.\\r")
+                .append("Carte.")
                 .append(System.lineSeparator())
-                .append("-----------------------------------------------\\r")
+                .append("-----------------------------------------------")
                 .append(System.lineSeparator())
-                .append("0. Add new Item\\r")
+                .append("0. Add new Item")
                 .append(System.lineSeparator())
-                .append("1. Show all items\\r")
+                .append("1. Show all items")
                 .append(System.lineSeparator())
-                .append("2. Edit item\\r")
+                .append("2. Edit item")
                 .append(System.lineSeparator())
-                .append("3. Delete item\\r")
+                .append("3. Delete item")
                 .append(System.lineSeparator())
-                .append("4. Find item by Id\\r")
+                .append("4. Find item by Id")
                 .append(System.lineSeparator())
-                .append("5. Find items by name\\r")
+                .append("5. Find items by name")
                 .append(System.lineSeparator())
-                .append("6. Exit Program\\r")
+                .append("6. Exit Program")
                 .append(System.lineSeparator());
         return all.toString();
 
@@ -49,8 +53,7 @@ public class StartUITest {
     public String showAllItems() {
         Item[] items = tracker.findAll();
         StringBuilder all = new StringBuilder();
-        all.append("[");
-        all.append(System.lineSeparator());
+        all.append("[\\n");
         for (int i = 0; i < items.length; i++) {
             all.append("Заявка: id '");
             all.append(tracker.findAll()[i].getId());
@@ -61,19 +64,14 @@ public class StartUITest {
             all.append("'");
             if (i != items.length - 1) {
                 all.append(", ");
+                all.append("\\n");
             }
             if (i == items.length - 1) {
-                all.append("]\\r");
+                all.append("]");
                 all.append(System.lineSeparator());
-                all.append("\\r");
             }
-            all.append(System.lineSeparator());
         }
         return all.toString();
-    }
-
-    public void start() {
-        new StartUI(input, tracker).init();
     }
 
     @Before
@@ -99,15 +97,15 @@ public class StartUITest {
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
-                        .append("\"\\r")
                         .append(System.lineSeparator())
                         .append(showCarte())
                         .append(showAllItems())
                         .append(System.lineSeparator())
                         .append(showCarte())
-                        .append("\"")
-                ));
-        System.setOut(stdout);
+                        .toString()
+                )
+        );
+        System.setOut(new PrintStream(stdout));
     }
 
     @Test
@@ -124,19 +122,19 @@ public class StartUITest {
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
-                        .append("\"\\r")
                         .append(System.lineSeparator())
                         .append(showCarte())
-                        .append("--------- Добавление новой заявки -----------\\r")
+                        .append("--------- Добавление новой заявки -----------")
                         .append(System.lineSeparator())
                         .append("----- Новая заявка с ID: ")
                         .append(tracker.findAll()[4].getId())
-                        .append("----\\r")
+                        .append("----")
                         .append(System.lineSeparator())
-                        .append("\\r")
                         .append(System.lineSeparator())
                         .append(showCarte())
-                        .append("\"")));
+                        .toString()
+                )
+        );
         System.setOut(new PrintStream(stdout));
     }
 
