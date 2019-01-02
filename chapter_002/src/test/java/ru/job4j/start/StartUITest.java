@@ -118,6 +118,29 @@ public class StartUITest {
     }
 
     @Test
+    public void whenUserAddItemThenTrackerHasNewItemWithSameNameAndPrint() {
+        input = new StubInput(new String[]{"0", "test5", "desc", "6"});
+        System.setOut(new PrintStream(out));
+        start();
+        assertThat(new String(out.toByteArray()),
+                is(new StringBuilder()
+                        .append("\"\\r")
+                        .append(System.lineSeparator())
+                        .append(showCarte())
+                        .append("--------- Добавление новой заявки -----------\\r")
+                        .append(System.lineSeparator())
+                        .append("----- Новая заявка с ID: ")
+                        .append(tracker.findAll()[4].getId())
+                        .append("----\\r")
+                        .append(System.lineSeparator())
+                        .append("\\r")
+                        .append(System.lineSeparator())
+                        .append(showCarte())
+                        .append("\"")));
+        System.setOut(new PrintStream(stdout));
+    }
+
+    @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
         String id = tracker.findAll()[0].getId();
         input = new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"});
