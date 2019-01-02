@@ -9,6 +9,7 @@ import ru.job4j.tracker.Tracker;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
@@ -66,53 +67,6 @@ public class StartUITest {
     }
 
     /**
-     * метод отображает одиночную заявку из хранилища.
-     *
-     * @param index индекс заявки в хранилище.
-     * @return возращает отображение заявки.
-     */
-    public String showOneItem(int index) {
-        StringBuilder one = new StringBuilder();
-        one.append("Заявка: id '");
-        one.append(tracker.findAll()[index].getId());
-        one.append("', name='");
-        one.append(tracker.findAll()[index].getName());
-        one.append("', description='");
-        one.append(tracker.findAll()[index].getDescription());
-        one.append("'");
-        return one.toString();
-    }
-
-    /**
-     * метод отображает все заявки в хранилище.
-     *
-     * @return возвращает отображение всех заявок из хранилища.
-     */
-    public String showAllItems() {
-        Item[] items = tracker.findAll();
-        StringBuilder all = new StringBuilder();
-        all.append("[\\n");
-        for (int i = 0; i < items.length; i++) {
-            all.append("Заявка: id '");
-            all.append(tracker.findAll()[i].getId());
-            all.append("', name='");
-            all.append(tracker.findAll()[i].getName());
-            all.append("', description='");
-            all.append(tracker.findAll()[i].getDescription());
-            all.append("'");
-            if (i != items.length - 1) {
-                all.append(", ");
-                all.append("\\n");
-            }
-            if (i == items.length - 1) {
-                all.append("]");
-                all.append(System.lineSeparator());
-            }
-        }
-        return all.toString();
-    }
-
-    /**
      * метод заполняет хранилище перед тестом.
      */
     @Before
@@ -142,11 +96,11 @@ public class StartUITest {
         input = new StubInput(new String[]{"1", "6"});
         System.setOut(new PrintStream(out));
         start();
-        // тест не проходит . контент одинаковый
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
                         .append(showCarte())
-                        .append(showAllItems())
+                        .append(Arrays.toString(tracker.findAll()))
+                        .append(System.lineSeparator())
                         .append(showCarte())
                         .toString()
                 )
@@ -294,10 +248,7 @@ public class StartUITest {
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
                         .append(showCarte())
-                        // час убил времени не пойму откуда в оригинале берется пустая строка????
-                        // тест не проходит. контент совпадает.
-                        .append("\\n")
-                        .append(showOneItem(0))
+                        .append(tracker.findAll()[0])
                         .append(System.lineSeparator())
                         .append(showCarte())
                         .toString()
@@ -362,15 +313,13 @@ public class StartUITest {
         input = new StubInput(new String[]{"5", name, "6"});
         System.setOut(new PrintStream(out));
         start();
-        // тест не проходит. контент совпадает.
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("[")
-                        .append("\\n")
-                        .append(showOneItem(2))
-                        .append(", \\n")
-                        .append(showOneItem(3))
+                        .append(tracker.findAll()[2])
+                        .append(", ")
+                        .append(tracker.findAll()[3])
                         .append("]")
                         .append(System.lineSeparator())
                         .append(showCarte())
