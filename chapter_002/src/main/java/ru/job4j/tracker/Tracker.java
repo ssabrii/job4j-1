@@ -32,11 +32,13 @@ public class Tracker {
      * @return возвращает добавленную заявку
      */
     public Item add(Item item) {
+        Item seeker = null;
         if (position < this.items.length - 1) {
             item.setId(this.generateId());
             this.items[this.position++] = item;
+            seeker = item;
         }
-        return item;
+        return seeker;
     }
 
     /**

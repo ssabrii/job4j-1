@@ -118,9 +118,75 @@ public class StartUITest {
         assertThat(tracker.findAll()[4].getName(), is("test5"));
     }
 
+    /**
+     * метод тестирует отрицательное добавление заявки в хранилище.
+     */
+    @Test
+    public void whenUserAddItemThenTrackerHasNewItemWithSameNameFall() {
+        for (int i = 0; i < 100; i++) {
+            tracker.add(new Item("testX", "descX"));
+        }
+        Item item = new Item("test5", "desc");
+        item.setId("0123456789");
+        String name = item.getName();
+        String description = item.getDescription();
+        input = new StubInput(new String[]{"0", name, description, "6"});
+        start();
+        assertNull(tracker.findById(item.getId()));
+    }
 
     /**
-     * метод тестирует отображение положительное
+     * метод тестирует отображение
+     * положительного добавления заявки в хранилище.
+     */
+    @Test
+    public void whenUserAddItemThenTrackerHasNewItemWithSameNamePrintOK() {
+        input = new StubInput(new String[]{"0", "test5", "desc", "6"});
+        System.setOut(new PrintStream(out));
+        start();
+        assertThat(new String(out.toByteArray()),
+                is(new StringBuilder()
+                        .append(showCarte())
+                        .append("--------- Добавление новой заявки -----------")
+                        .append(System.lineSeparator())
+                        .append("----- Новая заявка с ID: ")
+                        .append(tracker.findAll()[4].getId())
+                        .append("----")
+                        .append(System.lineSeparator())
+                        .append(showCarte())
+                        .toString()
+                )
+        );
+        System.setOut(new PrintStream(stdout));
+    }
+
+    /**
+     * метод тестирует отображение отрицательного добавления заявки в хранилище.
+     */
+    @Test
+    public void whenUserAddItemThenTrackerHasNewItemWithSameNamePrintFall() {
+        for (int i = 0; i < 100; i++) {
+            tracker.add(new Item("testX", "descX"));
+        }
+        input = new StubInput(new String[]{"0", "test5", "desc", "6"});
+        System.setOut(new PrintStream(out));
+        start();
+        assertThat(new String(out.toByteArray()),
+                is(new StringBuilder()
+                        .append(showCarte())
+                        .append("--------- Добавление новой заявки -----------")
+                        .append(System.lineSeparator())
+                        .append("Заявка не добавлена. Хранилище полное.")
+                        .append(System.lineSeparator())
+                        .append(showCarte())
+                        .toString()
+                )
+        );
+        System.setOut(new PrintStream(stdout));
+    }
+
+    /**
+     * метод тестирует отображение положительного
      * добавления заявки в хранилище.
      */
     @Test
@@ -227,7 +293,6 @@ public class StartUITest {
     /**
      * * метод тестирует отрицательный поиск заявки.
      */
-
     @Test
     public void whenFindByIDFall() {
         String id = "1234567890";

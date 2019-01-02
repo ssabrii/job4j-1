@@ -106,8 +106,11 @@ public class StartUI {
         String name = this.input.ask("Введите имя заявки: ");
         String desc = this.input.ask("Введите описание заявки: ");
         Item item = new Item(name, desc);
-        this.tracker.add(item);
-        System.out.println("----- Новая заявка с ID: " + item.getId() + "----");
+        if ((this.tracker.add(item)) != null) {
+            System.out.println("----- Новая заявка с ID: " + item.getId() + "----");
+        } else {
+            System.out.println("Заявка не добавлена. Хранилище полное.");
+        }
     }
 
     /**
