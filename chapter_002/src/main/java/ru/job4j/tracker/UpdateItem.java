@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import ru.job4j.models.Item;
 import ru.job4j.start.Input;
+
 /**
  * UpdateItem.
  *
@@ -18,8 +19,7 @@ public class UpdateItem implements UserAction {
      * The string menu on the hold key.
      */
     private String menu;
-    private boolean check = false;
-    private StringBuilder infotext = new StringBuilder();
+
     /**
      * Constructor.
      *
@@ -30,6 +30,7 @@ public class UpdateItem implements UserAction {
         this.keyholder = keyholder;
         this.menu = menu;
     }
+
     /**
      * Override method get the hold key.
      *
@@ -39,6 +40,7 @@ public class UpdateItem implements UserAction {
     public int key() {
         return 2;
     }
+
     /**
      * Override method updates Item.
      *
@@ -50,8 +52,13 @@ public class UpdateItem implements UserAction {
         String id = input.ask("Введите ID обновляемой заявки: ");
         String name = input.ask("Введите имя заявки: ");
         String desc = input.ask("Введите описание заявки: ");
-        this.check = tracker.replace(id, new Item(name, desc));
+        if (!tracker.replace(id, new Item(name, desc))) {
+            System.out.println("Заявка ID: " + id + "  не обновлена.");
+        } else {
+            System.out.println("Заявка ID: " + id + "  обновлена.");
+        }
     }
+
     /**
      * Override method shows element menu.
      *
@@ -59,13 +66,6 @@ public class UpdateItem implements UserAction {
      */
     @Override
     public String info() {
-        if (!this.check) {
-            this.infotext.append("Заявка не обновлена.");
-            this.infotext.append(System.lineSeparator());
-        }else {
-            this.infotext.append("Заявка обновлена.");
-            this.infotext.append(System.lineSeparator());
-        }
-        return this.infotext.toString();
+        return "2. Edit item";
     }
 }
