@@ -5,37 +5,68 @@ import ru.job4j.start.Input;
 
 import java.util.Arrays;
 
+/**
+ * FindItemByName.
+ *
+ * @author Maxim Vanny.
+ * @version 2.0
+ * @since 0.1
+ */
 public class FindItemsByName implements UserAction {
+    /**
+     * The hold key.
+     */
     private int keyholder;
+    /**
+     * The string menu on the hold key.
+     */
     private String menu;
-    private StringBuilder infotext = new StringBuilder();
-    private Item[] byNames;
 
+    /**
+     * Constructor.
+     *
+     * @param keyholder the hold key.
+     * @param menu      the string menu on the hold key.
+     */
     public FindItemsByName(int keyholder, String menu) {
         this.keyholder = keyholder;
         this.menu = menu;
     }
 
+    /**
+     * Override method get the hold key.
+     *
+     * @return the hold key.
+     */
     @Override
     public int key() {
         return 5;
     }
 
+    /**
+     * Override method find Item by name.
+     *
+     * @param input   объект типа Input.
+     * @param tracker объект типа Tracker.
+     */
     @Override
     public void execute(Input input, Tracker tracker) {
         String name = input.ask("Поиск, введите название заявки:");
-        this.byNames = tracker.findByName(name);
+        Item[] byNames = tracker.findByName(name);
+        if (byNames.length == 0) {
+            System.out.println("Заявка не обнаружена. Уточните название.");
+        } else {
+            System.out.println(Arrays.toString(byNames));
+        }
     }
 
+    /**
+     * Override method shows element menu.
+     *
+     * @return string element menu.
+     */
     @Override
     public String info() {
-        if (this.byNames.length == 0) {
-            this.infotext.append("Заявка не обнаружена. Уточните название.");
-            this.infotext.append(System.lineSeparator());
-        } else {
-            this.infotext.append(System.lineSeparator());
-            this.infotext.append(Arrays.toString(this.byNames));
-        }
-        return this.infotext.toString();
+        return "5.Find item by name";
     }
 }
