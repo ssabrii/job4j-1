@@ -6,7 +6,6 @@ import ru.job4j.start.Input;
 public class AddItem implements UserAction {
     private int keyholder;
     private String menu;
-    private Item item;
     private boolean check = false;
     private StringBuilder infotext = new StringBuilder();
 
@@ -25,21 +24,22 @@ public class AddItem implements UserAction {
         System.out.println("--------- Добавление новой заявки -----------");
         String name = input.ask("Введите имя заявки: ");
         String desc = input.ask("Введите описание заявки: ");
-        this.item = new Item(name, desc);
-        this.check = tracker.add(this.item) != null;
+        Item item = new Item(name, desc);
+        this.check = tracker.add(item) != null;
+        if (!this.check) {
+            infotext.append("Заявка не добавлена. Хранилище полное.");
+            infotext.append(System.lineSeparator());
+        } else {
+            infotext.append("----- Новая заявка с ID: ");
+            infotext.append(item.getId());
+            infotext.append("----");
+            infotext.append(System.lineSeparator());
+        }
+        this.infotext.toString();
     }
 
     @Override
     public String info() {
-        if (!this.check) {
-            infotext.append("Заявка не добавлена. Хранилище полное.");
-            infotext.append(System.lineSeparator());
-        }else{
-            infotext.append("----- Новая заявка с ID: ");
-            infotext.append(this.item.getId());
-            infotext.append("----");
-            infotext.append(System.lineSeparator());
-        }
-        return this.infotext.toString();
+        return "0.Add new Item.";
     }
 }
