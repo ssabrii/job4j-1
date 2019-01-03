@@ -25,11 +25,6 @@ public class UpdateItem implements UserAction {
         String name = input.ask("Введите имя заявки: ");
         String desc = input.ask("Введите описание заявки: ");
         this.check = tracker.replace(id, new Item(name, desc));
-        if (this.check) {
-            System.out.println("Заявка ID: " + id + " обновлена.");
-        } else {
-            System.out.println("Заявка ID: " + id + " не обновлена.");
-        }
     }
 
     @Override
