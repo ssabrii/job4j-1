@@ -1,5 +1,6 @@
 /**
- * Package for Tracker, StubInput.
+ * Package for Tracker, Menu Tracker, StubInput, UserAction, AddItem, ShowItems,
+ * UpdateItem, DeleteItem, FindById, FindByName, ExitProgram.
  *
  * @author Maxim Vanny.
  * @version 2.0
