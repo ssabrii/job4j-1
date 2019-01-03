@@ -54,7 +54,7 @@ public class AddItem implements UserAction {
         String name = input.ask("Введите имя заявки: ");
         String desc = input.ask("Введите описание заявки: ");
         Item item = new Item(name, desc);
-        if (tracker.add(item) != null) {
+        if (tracker.add(item) == null) {
             System.out.println("Заявка не добавлена. Хранилище полное.");
         } else {
             System.out.println("----- Новая заявка с ID: " + item.getId() + "----");
