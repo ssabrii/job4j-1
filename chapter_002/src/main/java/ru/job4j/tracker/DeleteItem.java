@@ -28,8 +28,10 @@ public class DeleteItem implements UserAction {
     public String info() {
         if (!this.check) {
             this.infotext.append("Заявка не удалена. Уточните ID заявки.");
+            this.infotext.append(System.lineSeparator());
         } else {
             this.infotext.append("Заявка удалена.");
+            this.infotext.append(System.lineSeparator());
         }
         return this.infotext.toString();
     }
