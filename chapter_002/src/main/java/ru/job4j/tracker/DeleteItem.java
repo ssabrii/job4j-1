@@ -36,7 +36,7 @@ public class DeleteItem implements UserAction {
      * @return the hold key.
      */
     @Override
-    public int key() {
+    public final int key() {
         return 3;
     }
 
@@ -62,7 +62,7 @@ public class DeleteItem implements UserAction {
      * @return string element menu.
      */
     @Override
-    public String info() {
-        return "3.Delete Item.";
+    public final String info() {
+        return "3.Delete item";
     }
 }

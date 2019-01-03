@@ -14,15 +14,15 @@ import java.util.List;
  */
 public class MenuTracker {
     /**
-     * @param хранит ссылку на объект .
+     * Ссылка на объект ввода.
      */
     private Input input;
     /**
-     * @param хранит ссылку на объект .
+     *  Сылка на объект хранилища.
      */
     private Tracker tracker;
     /**
-     * @param хранит ссылку на массив типа UserAction.
+     * Сылка на список типа UserAction.
      */
     private List<UserAction> actions = new ArrayList<>();
 
@@ -50,7 +50,7 @@ public class MenuTracker {
      * Метод заполняет список.
      */
     public void fillActions() {
-        this.actions.add(new AddItem(0, "Add new Item"));
+        this.actions.add(new AddItem(0, "Add new item"));
         this.actions.add(new ShowItems(1, "Show all items"));
         this.actions.add(new UpdateItem(2, "Edit item"));
         this.actions.add(new DeleteItem(3, "Delete item"));
@@ -72,6 +72,9 @@ public class MenuTracker {
      * Метод выводит на экран меню.
      */
     public void show() {
+        System.out.println("-----------------------------------------------");
+        System.out.println("Carte.");
+        System.out.println("-----------------------------------------------");
         for (UserAction action : this.actions) {
             if (action != null) {
                 System.out.println(action.info());

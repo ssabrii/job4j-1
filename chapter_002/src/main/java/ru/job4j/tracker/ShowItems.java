@@ -38,7 +38,7 @@ public class ShowItems implements UserAction {
      * @return the hold key.
      */
     @Override
-    public int key() {
+    public final int key() {
         return 1;
     }
 
@@ -59,7 +59,7 @@ public class ShowItems implements UserAction {
      * @return string element menu.
      */
     @Override
-    public String info() {
-        return "1.Show all item.";
+    public final String info() {
+        return "1.Show all items";
     }
 }

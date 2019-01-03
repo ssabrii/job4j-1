@@ -35,7 +35,7 @@ public class ExitProgram implements UserAction {
      * @return the hold key.
      */
     @Override
-    public int key() {
+    public final int key() {
         return 6;
     }
 
@@ -47,7 +47,7 @@ public class ExitProgram implements UserAction {
      */
     @Override
     public void execute(Input input, Tracker tracker) {
-        System.out.println("Для выхода из программы нажмите \"y\"");
+        System.out.println("Для выхода из программы нажмите y");
     }
 
     /**
@@ -56,7 +56,7 @@ public class ExitProgram implements UserAction {
      * @return string element menu.
      */
     @Override
-    public String info() {
-        return "6.Exit Program.";
+    public final String info() {
+        return "6.Exit Program";
     }
 }

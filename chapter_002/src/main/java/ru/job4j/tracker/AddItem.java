@@ -38,7 +38,7 @@ public class AddItem implements UserAction {
      * @return the hold key.
      */
     @Override
-    public int key() {
+    public final int key() {
         return 0;
     }
 
@@ -67,7 +67,7 @@ public class AddItem implements UserAction {
      * @return string element menu.
      */
     @Override
-    public String info() {
-        return "0.Add new Item.";
+    public final String info() {
+        return "0.Add new item";
     }
 }

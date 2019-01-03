@@ -38,7 +38,7 @@ public class FindItemById implements UserAction {
      */
 
     @Override
-    public int key() {
+    public final int key() {
         return 4;
     }
 
@@ -65,8 +65,8 @@ public class FindItemById implements UserAction {
      * @return string element menu.
      */
     @Override
-    public String info() {
+    public final String info() {
 
-        return "4.Find by Id";
+        return "4.Find item by Id";
     }
 }
