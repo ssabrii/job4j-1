@@ -19,6 +19,10 @@ public class StartUI {
      * Функциональное Хранилище заявок.
      */
     private final Tracker tracker;
+    /**
+     * Переменная определяющая выход.
+     */
+    private boolean exit;
 
     /**
      * Конструтор.
@@ -32,18 +36,25 @@ public class StartUI {
     }
 
     /**
+     * метод устанавливающий флаг выхода.
+     */
+    public void stop() {
+        this.exit = true;
+    }
+
+    /**
      * Основой цикл программы.
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-     //   List<Integer> range = new ArrayList<>();
-        menu.fillActions();
+        //   List<Integer> range = new ArrayList<>();
+        menu.fillActions(this);
       /*  for (int i = 0; i < menu.getActionsSize(); i++) {
             range.add(i);
         }*/
         do {
             menu.show();
             menu.select(Integer.parseInt(input.ask("Введите пункт Carte: "/*, range*/)));
-        } while (!"y".equals(this.input.ask("Exit?(y/n): ")));
+        } while (!this.exit);
     }
 }

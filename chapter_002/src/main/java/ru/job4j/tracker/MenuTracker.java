@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import ru.job4j.models.Item;
 import ru.job4j.start.Input;
+import ru.job4j.start.StartUI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,14 +80,14 @@ public class MenuTracker {
     /**
      * Метод заполняет список.
      */
-    public void fillActions() {
-        this.actions.add(new AddItem(0, "Add new item"));
-        this.actions.add(new ShowItems(1, "Show all items"));
-        this.actions.add(new UpdateItem(2, "Edit item"));
-        this.actions.add(new DeleteItem(3, "Delete item"));
-        this.actions.add(new FindItemById(4, "Find item by Id"));
-        this.actions.add(new FindItemsByName(5, "Find items by name"));
-        this.actions.add(new ExitProgram(6, "Exit Program"));
+    public void fillActions(StartUI ui) {
+        this.actions.add(new AddItem());
+        this.actions.add(new ShowItems());
+        this.actions.add(new UpdateItem());
+        this.actions.add(new DeleteItem());
+        this.actions.add(new FindItemById());
+        this.actions.add(new FindItemsByName());
+        this.actions.add(new ExitProgram(ui));
     }
 
     /**
@@ -118,26 +119,6 @@ public class MenuTracker {
      */
 
     public class AddItem implements UserAction {
-        /**
-         * The hold key.
-         */
-        private int keyholder;
-        /**
-         * The string menu on the hold key.
-         */
-        private String menu;
-
-        /**
-         * Constructor.
-         *
-         * @param keyholder the hold key.
-         * @param menu      the string menu on the hold key.
-         */
-        public AddItem(int keyholder, String menu) {
-            this.keyholder = keyholder;
-            this.menu = menu;
-        }
-
         /**
          * Override method get the hold key.
          *
@@ -182,25 +163,6 @@ public class MenuTracker {
      * Inner class ShowItem.
      */
     public class ShowItems implements UserAction {
-        /**
-         * The hold key.
-         */
-        private int keyholder;
-        /**
-         * The string menu on the hold key.
-         */
-        private String menu;
-
-        /**
-         * Constructor.
-         *
-         * @param keyholder the hold key.
-         * @param menu      the string menu on the hold key.
-         */
-        public ShowItems(int keyholder, String menu) {
-            this.keyholder = keyholder;
-            this.menu = menu;
-        }
 
         /**
          * Override method get the hold key.
@@ -239,25 +201,6 @@ public class MenuTracker {
      * Inner class UpdateItem.
      */
     public class UpdateItem implements UserAction {
-        /**
-         * The hold key.
-         */
-        private int keyholder;
-        /**
-         * The string menu on the hold key.
-         */
-        private String menu;
-
-        /**
-         * Constructor.
-         *
-         * @param keyholder the hold key.
-         * @param menu      the string menu on the hold key.
-         */
-        public UpdateItem(int keyholder, String menu) {
-            this.keyholder = keyholder;
-            this.menu = menu;
-        }
 
         /**
          * Override method get the hold key.
@@ -303,26 +246,6 @@ public class MenuTracker {
      */
     public class DeleteItem implements UserAction {
         /**
-         * The string menu on the hold key.
-         */
-        private int keyholder;
-        /**
-         * The string menu on the hold key.
-         */
-        private String menu;
-
-        /**
-         * Constructor.
-         *
-         * @param keyholder the hold key.
-         * @param menu      the string menu on the hold key.
-         */
-        public DeleteItem(int keyholder, String menu) {
-            this.keyholder = keyholder;
-            this.menu = menu;
-        }
-
-        /**
          * Override method get the hold key.
          *
          * @return the hold key.
@@ -364,26 +287,6 @@ public class MenuTracker {
      * Inner class FindItemById.
      */
     public class FindItemById implements UserAction {
-        /**
-         * The hold key.
-         */
-        private int keyholder;
-        /**
-         * The string menu on the hold key.
-         */
-        private String menu;
-
-        /**
-         * Constructor.
-         *
-         * @param keyholder the hold key.
-         * @param menu      the string menu on the hold key.
-         */
-        public FindItemById(int keyholder, String menu) {
-            this.keyholder = keyholder;
-            this.menu = menu;
-        }
-
         /**
          * Override method get the hold key.
          *
@@ -429,26 +332,6 @@ public class MenuTracker {
      */
     public class FindItemsByName implements UserAction {
         /**
-         * The hold key.
-         */
-        private int keyholder;
-        /**
-         * The string menu on the hold key.
-         */
-        private String menu;
-
-        /**
-         * Constructor.
-         *
-         * @param keyholder the hold key.
-         * @param menu      the string menu on the hold key.
-         */
-        public FindItemsByName(int keyholder, String menu) {
-            this.keyholder = keyholder;
-            this.menu = menu;
-        }
-
-        /**
          * Override method get the hold key.
          *
          * @return the hold key.
@@ -490,24 +373,10 @@ public class MenuTracker {
      * Inner class ExitProgram.
      */
     public class ExitProgram implements UserAction {
-        /**
-         * The hold key.
-         */
-        private int keyholder;
-        /**
-         * The string menu on the hold key.
-         */
-        private String menu;
+        private StartUI ui;
 
-        /**
-         * Constructor.
-         *
-         * @param keyholder the hold key.
-         * @param menu      the string menu on the hold key.
-         */
-        public ExitProgram(int keyholder, String menu) {
-            this.keyholder = keyholder;
-            this.menu = menu;
+        public ExitProgram(StartUI ui) {
+            this.ui = ui;
         }
 
         /**
@@ -521,14 +390,14 @@ public class MenuTracker {
         }
 
         /**
-         * Override method offers to close program.
+         * Override method to close program.
          *
          * @param input   объект типа Input.
          * @param tracker объект типа Tracker.
          */
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("Для выхода из программы нажмите y");
+            this.ui.stop();
         }
 
         /**
