@@ -16,10 +16,14 @@ public class SquareTest {
     @Test
     public void whenDrawSquare() {
         Square square = new Square();
+        String ls = System.lineSeparator();
         assertThat(square.draw(), is(new StringBuilder()
                         .append("+++++")
+                        .append(ls)
                         .append("+   +")
+                        .append(ls)
                         .append("+   +")
+                        .append(ls)
                         .append("+++++")
                         .toString()
                 )
