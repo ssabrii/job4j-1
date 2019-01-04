@@ -43,7 +43,7 @@ public class StartUI {
         }*/
         do {
             menu.show();
-            menu.select(Integer.parseInt(input.ask("Введите пункт Carte: ")));
+            menu.select(Integer.parseInt(input.ask("Введите пункт Carte: "/*, range*/)));
         } while (!"y".equals(this.input.ask("Exit?(y/n): ")));
     }
 }
