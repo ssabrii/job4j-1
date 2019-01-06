@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import ru.job4j.start.Input;
-
 /**
  * Input for StartUITest.
  *
@@ -29,6 +27,7 @@ public class StubInput implements Input {
 
     /**
      * Конструктор.
+     *
      * @param value массив ответов пользователя.
      */
     public StubInput(final String[] value) {
@@ -44,7 +43,21 @@ public class StubInput implements Input {
      * при следующем вызове он вернет нам новое значение.
      */
     @Override
-    public String ask(String question) {
+    public String ask(final String question) {
         return this.value[this.position++];
     }
+
+    /**
+     * Метод получает ключ на ответ пользователя.
+     *
+     * @param question запрос для пользователя.
+     * @param range    диапзон пунктов мен.
+     * @return возвращает -1.
+     */
+
+    @Override
+    public int ask(final String question, final int[] range) {
+        return -1;
+    }
 }
+

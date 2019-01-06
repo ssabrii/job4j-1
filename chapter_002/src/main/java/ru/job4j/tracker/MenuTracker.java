@@ -1,7 +1,6 @@
 package ru.job4j.tracker;
 
 import ru.job4j.models.Item;
-import ru.job4j.start.Input;
 import ru.job4j.start.StartUI;
 
 import java.util.ArrayList;
@@ -47,15 +46,15 @@ public class MenuTracker {
     /**
      * Ссылка на объект ввода.
      */
-    private Input input;
+    private final Input input;
     /**
      * Сылка на объект хранилища.
      */
-    private Tracker tracker;
+    private final Tracker tracker;
     /**
      * Сылка на список типа UserAction.
      */
-    private List<UserAction> actions = new ArrayList<>();
+    private final List<UserAction> actions = new ArrayList<>();
 
     /**
      * Конструктор.
@@ -163,7 +162,6 @@ public class MenuTracker {
      * Inner class ShowItem.
      */
     public class ShowItems implements UserAction {
-
         /**
          * Override method get the hold key.
          *
@@ -201,7 +199,6 @@ public class MenuTracker {
      * Inner class UpdateItem.
      */
     public class UpdateItem implements UserAction {
-
         /**
          * Override method get the hold key.
          *
@@ -292,7 +289,6 @@ public class MenuTracker {
          *
          * @return the hold key.
          */
-
         @Override
         public final int key() {
             return FINDID;
@@ -373,8 +369,16 @@ public class MenuTracker {
      * Inner class ExitProgram.
      */
     public class ExitProgram implements UserAction {
-        private StartUI ui;
+        /**
+         * link on StartUI.
+         */
+        private final StartUI ui;
 
+        /**
+         * Contstructor.
+         *
+         * @param ui link on StartUI
+         */
         public ExitProgram(StartUI ui) {
             this.ui = ui;
         }

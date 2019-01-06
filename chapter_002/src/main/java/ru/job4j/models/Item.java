@@ -15,11 +15,11 @@ public class Item {
     /**
      * имя заявки.
      */
-    private String name;
+    private final String name;
     /**
      * описание заявки.
      */
-    private String description;
+    private final String description;
     /**
      * создание заявки.
      */
@@ -105,7 +105,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return  '\n'
+        return '\n'
                 + "Заявка: id '"
                 + id
                 + "', name='"
