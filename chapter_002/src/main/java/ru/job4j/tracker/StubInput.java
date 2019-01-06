@@ -47,17 +47,5 @@ public class StubInput implements Input {
         return this.value[this.position++];
     }
 
-    /**
-     * Метод получает ключ на ответ пользователя.
-     *
-     * @param question запрос для пользователя.
-     * @param range    диапзон пунктов мен.
-     * @return возвращает -1.
-     */
-
-    @Override
-    public int ask(final String question, final int[] range) {
-        return -1;
-    }
 }
 

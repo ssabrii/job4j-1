@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import ru.job4j.exception.MenuOutException;
+
 /**
  * Input.
  *
@@ -15,12 +17,32 @@ public interface Input {
      * @return возвращает ответ пользователя на запрос.
      */
     String ask(String question);
+
     /**
      * получение ответа на запрос.
+     * используется в двух источниках вывода.
+     * ConsoleInput and StubInput.
+     * перенёс в интерфейс, тк происходило дублирование кода.
+     * в классах реализующих интерфейс.
      *
      * @param question запрос для пользователя.
-     * @param range диапзон пунктов мен.
+     * @param range    диапзон пунктов мен.
      * @return возвращает введёный пользователем пункт меню.
      */
-    int ask(String question, int[] range);
+    default int ask(String question, int[] range) {
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of range");
+        }
+
+    }
 }

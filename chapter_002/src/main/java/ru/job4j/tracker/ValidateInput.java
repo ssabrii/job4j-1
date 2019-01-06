@@ -9,12 +9,37 @@ import ru.job4j.exception.MenuOutException;
  * @version 2.0
  * @since 0.1
  */
-public class ValidateConsoleInput extends ConsoleInput {
+public class ValidateInput implements Input {
+    /**
+     * Интерфейс ввода.
+     */
+    private Input input;
+
+    /**
+     * Конструктор.
+     *
+     * @param input интерфейс ввода.
+     */
+    public ValidateInput(Input input) {
+        this.input = input;
+    }
+
+    /**
+     * Запрос на действия пользователя.
+     *
+     * @param question запрос для пользователя.
+     * @return ответ пользователя.
+     */
+    @Override
+    public String ask(String question) {
+        return input.ask(question);
+    }
+
     /**
      * Method gets clean answer from users.
      *
      * @param question запрос для пользователя.
-     * @param range   диапзон пунктов мен.
+     * @param range    диапазон пунктов меню.
      * @return key menu.
      */
     @Override
@@ -23,7 +48,7 @@ public class ValidateConsoleInput extends ConsoleInput {
         int value = -1;
         do {
             try {
-                value = super.ask(question, range);
+                value = this.input.ask(question, range);
                 invalid = false;
             } catch (NumberFormatException nfe) {
                 System.out.println("Введите корректные данные.");

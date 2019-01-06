@@ -1,8 +1,6 @@
 package ru.job4j.start;
 
-import ru.job4j.tracker.Input;
-import ru.job4j.tracker.MenuTracker;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.*;
 
 /**
  * StartUI.
@@ -12,11 +10,6 @@ import ru.job4j.tracker.Tracker;
  */
 public class StartUI {
     /**
-     * Диапазон номеров пунктов меню.
-     */
-    private final int[] range = {0, 1, 2, 3, 4, 5, 6};
-
-    /**
      * Интерфейс для получение данных от пользователя.
      */
     private final Input input;
@@ -25,7 +18,7 @@ public class StartUI {
      */
     private final Tracker tracker;
     /**
-     * Переменная определяющая выход.
+     * Флаг выхода.
      */
     private boolean exit;
 
@@ -53,9 +46,11 @@ public class StartUI {
     public final void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions(this);
+        int[] range = menu.fillMenu(menu.getActionsSize());
         do {
             menu.show();
             menu.select(input.ask("Введите пункт Carte: ", range));
-        } while (!this.exit);
+
+        } while (!exit);
     }
 }
