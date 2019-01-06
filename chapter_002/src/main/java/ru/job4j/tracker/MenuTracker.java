@@ -90,6 +90,28 @@ public class MenuTracker {
     }
 
     /**
+     * Метод для получения массива меню.
+     *
+     * @return длину массива
+     */
+    public int getActionsLength() {
+        return this.actions.size();
+    }
+
+    /**
+     * Метод опеределяет количество элементов меню.
+     * @param length количество элементов меню.
+     * @return установленное количество элементов меню.
+     */
+    public int[] fillMenu(int length) {
+        int[] menu = new int[length];
+        for (int index = 0; index < this.actions.size(); index++) {
+            menu[index] = index;
+        }
+        return menu;
+    }
+
+    /**
      * Метод в зависимости от указанного ключа,
      * выполняет соответствующие действие.
      *
