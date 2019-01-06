@@ -13,7 +13,7 @@ public class ValidateInput implements Input {
     /**
      * Интерфейс ввода.
      */
-    private Input input;
+    private final Input input;
 
     /**
      * Конструктор.

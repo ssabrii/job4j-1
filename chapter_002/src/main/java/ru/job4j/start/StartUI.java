@@ -1,6 +1,9 @@
 package ru.job4j.start;
 
-import ru.job4j.tracker.*;
+
+import ru.job4j.tracker.Input;
+import ru.job4j.tracker.MenuTracker;
+import ru.job4j.tracker.Tracker;
 
 /**
  * StartUI.
@@ -54,3 +57,4 @@ public class StartUI {
         } while (!exit);
     }
 }
+
