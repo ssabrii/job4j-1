@@ -3,7 +3,7 @@
  * UserAction, AddItem, ShowItems,
  * UpdateItem, DeleteItem, FindById,
  * FindByName, ExitProgram, ValidateConsoleInput,
- * Input, BaseAction.
+ * Input.
  *
  * @author Maxim Vanny.
  * @version 2.0
