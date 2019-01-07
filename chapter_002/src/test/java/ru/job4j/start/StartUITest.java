@@ -78,6 +78,7 @@ public class StartUITest {
         tracker.add(new Item("test2", "desc2"));
         tracker.add(new Item("test3", "desc3"));
         tracker.add(new Item("test3", "desc4"));
+        System.setOut(new PrintStream(out));
     }
 
     /**
@@ -89,6 +90,7 @@ public class StartUITest {
         for (Item item : items) {
             tracker.delete(item.getId());
         }
+        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -145,7 +147,6 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameNamePrintOK() {
         input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -160,7 +161,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -172,7 +172,6 @@ public class StartUITest {
             tracker.add(new Item("testX", "descX"));
         }
         input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -185,7 +184,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -195,7 +193,6 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameNameAndPrintOK() {
         input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -210,7 +207,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -243,7 +239,6 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValueAndPrintFall() {
         String id = "12345y790";
         input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -256,7 +251,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -266,7 +260,6 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValueAndPrintOK() {
         String id = tracker.findAll()[0].getId();
         input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -279,7 +272,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -311,7 +303,6 @@ public class StartUITest {
     public void whenFindByIDAndPrintOK() {
         String id = tracker.findAll()[0].getId();
         input = new ValidateInput(new StubInput(new String[]{"4", id, "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -322,7 +313,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -332,7 +322,6 @@ public class StartUITest {
     public void whenFindByIDAndPrintFall() {
         String id = "1234567890";
         input = new ValidateInput(new StubInput(new String[]{"4", id, "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -343,7 +332,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -379,7 +367,6 @@ public class StartUITest {
     public void whenFindByNameAndPrintOK() {
         String name = "test3";
         input = new ValidateInput(new StubInput(new String[]{"5", name, "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -394,7 +381,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -404,7 +390,6 @@ public class StartUITest {
     public void whenFindByNameAndPrintFall() {
         String name = "test6";
         input = new ValidateInput(new StubInput(new String[]{"5", name, "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -415,7 +400,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -449,7 +433,6 @@ public class StartUITest {
     public void whenDeleteItemFromItemsAndPrintOK() {
         String id = tracker.findAll()[0].getId();
         input = new ValidateInput(new StubInput(new String[]{"3", id, "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -462,7 +445,6 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 
     /**
@@ -472,7 +454,6 @@ public class StartUITest {
     public void whenDeleteItemFromItemsAndPrintFall() {
         String id = "1234567890";
         input = new ValidateInput(new StubInput(new String[]{"3", id, "6"}));
-        System.setOut(new PrintStream(out));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
@@ -483,6 +464,5 @@ public class StartUITest {
                         .toString()
                 )
         );
-        System.setOut(new PrintStream(stdout));
     }
 }
