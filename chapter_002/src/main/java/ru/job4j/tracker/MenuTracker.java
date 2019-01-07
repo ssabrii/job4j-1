@@ -16,34 +16,6 @@ import java.util.List;
  */
 public class MenuTracker {
     /**
-     * Константа меню для добавления новой заявки.
-     */
-    private static final int ADD = 0;
-    /**
-     * Константа меню для отображения всех заявок.
-     */
-    private static final int ALL = 1;
-    /**
-     * Константа меню для редактирования заявки.
-     */
-    private static final int EDIT = 2;
-    /**
-     * Константа меню для удаления заявки.
-     */
-    private static final int DEL = 3;
-    /**
-     * Константа меню для поиска заявки по ID.
-     */
-    private static final int FINDID = 4;
-    /**
-     * Константа меню для поиска заявки по имени.
-     */
-    private static final int FINDNAME = 5;
-    /**
-     * Константа для выхода из цикла.
-     */
-    private static final int EXIT = 6;
-    /**
      * Ссылка на объект ввода.
      */
     private final Input input;
@@ -78,16 +50,17 @@ public class MenuTracker {
 
     /**
      * Метод заполняет список.
+     *
      * @param ui сылка на основной класс программы.
      */
     public void fillActions(StartUI ui) {
-        this.actions.add(new AddItem());
-        this.actions.add(new ShowItems());
-        this.actions.add(new UpdateItem());
-        this.actions.add(new DeleteItem());
-        this.actions.add(new FindItemById());
-        this.actions.add(new FindItemsByName());
-        this.actions.add(new ExitProgram(ui));
+        this.actions.add(new AddItem(0, "Add new item"));
+        this.actions.add(new ShowItems(1, "Show all items"));
+        this.actions.add(new UpdateItem(2, "Edit item"));
+        this.actions.add(new DeleteItem(3, "Delete item"));
+        this.actions.add(new FindItemById(4, "Find item by Id"));
+        this.actions.add(new FindItemsByName(5, "Find items by name"));
+        this.actions.add(new ExitProgram(6, "Exit Program", ui));
     }
 
     /**
@@ -132,15 +105,15 @@ public class MenuTracker {
      * Inner class AddItem.
      */
 
-    public class AddItem implements UserAction {
+    public class AddItem extends BaseAction {
         /**
-         * Override method get the hold key.
+         * Constructor.
          *
-         * @return the hold key.
+         * @param key  the key of menu.
+         * @param name the name of menu
          */
-        @Override
-        public final int key() {
-            return ADD;
+        public AddItem(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -161,30 +134,20 @@ public class MenuTracker {
                 System.out.println("----- Новая заявка с ID: " + item.getId() + "----");
             }
         }
-
-        /**
-         * Override method shows element menu.
-         *
-         * @return string element menu.
-         */
-        @Override
-        public final String info() {
-            return "0.Add new item";
-        }
     }
 
     /**
      * Inner class ShowItem.
      */
-    public class ShowItems implements UserAction {
+    public class ShowItems extends BaseAction {
         /**
-         * Override method get the hold key.
+         * Constructor.
          *
-         * @return the hold key.
+         * @param key  the key of menu.
+         * @param name the name of menu
          */
-        @Override
-        public final int key() {
-            return ALL;
+        public ShowItems(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -198,30 +161,20 @@ public class MenuTracker {
 
             System.out.println(Arrays.toString(tracker.findAll()));
         }
-
-        /**
-         * Override method shows element menu.
-         *
-         * @return string element menu.
-         */
-        @Override
-        public final String info() {
-            return "1.Show all items";
-        }
     }
 
     /**
      * Inner class UpdateItem.
      */
-    public class UpdateItem implements UserAction {
+    public class UpdateItem extends BaseAction {
         /**
-         * Override method get the hold key.
+         * Constructor.
          *
-         * @return the hold key.
+         * @param key  the key of menu.
+         * @param name the name of menu
          */
-        @Override
-        public final int key() {
-            return EDIT;
+        public UpdateItem(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -241,30 +194,20 @@ public class MenuTracker {
                 System.out.println("Заявка ID: " + id + " обновлена.");
             }
         }
-
-        /**
-         * Override method shows element menu.
-         *
-         * @return string element menu.
-         */
-        @Override
-        public final String info() {
-            return "2.Edit item";
-        }
     }
 
     /**
      * Inner class DeleteItem.
      */
-    public class DeleteItem implements UserAction {
+    public class DeleteItem extends BaseAction {
         /**
-         * Override method get the hold key.
+         * Constructor.
          *
-         * @return the hold key.
+         * @param key  the key of menu.
+         * @param name the name of menu
          */
-        @Override
-        public final int key() {
-            return DEL;
+        public DeleteItem(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -282,31 +225,20 @@ public class MenuTracker {
                 System.out.println("Заявка " + id + " удалена.");
             }
         }
-
-        /**
-         * Override method shows element menu.
-         *
-         * @return string element menu.
-         */
-        @Override
-        public final String info() {
-            return "3.Delete item";
-        }
     }
-
 
     /**
      * Inner class FindItemById.
      */
-    public class FindItemById implements UserAction {
+    public class FindItemById extends BaseAction {
         /**
-         * Override method get the hold key.
+         * Constructor.
          *
-         * @return the hold key.
+         * @param key  the key of menu.
+         * @param name the name of menu
          */
-        @Override
-        public final int key() {
-            return FINDID;
+        public FindItemById(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -325,31 +257,20 @@ public class MenuTracker {
                 System.out.println(byId);
             }
         }
-
-        /**
-         * Override method shows element menu.
-         *
-         * @return string element menu.
-         */
-        @Override
-        public final String info() {
-
-            return "4.Find item by Id";
-        }
     }
 
     /**
      * Inner class FindItemByName.
      */
-    public class FindItemsByName implements UserAction {
+    public class FindItemsByName extends BaseAction {
         /**
-         * Override method get the hold key.
+         * Constructor.
          *
-         * @return the hold key.
+         * @param key  the key of menu.
+         * @param name the name of menu
          */
-        @Override
-        public final int key() {
-            return FINDNAME;
+        public FindItemsByName(int key, String name) {
+            super(key, name);
         }
 
         /**
@@ -368,44 +289,27 @@ public class MenuTracker {
                 System.out.println(Arrays.toString(byNames));
             }
         }
-
-        /**
-         * Override method shows element menu.
-         *
-         * @return string element menu.
-         */
-        @Override
-        public final String info() {
-            return "5.Find items by name";
-        }
     }
 
     /**
      * Inner class ExitProgram.
      */
-    public class ExitProgram implements UserAction {
+    public class ExitProgram extends BaseAction {
         /**
          * link on StartUI.
          */
         private final StartUI ui;
 
         /**
-         * Contstructor.
+         * Constructor.
          *
-         * @param ui link on StartUI
+         * @param key  the key of menu.
+         * @param name the name of menu.
+         * @param  ui the link to StartUI.
          */
-        public ExitProgram(StartUI ui) {
+        public ExitProgram(int key, String name, StartUI ui) {
+            super(key, name);
             this.ui = ui;
-        }
-
-        /**
-         * Override method get the hold key.
-         *
-         * @return the hold key.
-         */
-        @Override
-        public final int key() {
-            return EXIT;
         }
 
         /**
@@ -419,15 +323,5 @@ public class MenuTracker {
             this.ui.stop();
         }
 
-        /**
-         * Override method shows element menu.
-         *
-         * @return string element menu.
-         */
-        @Override
-        public final String info() {
-            return "6.Exit Program";
-        }
     }
-
 }
