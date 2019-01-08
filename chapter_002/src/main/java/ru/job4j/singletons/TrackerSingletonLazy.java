@@ -9,20 +9,20 @@ import ru.job4j.models.Item;
  * @version 2.0
  * @since 0.1
  */
-public final class TackerSingletonLazy {
+public final class TrackerSingletonLazy {
     /**
      * Create TrackSingletonLazy link.
      */
-    private static TackerSingletonLazy instance;
+    private static TrackerSingletonLazy instance;
 
     /**
      * Method get static link to object TSL.
      *
      * @return static link.
      */
-    public static TackerSingletonLazy getInstance() {
+    public static TrackerSingletonLazy getInstance() {
         if (instance == null) {
-            instance = new TackerSingletonLazy();
+            instance = new TrackerSingletonLazy();
         }
         return instance;
     }
@@ -30,7 +30,7 @@ public final class TackerSingletonLazy {
     /**
      * Constructor.
      */
-    private TackerSingletonLazy() {
+    private TrackerSingletonLazy() {
     }
 
     /**
@@ -49,6 +49,6 @@ public final class TackerSingletonLazy {
      * @param args string.
      */
     public static void main(final String[] args) {
-        TackerSingletonLazy tracker = TackerSingletonLazy.getInstance();
+        TrackerSingletonLazy tracker = TrackerSingletonLazy.getInstance();
     }
 }
