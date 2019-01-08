@@ -74,8 +74,6 @@ public class LoadOrder {
      * @version 2.0
      * @since 0.1
      */
-
-
     private static final class Holder {
         /**
          * Create object LoadOrder.
