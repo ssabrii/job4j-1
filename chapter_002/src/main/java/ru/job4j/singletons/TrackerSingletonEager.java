@@ -9,7 +9,7 @@ import ru.job4j.models.Item;
  * @version 2.0
  * @since 0.1
  */
-public class TrackerSingletonEager {
+public final class TrackerSingletonEager {
     /**
      * Create link to TrackSingletonEager object.
      */
@@ -36,7 +36,7 @@ public class TrackerSingletonEager {
      * @param model model.
      * @return model.
      */
-    public Item add(Item model) {
+    public Item add(final Item model) {
         return model;
     }
 
@@ -45,7 +45,7 @@ public class TrackerSingletonEager {
      *
      * @param args string.
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TrackerSingletonEager tracker = TrackerSingletonEager.getInstance();
     }
 }
