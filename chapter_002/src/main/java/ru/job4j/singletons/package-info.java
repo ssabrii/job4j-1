@@ -1,5 +1,6 @@
 /**
- * TrackerSingletonEnum, TrackerSingletonEager, TrackerSingletonLazy, TrackerSingletonLazyInner.
+ * TrackerSingletonEnum, TrackerSingletonEager,
+ * TrackerSingletonLazy, TrackerSingletonLazyInner.
  *
  * @author Maxim Vanny.
  * @version 2.0

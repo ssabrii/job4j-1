@@ -20,7 +20,7 @@ public enum TrackerSingletonEnum {
      * @param model model.
      * @return model.
      */
-    public Item add(Item model) {
+    public Item add(final Item model) {
         return model;
     }
 
@@ -28,7 +28,7 @@ public enum TrackerSingletonEnum {
      * Start program.
      * @param args string.
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TrackerSingletonEnum tracker = TrackerSingletonEnum.INSTANCE;
     }
 }
