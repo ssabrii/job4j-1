@@ -17,8 +17,8 @@ public class LoadOrder {
      */
     private static String staticfield = echo("static field");
 
-    //private static final LoadOrder INSTANCE = new LoadOrder("static inner field");
 
+    //private static final LoadOrder INSTANCE = new LoadOrder("static inner field");
     //статический блок.
     static {
         echo("static block");
@@ -59,12 +59,12 @@ public class LoadOrder {
     }
 
     /**
-     * Start programm.
+     * Start program.
      *
      * @param args string.
      */
     public static void main(final String[] args) {
-        LoadOrder order = new LoadOrder("main");
+     //   LoadOrder order = new LoadOrder("main");
     }
 
     /**
@@ -78,7 +78,7 @@ public class LoadOrder {
 
     private static final class Holder {
         /**
-         * Create oblect LoadOrder.
+         * Create object LoadOrder.
          */
         private static final LoadOrder INSTANCE = new LoadOrder("static inner field");
     }
