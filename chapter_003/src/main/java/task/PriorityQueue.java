@@ -13,7 +13,7 @@ public class PriorityQueue {
     /**
      * List tasks.
      */
-    private LinkedList<Task> tasks = new LinkedList<>();
+    private final LinkedList<Task> tasks = new LinkedList<>();
 
     /**
      * Метод должен вставлять в нужную позицию элемент.
@@ -24,15 +24,41 @@ public class PriorityQueue {
      */
     public final void put(final Task task) {
         //TODO добавить вставку в связанный список.
+        int index = 0;
+        do {
+            if (tasks.isEmpty()) {
+                tasks.add(task);
+                break;
+            }
+            if (tasks.get(index).getPriority() < task.getPriority()) {
+                tasks.add(index + 1, task);
+                break;
+            }
+            if (tasks.get(index).getPriority() > task.getPriority()) {
+                Task tmp = tasks.get(index);
+                tasks.add(index, task);
+                tasks.add(index + 1, tmp);
+                break;
+            }
+        }
+        while (true);
     }
 
     /**
-     * Method take poll from list task.
+     * Method get first task from list.
      *
-     * @return task from list tasks.
+     * @return first task from list tasks.
      */
-    public final Task take() {
-        return this.tasks.poll();
+    public final Task takeFirst() {
+        return this.tasks.pollFirst();
     }
 
+    /**
+     * Method get last task from list.
+     *
+     * @return last task from list.
+     */
+    public final Task takeLast() {
+        return this.tasks.pollLast();
+    }
 }
