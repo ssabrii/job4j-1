@@ -11,19 +11,19 @@ public class Person {
     /**
      * name person.
      */
-    private String name;
+    private final String name;
     /**
-     * sername person.
+     * surname person.
      */
-    private String surname;
+    private final String surname;
     /**
      * phone person.
      */
-    private String phone;
+    private final String phone;
     /**
      * address person.
      */
-    private String address;
+    private final String address;
 
     /**
      * Constructor.
