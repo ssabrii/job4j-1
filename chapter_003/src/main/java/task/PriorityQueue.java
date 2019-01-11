@@ -42,6 +42,31 @@ public class PriorityQueue {
         }
     }
 
+    /**
+     * Метод использует add(int index, E value).
+     * При БОльшем значении чем в текущем индексе.
+     * функция add записывает  в текущий индекс новое значение.
+     * а старое смещает на одну ячейку в +1.
+     * Если значение меньше, чем в текущем индексе,
+     * то берется текущее значение размера листа.
+     * и это значение используется для вставки.
+     * Вставка поэтому происходит после индекса.
+     * который в сравнении содержит меньшее значение.
+     * при этом следующее значение тоже смещается +1.
+     *
+     * @param task задача
+     */
+    public final void put1(final Task task) {
+        //TODO добавить вставку в связанный список.
+        int count = tasks.size();
+        for (int index = 0; index < tasks.size(); index++) {
+            if (tasks.get(index).getPriority() > task.getPriority()) {
+                count = index;
+                break;
+            }
+        }
+        tasks.add(count, task);
+    }
 
     /**
      * Method get first task from list.
