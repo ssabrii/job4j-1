@@ -29,6 +29,7 @@ public class PhoneDictionaryTest {
     @Test
     public void whenFindBySurname() {
         PhoneDictionary phones = new PhoneDictionary();
+        phones.add(new Person("James", "Band", "12345", "Zurich"));
         phones.add(new Person("James", "Bond", "12345", "London"));
         List<Person> persons = phones.find("Bond");
         assertThat(persons.iterator().next().getSurname(), is("Bond"));
@@ -46,7 +47,8 @@ public class PhoneDictionaryTest {
     @Test
     public void whenFindByPhone() {
         PhoneDictionary phones = new PhoneDictionary();
-        phones.add(new Person("James", "Bond", "12345", "London"));
+        phones.add(new Person("James", "Bond", "02345", "London"));
+        phones.add(new Person("James", "Bond", "12345", "Zurich"));
         List<Person> person = phones.find("12345");
         assertThat(person.iterator().next().getPhone(), is("12345"));
     }

@@ -34,19 +34,10 @@ public class PhoneDictionary {
     public final List<Person> find(final String key) {
         List<Person> result = new ArrayList<>();
         for (Person person : persons) {
-            if (person.getName().contains(key)) {
-                result.add(person);
-                break;
-            }
-            if (person.getSurname().contains(key)) {
-                result.add(person);
-                break;
-            }
-            if (person.getAddress().contains(key)) {
-                result.add(person);
-                break;
-            }
-            if (person.getPhone().contains(key)) {
+            if (person.getName().contains(key)
+                    || person.getSurname().contains(key)
+                    || person.getAddress().contains(key)
+                    || person.getPhone().contains(key)) {
                 result.add(person);
                 break;
             }
@@ -54,3 +45,4 @@ public class PhoneDictionary {
         return result;
     }
 }
+
