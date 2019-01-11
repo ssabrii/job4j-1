@@ -24,25 +24,20 @@ public class PriorityQueue {
      */
     public final void put(final Task task) {
         //TODO добавить вставку в связанный список.
-        int index = 0;
-        do {
-            if (tasks.isEmpty()) {
-                tasks.add(task);
-                break;
-            }
+        if (tasks.isEmpty()) {
+            tasks.add(task);
+        } else {
+            int index = 0;
             if (tasks.get(index).getPriority() < task.getPriority()) {
                 tasks.add(index + 1, task);
-                break;
-            }
-            if (tasks.get(index).getPriority() > task.getPriority()) {
+            } else {
                 Task tmp = tasks.get(index);
                 tasks.add(index, task);
                 tasks.add(index + 1, tmp);
-                break;
             }
         }
-        while (true);
     }
+
 
     /**
      * Method get first task from list.
@@ -60,5 +55,9 @@ public class PriorityQueue {
      */
     public final Task takeLast() {
         return this.tasks.pollLast();
+    }
+
+    public final LinkedList<Task> all() {
+        return tasks;
     }
 }
