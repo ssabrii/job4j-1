@@ -19,11 +19,11 @@ public class ConvertList2Array {
      * @return array from list.
      */
     public final int[][] toArray(final List<Integer> list, final int rows) {
-        int cells = 0;
-        for (int index = 0; index < list.size(); index++) {
-            if (index % rows == 0) {
-                cells++;
-            }
+        int cells;
+        if (list.size() % rows == 0) {
+            cells = list.size() / rows;
+        } else {
+            cells = (list.size() / rows) + 1;
         }
         Iterator<Integer> iterator = list.iterator();
         int[][] array = new int[rows][cells];
@@ -31,6 +31,8 @@ public class ConvertList2Array {
             for (int in = 0; in < cells; in++) {
                 if (iterator.hasNext()) {
                     array[out][in] = iterator.next();
+                } else {
+                    break;
                 }
             }
         }
