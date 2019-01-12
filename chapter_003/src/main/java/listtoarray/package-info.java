@@ -1,5 +1,5 @@
 /**
- * ConvertList2Array.
+ * ConvertList2Array, ConvertMatrix2List .
  *
  * @author Maxim Vanny.
  * @version 2.0
