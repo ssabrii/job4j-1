@@ -14,7 +14,7 @@ public class PhoneDictionary {
     /**
      * List Person.
      */
-    private List<Person> persons = new ArrayList<>();
+    private final List<Person> persons = new ArrayList<>();
 
     /**
      * Method add new person in List.
