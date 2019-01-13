@@ -7,7 +7,7 @@ package userconvert;
  * @version 2.0
  * @since 0.1
  */
-@SuppressWarnings("ALL")
+
 public class User {
     /**
      * the name of user.
