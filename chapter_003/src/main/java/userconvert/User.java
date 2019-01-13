@@ -36,11 +36,50 @@ public class User {
     }
 
     /**
+     * Constructor.
+     *
+     * @param aName the name of user
+     * @param aCity the address of user
+     */
+    public User(final String aName, final String aCity) {
+        this.name = aName;
+        this.city = aCity;
+        this.id = null;
+    }
+
+    @Override
+    public final String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", id=" + id +
+                '}' + '\n';
+    }
+
+    /**
+     * get name.
+     *
+     * @return name
+     */
+    public final String getName() {
+        return name;
+    }
+
+    /**
      * Get id.
      *
      * @return id
      */
     public final Integer getId() {
         return id;
+    }
+
+    /**
+     * get id.
+     *
+     * @return city
+     */
+    public final String getCity() {
+        return city;
     }
 }

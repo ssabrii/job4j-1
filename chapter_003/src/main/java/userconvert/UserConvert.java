@@ -20,7 +20,7 @@ public class UserConvert {
     public final HashMap<Integer, User> process(final List<User> list) {
         HashMap<Integer, User> map = new HashMap<>();
         for (User user : list) {
-            map.put(user.getId(), user);
+            map.put(user.getId(), new User(user.getName(), user.getCity()));
         }
         return map;
     }
