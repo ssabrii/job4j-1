@@ -7,6 +7,7 @@ package search;
  * @version 2.0
  * @since 0.1
  */
+@SuppressWarnings("unused")
 public class Person {
     /**
      * name person.
@@ -28,17 +29,17 @@ public class Person {
     /**
      * Constructor.
      *
-     * @param pname    name person.
-     * @param psurname surname person.
-     * @param pphone   phone person.
-     * @param paddress address person.
+     * @param aName    name person.
+     * @param aSurname surname person.
+     * @param aPhone   phone person.
+     * @param aAddress address person.
      */
-    public Person(final String pname, final String psurname,
-                  final String pphone, final String paddress) {
-        this.name = pname;
-        this.surname = psurname;
-        this.phone = pphone;
-        this.address = paddress;
+    public Person(final String aName, final String aSurname,
+                  final String aPhone, final String aAddress) {
+        this.name = aName;
+        this.surname = aSurname;
+        this.phone = aPhone;
+        this.address = aAddress;
     }
 
     /**

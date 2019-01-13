@@ -9,6 +9,7 @@ import java.util.LinkedList;
  * @version 2.0
  * @since 0.1
  */
+@SuppressWarnings("ALL")
 public class PriorityQueue {
     /**
      * List tasks.
@@ -22,6 +23,7 @@ public class PriorityQueue {
      *
      * @param task задача
      */
+    @SuppressWarnings("unused")
     public final void put(final Task task) {
         //TODO добавить вставку в связанный список.
         for (int index = 0; index <= tasks.size(); index++) {

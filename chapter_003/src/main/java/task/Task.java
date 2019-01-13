@@ -20,12 +20,13 @@ public class Task {
     /**
      * Constructor.
      *
-     * @param pdesc     level task.
-     * @param ppriority level task.
+     * @param aDesc     level task.
+     * @param aPriority level task.
      */
-    public Task(final String pdesc, final int ppriority) {
-        this.desc = pdesc;
-        this.priority = ppriority;
+    @SuppressWarnings("unused")
+    public Task(final String aDesc, final int aPriority) {
+        this.desc = aDesc;
+        this.priority = aPriority;
     }
 
     /**
@@ -38,7 +39,7 @@ public class Task {
     }
 
     /**
-     * Method get lavel task.
+     * Method get level task.
      *
      * @return level task.
      */
