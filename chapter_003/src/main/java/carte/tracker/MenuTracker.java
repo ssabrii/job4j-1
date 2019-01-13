@@ -4,7 +4,6 @@ import carte.models.Item;
 import carte.start.StartUI;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -160,7 +159,7 @@ public class MenuTracker {
         @Override
         public final void execute(final Input pInput, final Tracker pTracker) {
 
-            System.out.println(Arrays.toString(tracker.findAll()));
+            System.out.println(tracker.findAll());
         }
     }
 
@@ -283,11 +282,11 @@ public class MenuTracker {
         @Override
         public final void execute(final Input pInput, final Tracker pTracker) {
             String name = pInput.ask("Поиск, введите название заявки:");
-            Item[] byNames = pTracker.findByName(name);
-            if (byNames.length == 0) {
+            List<Item> byNames = pTracker.findByName(name);
+            if (byNames.size() == 0) {
                 System.out.println("Заявка не обнаружена. Уточните название.");
             } else {
-                System.out.println(Arrays.toString(byNames));
+                System.out.println(byNames);
             }
         }
     }

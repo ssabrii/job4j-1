@@ -2,7 +2,9 @@ package carte.tracker;
 
 import carte.models.Item;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * * Carte.
@@ -15,17 +17,9 @@ import java.util.Arrays;
 @SuppressWarnings("ALL")
 public class Tracker {
     /**
-     * Количество элементов массива.
+     * Динамический массив для хранение заявок.
      */
-    private final int index = 100;
-    /**
-     * Массив для хранение заявок.
-     */
-    private final Item[] items = new Item[this.index];
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * Метод реализущий добавление заявки в хранилище.
@@ -34,13 +28,12 @@ public class Tracker {
      * @return возвращает добавленную заявку
      */
     public final Item add(final Item item) {
-        Item seeker = null;
-        if (position < this.items.length - 1) {
-            item.setId(this.generateId());
-            this.items[this.position++] = item;
-            seeker = item;
+        Item checker = null;
+        item.setId(this.generateId());
+        if (this.items.add(item)) {
+            checker = item;
         }
-        return seeker;
+        return checker;
     }
 
     /**
@@ -52,10 +45,11 @@ public class Tracker {
      */
     public final boolean replace(final String id, final Item item) {
         boolean check = false;
-        for (int i = 0; i < this.position; i++) {
-            if (id.equals(this.items[i].getId())) {
-                item.setId(id);
-                this.items[i] = item;
+        for (int index = 0; index < this.items.size(); index++) {
+            String seek = this.items.get(index).getId();
+            item.setId(id);
+            if (id.equals(seek)) {
+                this.items.set(index, item);
                 check = true;
                 break;
             }
@@ -71,10 +65,10 @@ public class Tracker {
      */
     public final boolean delete(final String id) {
         boolean check = false;
-        for (int i = 0; i < this.position; i++) {
-            if (id.equals(this.items[i].getId())) {
-                System.arraycopy(this.items, i + 1, this.items, i, this.position);
-                this.position--;
+        Iterator<Item> it = this.items.iterator();
+        while (it.hasNext()) {
+            if (id.equals(it.next().getId())) {
+                it.remove();
                 check = true;
                 break;
             }
@@ -83,12 +77,12 @@ public class Tracker {
     }
 
     /**
-     * Метод возвращающий все заявки из хранилище.
+     * Метод возвращающий все заявки из хранилища.
      *
      * @return Item[] массив заявок.
      */
-    public final Item[] findAll() {
-        return Arrays.copyOfRange(this.items, 0, this.position);
+    public final List<Item> findAll() {
+        return this.items;
     }
 
     /**
@@ -97,16 +91,14 @@ public class Tracker {
      * @param key имя заявки.
      * @return item возвращает массив найденных заявок.
      */
-    public final Item[] findByName(final String key) {
-        Item[] seeker = new Item[this.index];
-        int count = 0;
-        for (int i = 0; i < this.position; i++) {
-            if (key.equals(this.items[i].getName())) {
-                seeker[count++] = this.items[i];
+    public final List<Item> findByName(final String key) {
+        List<Item> picker = new ArrayList<>();
+        for (int index = 0; index < this.items.size(); index++) {
+            if (key.equals(this.items.get(index).getName())) {
+                picker.add(this.items.get(index));
             }
         }
-        seeker = Arrays.copyOf(seeker, count);
-        return seeker;
+        return picker;
     }
 
     /**
@@ -117,9 +109,9 @@ public class Tracker {
      */
     public final Item findById(final String id) {
         Item seeker = null;
-        for (int i = 0; i < this.position; i++) {
-            if (id.equals(this.items[i].getId())) {
-                seeker = this.items[i];
+        for (int index = 0; index < this.items.size(); index++) {
+            if (id.equals(this.items.get(index).getId())) {
+                seeker = this.items.get(index);
                 break;
             }
         }

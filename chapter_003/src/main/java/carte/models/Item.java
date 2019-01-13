@@ -104,6 +104,10 @@ public class Item {
         return id;
     }
 
+    /**
+     * Method toString.
+     * @return string mapping object
+     */
     @Override
     public final String toString() {
         return '\n'

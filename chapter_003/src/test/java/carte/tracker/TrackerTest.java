@@ -3,6 +3,10 @@ package carte.tracker;
 import carte.models.Item;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -23,8 +27,8 @@ public class TrackerTest {
         Item item2 = new Item("test2", "testDescription2", 12L);
         tracker.add(item1);
         tracker.add(item2);
-        assertThat(tracker.findAll()[0], is(item1));
-        assertThat(tracker.findAll()[1], is(item2));
+        assertThat(tracker.findAll().get(0), is(item1));
+        assertThat(tracker.findAll().get(1), is(item2));
     }
 
     @Test
@@ -64,8 +68,8 @@ public class TrackerTest {
         tracker.add(thirst);
         tracker.add(fourth);
         tracker.add(fifth);
-        Item[] expected = {thirst, fourth, fifth};
-        Item[] result = tracker.findByName("test3");
+        List<Item> expected = new ArrayList<>(Arrays.asList(thirst, fourth, fifth));
+        List<Item> result = tracker.findByName("test3");
         assertThat(result, is(expected));
     }
 
@@ -75,11 +79,11 @@ public class TrackerTest {
         Item one = new Item("test1", "description1", 1L);
         Item second = new Item("test2", "description2", 12L);
         Item third = new Item("test3", "description3", 123L);
-        Item[] expected = {one, second, third};
+        List<Item> expected = new ArrayList<>(Arrays.asList(one, second, third));
         tracker.add(one);
         tracker.add(second);
         tracker.add(third);
-        Item[] result = tracker.findAll();
+        List<Item> result = tracker.findAll();
         assertThat(result, is(expected));
     }
 }
