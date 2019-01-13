@@ -4,6 +4,7 @@ import org.junit.Test;
 import ru.job4j.models.Item;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -46,7 +47,7 @@ public class TrackerTest {
         tracker.add(second);
         tracker.add(thirst);
         tracker.delete(first.getId());
-        assertThat(tracker.findById(thirst.getId()).getName(), is("test3"));
+        assertNull(tracker.findById(first.getId()));
     }
 
     @Test
