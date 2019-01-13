@@ -49,11 +49,21 @@ public class User {
 
     @Override
     public final String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", id=" + id +
-                '}' + '\n';
+        return "User{"
+                +
+                "name='"
+                + name
+                + '\''
+                +
+                ", city='"
+                + city
+                + '\''
+                +
+                ", id="
+                + id
+                +
+                '}'
+                + '\n';
     }
 
     /**

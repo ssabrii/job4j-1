@@ -29,15 +29,14 @@ public class UserConvertTest {
         System.out.println("это лист");
         System.out.println(list);
         HashMap<Integer, User> expected = new HashMap<>();
-        expected.put(one.getId(), new User(one.getName(), one.getCity()));//конструктор без id
-        expected.put(two.getId(), new User(two.getName(), two.getCity()));//конструктор без id
-        expected.put(three.getId(), new User(three.getName(), three.getCity()));//конструктор без id
+        expected.put(one.getId(), new User(one.getName(), one.getCity()));
+        expected.put(two.getId(), new User(two.getName(), two.getCity()));
+        expected.put(three.getId(), new User(three.getName(), three.getCity()));
         HashMap<Integer, User> result = user.process(list);
         System.out.println("это ожидание");
         System.out.println(expected);
         System.out.println("это результат");
         System.out.println(result);
-        assertThat(result.toString(), is(expected.toString())); //на выходе в мапе болтаются нулевые id.
-        //не понятно как их убрать?
+        assertThat(result.toString(), is(expected.toString()));
     }
 }
