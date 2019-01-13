@@ -1,5 +1,6 @@
 package listtoarray;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @version 2.0
  * @since 0.1
  */
+@SuppressWarnings("Duplicates")
 public class ConvertList2Array {
     /**
      * Method convert list to array.
@@ -37,5 +39,21 @@ public class ConvertList2Array {
             }
         }
         return array;
+    }
+
+    /**
+     * Method convert members of arrays from list to general list.
+     *
+     * @param list the list of arrays[].
+     * @return the list of Integers.
+     */
+    public final List<Integer> convert(final List<int[]> list) {
+        List<Integer> integers = new ArrayList<>();
+        for (int[] out : list) {
+            for (int in : out) {
+                integers.add(in);
+            }
+        }
+        return integers;
     }
 }
