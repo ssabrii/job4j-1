@@ -1,7 +1,5 @@
 package sortuser;
 
-import java.util.Objects;
-
 /**
  * User.
  *
@@ -9,7 +7,7 @@ import java.util.Objects;
  * @version 2.0
  * @since 0.1
  */
-public class User {
+public class User implements Comparable {
     /**
      * the field of name user.
      */
@@ -33,31 +31,14 @@ public class User {
     }
 
     /**
-     * Method for equals objects.
+     * Method compare two object by age.
      *
-     * @param o object
-     * @return boolean result
+     * @param o second object
+     * @return result by int
      */
     @Override
-    public final boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        User user = (User) o;
-        return age == user.age;
-    }
-
-    /**
-     * The hash code of object.
-     *
-     * @return the hashcode of object
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hash(age);
+    public final int compareTo(final Object o) {
+        return this.age - ((User) o).age;
     }
 
     /**
