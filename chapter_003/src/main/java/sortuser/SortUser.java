@@ -20,4 +20,26 @@ public class SortUser {
     public final TreeSet<User> sort(final List<User> list) {
         return new TreeSet<>(list);
     }
+
+    /**
+     * Method sort users by length name.
+     *
+     * @param list the list of users
+     * @return the list of users sorts by the length of name
+     */
+    public final List<User> sortNameLength(final List<User> list) {
+        list.sort(new CompNameUser());
+        return list;
+    }
+
+    /**
+     * Method sorts users by name and age.
+     *
+     * @param list the list of users
+     * @return the list of users sorts by name and age
+     */
+    public final List<User> sortByAllFields(final List<User> list) {
+        list.sort(new CompNameAndAge());
+        return list;
+    }
 }

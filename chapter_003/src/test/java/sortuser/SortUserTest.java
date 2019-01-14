@@ -34,4 +34,40 @@ public class SortUserTest {
         expected.add(new User("Karlson", 200));
         assertThat(result.toString(), is(expected.toString()));
     }
+
+    @Test
+    public void whenListSortByNameLength() {
+        SortUser users = new SortUser();
+        List<User> catalog = new ArrayList<>(
+                Arrays.asList(
+                        new User("Winnie-the-Poof", 95),
+                        new User("Bear", 95),
+                        new User("A.A.Milne", 150)));
+        List<User> result = users.sortNameLength(catalog);
+        List<User> expected = new ArrayList<>(
+                Arrays.asList(
+                        new User("Bear", 95),
+                        new User("A.A.Milne", 150),
+                        new User("Winnie-the-Poof", 95)));
+        assertThat(result.toString(), is(expected.toString()));
+    }
+
+    @Test
+    public void whenSortByAllFields() {
+        SortUser users = new SortUser();
+        List<User> catalog = new ArrayList<>(
+                Arrays.asList(
+                        new User("Сергей", 25),
+                        new User("Иван", 30),
+                        new User("Сергей", 20),
+                        new User("Иван", 25)));
+        List<User> expected = new ArrayList<>(
+                Arrays.asList(
+                        new User("Иван", 25),
+                        new User("Иван", 30),
+                        new User("Сергей", 20),
+                        new User("Сергей", 25)));
+        List<User> result = users.sortByAllFields(catalog);
+        assertThat(result.toString(), is(expected.toString()));
+    }
 }

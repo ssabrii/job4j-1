@@ -12,12 +12,19 @@ public class User implements Comparable<User> {
      * the field of name user.
      */
     private final String name;
-
-
     /**
      * the field of age user.
      */
     private final int age;
+
+    /**
+     * Method get the age of user.
+     *
+     * @return the age of user
+     */
+    public final int getAge() {
+        return this.age;
+    }
 
     /**
      * Constructor.
@@ -39,6 +46,15 @@ public class User implements Comparable<User> {
     @Override
     public final int compareTo(final User o) {
         return this.age - o.age;
+    }
+
+    /**
+     * Method gets the name of user.
+     *
+     * @return the name of user
+     */
+    public final String getName() {
+        return this.name;
     }
 
     /**
