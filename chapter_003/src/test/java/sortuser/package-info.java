@@ -1,5 +1,5 @@
 /**
- * User, SortUser, CompNameAndAge, CompNameUser.
+ * SortUserTest.
  *
  * @author Maxim Vanny.
  * @version 2.0
