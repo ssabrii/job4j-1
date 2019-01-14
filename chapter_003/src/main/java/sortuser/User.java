@@ -7,7 +7,7 @@ package sortuser;
  * @version 2.0
  * @since 0.1
  */
-public class User implements Comparable {
+public class User implements Comparable<User> {
     /**
      * the field of name user.
      */
@@ -37,8 +37,8 @@ public class User implements Comparable {
      * @return result by int
      */
     @Override
-    public final int compareTo(final Object o) {
-        return this.age - ((User) o).age;
+    public final int compareTo(final User o) {
+        return this.age - o.age;
     }
 
     /**
@@ -60,3 +60,4 @@ public class User implements Comparable {
                 '}';
     }
 }
+
