@@ -1,5 +1,6 @@
 package sortuser;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -28,7 +29,14 @@ public class SortUser {
      * @return the list of users sorts by the length of name
      */
     public final List<User> sortNameLength(final List<User> list) {
-        list.sort(new CompNameUser());
+        list.sort(new Comparator<User>() {
+            @Override
+            public final int compare(final User o1, final User o2) {
+                int name1 = o1.getName().toCharArray().length;
+                int name2 = o2.getName().toCharArray().length;
+                return name1 - name2;
+            }
+        });
         return list;
     }
 
@@ -39,7 +47,23 @@ public class SortUser {
      * @return the list of users sorts by name and age
      */
     public final List<User> sortByAllFields(final List<User> list) {
-        list.sort(new CompNameAndAge());
+        list.sort(new Comparator<User>() {
+            @Override
+            public final int compare(final User o1, final User o2) {
+
+                String name1 = o1.getName();
+                String name2 = o2.getName();
+                int sComp = name1.compareTo(name2);
+
+                if (sComp != 0) {
+                    return sComp;
+                } else {
+                    Integer age1 = o1.getAge();
+                    Integer age2 = o2.getAge();
+                    return age1.compareTo(age2);
+                }
+            }
+        });
         return list;
     }
 }
