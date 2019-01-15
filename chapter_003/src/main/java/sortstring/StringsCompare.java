@@ -23,15 +23,22 @@ public class StringsCompare implements Comparator<String> {
         char[] one = left.toCharArray();
         char[] two = right.toCharArray();
         int result = 0;
-        if (one.length != two.length) {
-            result = Integer.compare(one.length, two.length);
-        } else {
-            for (int index = 0; index < one.length; index++) {
-                if (one[index] != two[index]) {
-                    result = Character.compare(one[index], two[index]);
-                    return result;
+        for (int index = 1; index < ((one.length + two.length) / 2) + 1; index++) {
+            if ((one[index - 1] != two[index - 1])) {
+                if (index - 1 == one.length) {
+                    result = 1;
+                    break;
                 }
+                if (index - 1 == two.length) {
+                    result = -1;
+                    break;
+                }
+                result = Character.compare(one[index - 1], two[index - 1]);
+                break;
+            } else {
+                result = Integer.compare(one.length, two.length);
             }
+
         }
         return result;
     }
