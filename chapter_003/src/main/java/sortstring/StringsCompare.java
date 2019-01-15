@@ -17,9 +17,31 @@ public class StringsCompare implements Comparator<String> {
      * @param right second string
      * @return result
      */
-
     @Override
-    public final int compare(final String left, final String right) {
+    public int compare(String left, String right) {
+        int length = left.length();
+        int length1 = right.length();
+        int result = length - length1;
+        int min = Math.min(length, length1);
+        for (int i = 0; i < min; i++) {
+            int r = Character.compare(left.charAt(i), right.charAt(i));
+            if (r != 0) {
+                result = r;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Method compare string by length and character.
+     * Bad.
+     *
+     * @param left  first string
+     * @param right second string
+     * @return result
+     */
+    public final int compareMy(final String left, final String right) {
         char[] one = left.toCharArray();
         char[] two = right.toCharArray();
         int result = 0;
