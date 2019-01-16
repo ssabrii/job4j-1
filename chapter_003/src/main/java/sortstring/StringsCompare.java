@@ -19,7 +19,9 @@ public class StringsCompare implements Comparator<String> {
      */
     @Override
     public int compare(String left, String right) {
-        int length = left.length();
+   /*твой код. он рабочий.
+   **************************************************
+       int length = left.length();
         int length1 = right.length();
         int result = length - length1;
         int min = Math.min(length, length1);
@@ -31,7 +33,38 @@ public class StringsCompare implements Comparator<String> {
             }
         }
         return result;
+        }
+       ******************************************** */
+
+        // решил переделать как у тебя.
+        //но не проходит тесты по какой то неизвестной мне причине.
+        char[] one = left.toCharArray();
+        char[] two = right.toCharArray();
+        int result = one.length - two.length;
+        int min = Math.min(one.length, two.length);
+        for (int i = 0; i < min; i++) {
+            /*
+            ************************************************************
+           // такой код работает.
+                 if (one[i] != two[i]) {
+                    result = Character.compare(one[i], two[i]);
+                    return result;
+                }
+             //
+             ***********************************************/
+      /*
+     вот этот вариант скопировал у тебя. но он почему то не проходит у меня тесты.
+     подскажи в чём причина???
+       */
+            int r = Character.compare(one[i], two[i]);
+            if (result != 0) {
+                result = r;
+                break;
+            }
+        }
+        return result;
     }
+
 
     /**
      * Method compare string by length and character.
