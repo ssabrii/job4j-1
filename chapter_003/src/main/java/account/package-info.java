@@ -1,5 +1,7 @@
 /**
- * Bank, User, Account, Convert, Sorter, LimitMoneyException.
+ * Bank, User, Account, Convert, Sorter.
+ * LimitMoneyException, ExistStorageException.
+ * NotExistStorageException, NotExistAccountException.
  *
  * @author Maxim Vanny.
  * @version 2.0
