@@ -49,7 +49,7 @@ public class StringsCompare implements Comparator<String> {
      * @return result
      */
     @Override
-    public int compare(String left, String right) {
+    public final int compare(final String left, final String right) {
         int length = left.length();
         int length1 = right.length();
         int result = length - length1;
