@@ -1,7 +1,7 @@
 package account;
 
 /**
- * LimitMoneyOfAccountException.
+ * LimitMoneyException.
  *
  * @author Maxim Vanny.
  * @version 3.0
