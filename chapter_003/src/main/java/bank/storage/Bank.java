@@ -78,15 +78,13 @@ public class Bank {
             throws NotExistAccountException {
         Objects.requireNonNull(passport, "passport must not be null");
         Objects.requireNonNull(account, "account must not be null");
-        for (Map.Entry<User, List<Account>> entry : this.map.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                if (entry.getValue().contains(account)) {
-                    entry.getValue().remove(account);
-                    return;
-                } else {
-                    throw new NotExistAccountException("account is't in storage");
-                }
+        final List<Account> userAccounts = getUserAccounts(passport);
+        if (!userAccounts.isEmpty()) {
+            if (!userAccounts.remove(account)) {
+                throw new NotExistAccountException("account is't in storage");
             }
+        } else {
+            System.out.println("Storage is empty.");
         }
     }
 
@@ -102,15 +100,11 @@ public class Bank {
             throws ExistAccountException {
         Objects.requireNonNull(passport, "passport must not be null");
         Objects.requireNonNull(account, "account must not be null");
-        for (Map.Entry<User, List<Account>> entry : this.map.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                if (!entry.getValue().contains(account)) {
-                    entry.getValue().add(account);
-                    return;
-                } else {
-                    throw new ExistAccountException("account is in storage");
-                }
-            }
+        final List<Account> userAccounts = getUserAccounts(passport);
+        if (!userAccounts.contains(account)) {
+            userAccounts.add(account);
+        } else {
+            throw new ExistAccountException("account is in storage");
         }
     }
 
@@ -148,20 +142,14 @@ public class Bank {
         Objects.requireNonNull(dstPass, "passport must not be null");
         Objects.requireNonNull(srcReq, "requisite must not be null");
         Objects.requireNonNull(dstReq, "requisite must not be null");
-        if (!this.map.isEmpty()) {
-            try {
-                final int ndxSrs = this.getIndexAccount(srcPass, srcReq);
-                final int ndxDst = this.getIndexAccount(dstPass, dstReq);
-                final Account one = getUserAccounts(srcPass).get(ndxSrs);
-                final Account two = getUserAccounts(dstPass).get(ndxDst);
-                one.transfer(two, amount);
-            } catch (LimitMoneyException lme) {
-                System.out.println("Limit out. Check balance.");
-            } catch (NotExistAccountException nae) {
-                System.out.println("Account is't in storage.");
-            }
-        } else {
-            System.out.println("Storage is empty.");
+        try {
+            Account resource = getUserAccount(srcPass, srcReq);
+            Account target = getUserAccount(dstPass, dstReq);
+            resource.transfer(target, amount);
+        } catch (LimitMoneyException lme) {
+            System.out.println("Limit out. Check balance.");
+        } catch (NotExistAccountException nae) {
+            System.out.println("Account is't in storage.");
         }
     }
 
@@ -173,22 +161,21 @@ public class Bank {
      * @return the index in storage
      * @throws NotExistAccountException account is't storage
      */
-    protected final int getIndexAccount(final String passport, final String requisite)
+    protected final Account getUserAccount(final String passport, final String requisite)
             throws NotExistAccountException {
-        int ndx = -1;
-        for (Map.Entry<User, List<Account>> entry : this.map.entrySet()) {
-            if (entry.getKey().getPassport().equals(passport)) {
-                for (Account account : entry.getValue()) {
-                    if (account.getRequisites().equals(requisite)) {
-                        ndx = entry.getValue().indexOf(account);
-                        break;
-                    }
+        Account account = null;
+        final List<Account> userAccounts = getUserAccounts(passport);
+        if (!userAccounts.isEmpty()) {
+            for (Account dst : userAccounts) {
+                if (dst.getRequisites().equals(requisite)) {
+                    account = dst;
+                    break;
                 }
             }
         }
-        if (ndx == -1) {
+        if (account == null) {
             throw new NotExistAccountException("account is't in storage.");
         }
-        return ndx;
+        return account;
     }
 }

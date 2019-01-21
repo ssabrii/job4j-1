@@ -82,16 +82,33 @@ public class BankTest {
 
     @Test
     public void whenDeleteAccountFromUserOK() throws Exception {
+        Account aHomeland2 = new Account(200D, "H11");
+        bank.addAccountToUser("AI-111", aHomeland2);
         bank.deleteAccountFromUser("AI-111", aHomeland);
         List<Account> result = bank.getUserAccounts("AI-111");
-        List<Account> expected = new ArrayList<>();
-        assertThat(result, is(expected));
+        List<Account> expected = new ArrayList<>(
+                Collections.singletonList(
+                        new Account(200D, "H11")));
+        assertThat(result.toString(), is(expected.toString()));
     }
 
     @Test(expected = NotExistAccountException.class)
     public void whenDeleteAccountFromUserFall() throws Exception {
+        Account aHomeland3 = new Account(300D, "H99");
+        bank.deleteAccountFromUser("AI-111", aHomeland3);
+    }
+
+    @Test
+    public void whenDeleteAccountAndEmptyStorageFall() throws Exception {
+        ByteArrayOutputStream bos = systemChangeStream();
         bank.deleteAccountFromUser("AI-111", aHomeland);
         bank.deleteAccountFromUser("AI-111", aHomeland);
+        assertThat(new String(bos.toByteArray()), is(new StringBuilder("Storage ")
+                .append("is empty.")
+                .append(System.lineSeparator())
+                .toString()
+        ));
+        System.setOut(System.out);
     }
 
     @Test
@@ -109,9 +126,7 @@ public class BankTest {
 
     @Test(expected = ExistAccountException.class)
     public void whenAddAccountToUserFall() throws Exception {
-        Account aHomeland2 = new Account(200D, "H11");
-        bank.addAccountToUser("AI-111", aHomeland2);
-        bank.addAccountToUser("AI-111", aHomeland2);
+        bank.addAccountToUser("AI-111", aHomeland);
     }
 
     @Test
@@ -132,19 +147,17 @@ public class BankTest {
     }
 
     @Test
-    public void whenTransferMoneyOK() {
+    public void whenTransferMoneyOK() throws NotExistAccountException {
         bank.transferMoney("AI-111", "H01",
                 "AI-222", "C02", 50D);
-        List<Account> listHome = bank.getUserAccounts("AI-111");
-        int idxH = listHome.indexOf(aHomeland);
-        double resHome = bank.getUserAccounts("AI-111").get(idxH).getValue();
-        double excHome = 50D;
-        List<Account> listCarry = bank.getUserAccounts("AI-222");
-        int idxC = listCarry.indexOf(aCarry);
-        double resCarry = bank.getUserAccounts("AI-222").get(idxC).getValue();
-        double exCarry = 150D;
-        assertThat(resHome, is(excHome));
-        assertThat(resCarry, is(exCarry));
+        Account oHome = bank.getUserAccount("AI-111", "H01");
+        Account oCarry = bank.getUserAccount("AI-222", "C02");
+        double resHome = oHome.getValue();
+        double resCarry = oCarry.getValue();
+        double expHome = 50D;
+        double expCarry = 150D;
+        assertThat(resHome, is(expHome));
+        assertThat(resCarry, is(expCarry));
     }
 
     @Test
@@ -195,8 +208,8 @@ public class BankTest {
         bank.transferMoney("AI-111", "H01",
                 "AI-000", "C02", 5D);
         assertThat(new String(bos.toByteArray()), is(
-                new StringBuilder("Storage ")
-                        .append("is empty.")
+                new StringBuilder("Account ")
+                        .append("is't in storage.")
                         .append(System.lineSeparator())
                         .toString()));
         System.setOut(System.out);
@@ -204,19 +217,19 @@ public class BankTest {
 
     @Test
     public void getIndexOk() throws NotExistAccountException {
-        final int result = bank.getIndexAccount("AI-111", "H01");
-        final int expected = 0;
-        assertThat(result, is(expected));
+        Account result = bank.getUserAccount("AI-111", "H01");
+        Account expected = new Account(100D, "H01");
+        assertThat(result.toString(), is(expected.toString()));
     }
 
     @Test(expected = NotExistAccountException.class)
     public void getIndexPassFall() throws NotExistAccountException {
-        bank.getIndexAccount("AI-000", "H01");
+        bank.getUserAccount("AI-000", "H01");
     }
 
     @Test(expected = NotExistAccountException.class)
     public void getIndexRequisiteFall() throws NotExistAccountException {
-        bank.getIndexAccount("AI-111", "H05");
+        bank.getUserAccount("AI-111", "H05");
     }
 
     private ByteArrayOutputStream systemChangeStream() {
