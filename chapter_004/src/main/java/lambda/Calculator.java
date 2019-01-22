@@ -1,5 +1,8 @@
 package lambda;
 
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+
 /**
  * Calculator.
  *
@@ -28,14 +31,16 @@ public class Calculator {
      * @param start  the start border of diapason
      * @param finish the finish border of diapason
      * @param value  value
-     * @param op     lint to interface
+     * @param op     link to interface
+     * @param media  link to interface
      */
-    public final void multiple(final int start, final int finish,
-                               final int value, final Operation op) {
+    public final void multiple(final int start,
+                               final int finish,
+                               final int value,
+                               final BiFunction<Integer, Integer, Double> op,
+                               final Consumer<Double> media) {
         for (int index = start; index != finish; index++) {
-            System.out.println(
-                    op.calc(value, index)
-            );
+            media.accept(op.apply(value, index));
         }
     }
 
@@ -48,15 +53,15 @@ public class Calculator {
         final Calculator calc = new Calculator();
         final int start = 0;
         final int finish = 10;
-        final int value = 2;
-        calc.multiple(
-                start, finish, value,
-                new Operation() {
-                    @Override
-                    public final double calc(final int left, final int right) {
-                        return left * right;
-                    }
-                }
+        final int amount = 2;
+        calc.multiple(start, finish, amount,
+                (value, index) -> {
+                    double result = value * index;
+                    System.out.printf("Multiple %s * %s = %s %n",
+                            value, index, result);
+                    return result;
+                },
+                result -> System.out.println(result)
         );
     }
 }
