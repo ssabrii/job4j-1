@@ -1,6 +1,7 @@
 /**
 
- * Calculator.
+ * Calculator, MathUtil.
+ * UserConvert.
  *
  * @author Maxim Vanny.
  * @version 4.0

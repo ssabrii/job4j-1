@@ -11,19 +11,6 @@ import java.util.function.Consumer;
  * @since 0.1
  */
 public class Calculator {
-    /**
-     * Interface.
-     */
-    public interface Operation {
-        /**
-         * SAM calc.
-         *
-         * @param left  value
-         * @param right value
-         * @return result
-         */
-        double calc(int left, int right);
-    }
 
     /**
      * Multiply.
@@ -55,12 +42,7 @@ public class Calculator {
         final int finish = 10;
         final int amount = 2;
         calc.multiple(start, finish, amount,
-                (value, index) -> {
-                    double result = value * index;
-                    System.out.printf("Multiple %s * %s = %s %n",
-                            value, index, result);
-                    return result;
-                },
+                MathUtil::add,
                 System.out::println
         );
     }
