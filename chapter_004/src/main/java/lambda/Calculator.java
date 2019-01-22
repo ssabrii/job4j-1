@@ -61,7 +61,7 @@ public class Calculator {
                             value, index, result);
                     return result;
                 },
-                result -> System.out.println(result)
+                System.out::println
         );
     }
 }
