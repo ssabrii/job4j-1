@@ -43,8 +43,9 @@ public class UserConvert {
 
     /**
      * Method convert.
+     *
      * @param names names
-     * @param op interface Function
+     * @param op    interface Function
      * @return users
      */
     public final List<User> convert(final List<String> names,
@@ -57,14 +58,65 @@ public class UserConvert {
     }
 
     /**
-     * Point enter to program.
-     * @param args strings array args
+     * BadMethod.
+     *
+     * @throws Exception Exception
      */
-    public static void main(final String[] args) {
+    public static void badMethod() throws Exception {
+    }
+
+    /**
+     * Wrapper.
+     *
+     * @param <T> any type
+     */
+    public interface Wrapper<T> {
+        /**
+         * get.
+         *
+         * @return get
+         */
+        T get();
+
+        /**
+         * set.
+         *
+         * @param value value
+         */
+        void set(T value);
+
+        /**
+         * isEmpty.
+         *
+         * @return result
+         */
+        boolean isEmpty();
+    }
+
+    /**
+     * Point enter to program.
+     *
+     * @param args strings array args
+     * @throws Exception exception
+     */
+    public static void main(final String[] args) throws Exception {
         List<String> names = Arrays.asList("Petr", "Nick", "Ban");
         UserConvert users = new UserConvert();
         List<User> data = users.convert(names, User::new);
         data.forEach(System.out::println);
+        Wrapper<Exception> ex = null;
+        names.forEach(
+                n -> {
+                    try {
+                        badMethod();
+                    } catch (Exception e) {
+                        ex.set(e);
+                    }
+                }
+        );
+        if (!ex.isEmpty()) {
+            throw ex.get();
+        }
 
     }
 }
