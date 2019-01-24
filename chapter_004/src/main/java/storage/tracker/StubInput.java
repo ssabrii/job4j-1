@@ -8,7 +8,6 @@ package storage.tracker;
  * @version 4.0
  * @since 0.1
  */
-@SuppressWarnings("Duplicates")
 public class StubInput implements Input {
     /**
      * Это поле содержит последовательность ответов пользователя.

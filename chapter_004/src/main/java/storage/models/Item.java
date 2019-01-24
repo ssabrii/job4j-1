@@ -8,7 +8,6 @@ package storage.models;
  * @version 4.0
  * @since 0.1
  */
-@SuppressWarnings("Duplicates")
 public class Item {
     /**
      * уникальный ключ заявки.

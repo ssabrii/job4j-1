@@ -10,7 +10,6 @@ import java.util.Scanner;
  * @version 4.0
  * @since 0.1
  */
-@SuppressWarnings("Duplicates")
 public class ConsoleInput implements Input {
     /**
      * получение данных от пользователя с консоли.

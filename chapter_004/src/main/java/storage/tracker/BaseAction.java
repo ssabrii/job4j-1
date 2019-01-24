@@ -8,7 +8,6 @@ package storage.tracker;
  * @version 4.0
  * @since 0.1
  */
-@SuppressWarnings("Duplicates")
 public abstract class BaseAction implements UserAction {
     /**
      * The key of menu.

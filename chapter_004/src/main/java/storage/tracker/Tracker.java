@@ -92,9 +92,9 @@ public class Tracker {
      */
     public final List<Item> findByName(final String key) {
         List<Item> picker = new ArrayList<>();
-        for (int index = 0; index < this.items.size(); index++) {
-            if (key.equals(this.items.get(index).getName())) {
-                picker.add(this.items.get(index));
+        for (Item item : this.items) {
+            if (key.equals(item.getName())) {
+                picker.add(item);
             }
         }
         return picker;
@@ -108,9 +108,9 @@ public class Tracker {
      */
     public final Item findById(final String id) {
         Item seeker = null;
-        for (int index = 0; index < this.items.size(); index++) {
-            if (id.equals(this.items.get(index).getId())) {
-                seeker = this.items.get(index);
+        for (Item item : this.items) {
+            if (id.equals(item.getId())) {
+                seeker = item;
                 break;
             }
         }

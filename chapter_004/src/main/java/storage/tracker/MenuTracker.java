@@ -129,11 +129,8 @@ public class MenuTracker {
             String name = pInput.ask("Введите имя заявки: ");
             String desc = pInput.ask("Введите описание заявки: ");
             Item item = new Item(name, desc);
-            if (pTracker.add(item) == null) {
-                System.out.println("Заявка не добавлена. Хранилище полное.");
-            } else {
-                System.out.println("----- Новая заявка ID: " + item.getId());
-            }
+            pTracker.add(item);
+            System.out.println("----- Новая заявка ID: " + item.getId());
         }
     }
 
