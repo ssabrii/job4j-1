@@ -11,17 +11,21 @@ import storage.tracker.ValidateInput;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 /**
+ * * StorageTest.
  * StartTest.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
 public class StartUITest {
@@ -86,10 +90,7 @@ public class StartUITest {
      */
     @After
     public void cleanItems() {
-        Item[] items = tracker.findAll();
-        for (Item item : items) {
-            tracker.delete(item.getId());
-        }
+        Collections.fill(tracker.findAll(), null);
         System.setOut(new PrintStream(stdout));
     }
 
@@ -104,7 +105,7 @@ public class StartUITest {
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
                         .append(showCarte())
-                        .append(Arrays.toString(tracker.findAll()))
+                        .append(tracker.findAll())
                         .append(ls)
                         .append(showCarte())
                         .toString()
@@ -120,7 +121,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameNameOK() {
         input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
         start();
-        assertThat(tracker.findAll()[4].getName(), is("test5"));
+        assertThat(tracker.findAll().get(4).getName(), is("test5"));
     }
 
     /**
@@ -153,32 +154,8 @@ public class StartUITest {
                         .append(showCarte())
                         .append("--------- Добавление новой заявки -----------")
                         .append(ls)
-                        .append("----- Новая заявка с ID: ")
-                        .append(tracker.findAll()[4].getId())
-                        .append("----")
-                        .append(ls)
-                        .append(showCarte())
-                        .toString()
-                )
-        );
-    }
-
-    /**
-     * метод тестирует отображение отрицательного добавления заявки в хранилище.
-     */
-    @Test
-    public void whenUserAddItemThenTrackerHasNewItemWithSameNamePrintFall() {
-        for (int i = 0; i < 100; i++) {
-            tracker.add(new Item("testX", "descX"));
-        }
-        input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
-        start();
-        assertThat(new String(out.toByteArray()),
-                is(new StringBuilder()
-                        .append(showCarte())
-                        .append("--------- Добавление новой заявки -----------")
-                        .append(ls)
-                        .append("Заявка не добавлена. Хранилище полное.")
+                        .append("----- Новая заявка ID: ")
+                        .append(tracker.findAll().get(4).getId())
                         .append(ls)
                         .append(showCarte())
                         .toString()
@@ -199,9 +176,8 @@ public class StartUITest {
                         .append(showCarte())
                         .append("--------- Добавление новой заявки -----------")
                         .append(ls)
-                        .append("----- Новая заявка с ID: ")
-                        .append(tracker.findAll()[4].getId())
-                        .append("----")
+                        .append("----- Новая заявка ID: ")
+                        .append(tracker.findAll().get(4).getId())
                         .append(ls)
                         .append(showCarte())
                         .toString()
@@ -214,10 +190,12 @@ public class StartUITest {
      */
     @Test
     public void whenUpdateThenTrackerHasUpdatedValueOK() {
-        String id = tracker.findAll()[0].getId();
+        System.out.println(tracker.findAll());
+        String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
-        assertThat(tracker.findById(id).getName(), is("test replace"));
+        String expected = tracker.findById(id).getName();
+        assertThat(expected, is("test replace"));
     }
 
     /**
@@ -258,7 +236,7 @@ public class StartUITest {
      */
     @Test
     public void whenUpdateThenTrackerHasUpdatedValueAndPrintOK() {
-        String id = tracker.findAll()[0].getId();
+        String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
         assertThat(new String(out.toByteArray()),
@@ -279,10 +257,10 @@ public class StartUITest {
      */
     @Test
     public void whenFindByID() {
-        String id = tracker.findAll()[0].getId();
+        String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"4", id, "6"}));
         start();
-        assertThat(tracker.findAll()[0].getName(), is("test1"));
+        assertThat(tracker.findAll().get(0).getName(), is("test1"));
     }
 
     /**
@@ -301,13 +279,13 @@ public class StartUITest {
      */
     @Test
     public void whenFindByIDAndPrintOK() {
-        String id = tracker.findAll()[0].getId();
+        String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"4", id, "6"}));
         start();
         assertThat(new String(out.toByteArray()),
                 is(new StringBuilder()
                         .append(showCarte())
-                        .append(tracker.findAll()[0])
+                        .append(tracker.findAll().get(0))
                         .append(ls)
                         .append(showCarte())
                         .toString()
@@ -339,10 +317,10 @@ public class StartUITest {
      */
     @Test
     public void whenFindByName() {
-        Item item1 = tracker.findAll()[2];
-        Item item2 = tracker.findAll()[3];
+        Item item1 = tracker.findAll().get(2);
+        Item item2 = tracker.findAll().get(3);
         String name = item2.getName();
-        Item[] expected = {item1, item2};
+        List<Item> expected = new ArrayList<>(Arrays.asList(item1, item2));
         input = new ValidateInput(new StubInput(new String[]{"5", name, "6"}));
         start();
         assertThat(tracker.findByName(name), is(expected));
@@ -355,7 +333,7 @@ public class StartUITest {
     public void whenFindByNameFall() {
         String name = "test6";
         input = new ValidateInput(new StubInput(new String[]{"5", name, "6"}));
-        Item[] expected = {};
+        List<Item> expected = new ArrayList<>();
         start();
         assertThat(tracker.findByName(name), is(expected));
     }
@@ -372,9 +350,9 @@ public class StartUITest {
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("[")
-                        .append(tracker.findAll()[2])
+                        .append(tracker.findAll().get(2))
                         .append(", ")
-                        .append(tracker.findAll()[3])
+                        .append(tracker.findAll().get(3))
                         .append("]")
                         .append(ls)
                         .append(showCarte())
@@ -407,11 +385,11 @@ public class StartUITest {
      */
     @Test
     public void whenDeleteItemFromItemsOK() {
-        String id = tracker.findAll()[0].getId();
+        String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"3", id, "6"}));
         start();
-        assertThat(tracker.findAll()[0].getName(), is("test2"));
-        assertThat(tracker.findAll().length, is(3));
+        assertThat(tracker.findAll().get(0).getName(), is("test2"));
+        assertThat(tracker.findAll().size(), is(3));
         assertNull(tracker.findById(id));
     }
 
@@ -423,7 +401,7 @@ public class StartUITest {
         String id = "1234567890";
         input = new StubInput(new String[]{"3", id, "6"});
         start();
-        assertThat(tracker.findAll().length, is(4));
+        assertThat(tracker.findAll().size(), is(4));
     }
 
     /**
@@ -431,7 +409,7 @@ public class StartUITest {
      */
     @Test
     public void whenDeleteItemFromItemsAndPrintOK() {
-        String id = tracker.findAll()[0].getId();
+        String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"3", id, "6"}));
         start();
         assertThat(new String(out.toByteArray()),

@@ -12,18 +12,19 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
+ * * StorageTest
  * ValidateInputTest.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
 
 public class ValidateInputTest {
     private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
     private final PrintStream out = System.out;
-    private Input input;
     private final String ls = System.lineSeparator();
+    private Input input;
 
     @Before
     public void setBos() {
