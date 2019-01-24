@@ -1,7 +1,10 @@
 package lambda;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Calculator.
@@ -32,6 +35,24 @@ public class Calculator {
     }
 
     /**
+     * Method count function in diapason.
+     *
+     * @param start start diapason
+     * @param end   end diapason
+     * @param func  function
+     * @return list diapason
+     */
+    public final List<Double> diapason(final int start, final int end,
+                                       final Function<Double, Double> func) {
+        final List<Double> result = new ArrayList<>();
+        for (double index = start; index != end; index++) {
+            result.add(func.apply(index));
+        }
+        return result;
+    }
+
+
+    /**
      * Enter to program.
      *
      * @param args string array args
@@ -39,11 +60,13 @@ public class Calculator {
     public static void main(final String[] args) {
         final Calculator calc = new Calculator();
         final int start = 0;
-        final int finish = 10;
+        final int finish = 4;
         final int amount = 2;
         calc.multiple(start, finish, amount,
                 MathUtil::add,
                 System.out::println
         );
+        calc.diapason(start, finish,
+                MathUtil::addLinear);
     }
 }
