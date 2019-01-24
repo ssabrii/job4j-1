@@ -5,6 +5,7 @@ import storage.start.StartUI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * * Storage.
@@ -25,6 +26,10 @@ public class MenuTracker {
      */
     private final Tracker tracker;
     /**
+     * Consumer вывод данных.
+     */
+    private Consumer<String> output;
+    /**
      * Сылка на список типа UserAction.
      */
     private final List<UserAction> actions = new ArrayList<>();
@@ -35,9 +40,11 @@ public class MenuTracker {
      * @param aInput   объект типа Input
      * @param aTracker объект типа Tracker
      */
-    public MenuTracker(final Input aInput, final Tracker aTracker) {
+    public MenuTracker(final Input aInput, final Tracker aTracker,
+                       final Consumer<String> aOutput) {
         this.input = aInput;
         this.tracker = aTracker;
+        this.output = aOutput;
     }
 
     /**
@@ -157,7 +164,10 @@ public class MenuTracker {
         @Override
         public final void execute(final Input pInput, final Tracker pTracker) {
 
-            System.out.println(tracker.findAll());
+            for (Item item : tracker.findAll()) {
+                output.accept(String.format("Name: %s| Desc: %s| Id: %s",
+                        item.getName(), item.getDescription(), item.getId()));
+            }
         }
     }
 

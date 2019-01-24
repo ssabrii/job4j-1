@@ -1,9 +1,13 @@
 package storage.start;
 
 
+import storage.tracker.ConsoleInput;
 import storage.tracker.Input;
 import storage.tracker.MenuTracker;
 import storage.tracker.Tracker;
+import storage.tracker.ValidateInput;
+
+import java.util.function.Consumer;
 
 /**
  * * Storage.
@@ -23,6 +27,10 @@ public class StartUI {
      */
     private final Tracker tracker;
     /**
+     * Consumer вывод данных.
+     */
+    private final Consumer<String> output;
+    /**
      * Флаг выхода.
      */
     private boolean exit;
@@ -33,9 +41,12 @@ public class StartUI {
      * @param aInput   ввод данных.
      * @param aTracker хранилище заявок.
      */
-    public StartUI(final Input aInput, final Tracker aTracker) {
+    public StartUI(final Input aInput,
+                   final Tracker aTracker,
+                   final Consumer<String> aOutput) {
         this.input = aInput;
         this.tracker = aTracker;
+        this.output = aOutput;
     }
 
     /**
@@ -49,7 +60,8 @@ public class StartUI {
      * Основой цикл программы.
      */
     public final void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(
+                this.input, this.tracker, this.output);
         menu.fillActions(this);
         int[] range = menu.fillMenu(menu.getActionsSize());
         do {
@@ -57,6 +69,10 @@ public class StartUI {
             menu.select(input.ask("Введите пункт Carte: ", range));
 
         } while (!exit);
+    }
+
+    public static void main(final String[] args) {
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
     }
 }
 
