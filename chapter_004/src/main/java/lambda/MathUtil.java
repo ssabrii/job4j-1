@@ -7,6 +7,7 @@ package lambda;
  * @version 4.0
  * @since 0.1
  */
+@SuppressWarnings("ALL")
 public final class MathUtil {
     /**
      * Constructor.
