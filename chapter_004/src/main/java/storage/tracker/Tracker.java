@@ -2,28 +2,25 @@ package storage.tracker;
 
 import storage.models.Item;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 /**
+ * * Storage.
  * Tracker.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
+@SuppressWarnings("Duplicates")
 public class Tracker {
     /**
-     * Количество элементов массива.
+     * Динамический массив для хранение заявок.
      */
-    private final int index = 100;
-    /**
-     * Массив для хранение заявок.
-     */
-    private final Item[] items = new Item[this.index];
-    /**
-     * Указатель ячейки для новой заявки.
-     */
-    private int position = 0;
+    private final List<Item> items = new ArrayList<>();
 
     /**
      * Метод реализущий добавление заявки в хранилище.
@@ -31,14 +28,11 @@ public class Tracker {
      * @param item новая заявка.
      * @return возвращает добавленную заявку
      */
-    public Item add(Item item) {
-        Item seeker = null;
-        if (position < this.items.length - 1) {
-            item.setId(this.generateId());
-            this.items[this.position++] = item;
-            seeker = item;
-        }
-        return seeker;
+    public final Item add(final Item item) {
+        Objects.requireNonNull(item, "must be not null");
+        item.setId(this.generateId());
+        this.items.add(item);
+        return item;
     }
 
     /**
@@ -48,12 +42,13 @@ public class Tracker {
      * @param item новая заявка для замены.
      * @return check статус выполнения метода.
      */
-    public boolean replace(String id, Item item) {
+    public final boolean replace(final String id, final Item item) {
         boolean check = false;
-        for (int i = 0; i < this.position; i++) {
-            if (id.equals(this.items[i].getId())) {
-                item.setId(id);
-                this.items[i] = item;
+        for (int index = 0; index < this.items.size(); index++) {
+            String seek = this.items.get(index).getId();
+            item.setId(id);
+            if (id.equals(seek)) {
+                this.items.set(index, item);
                 check = true;
                 break;
             }
@@ -67,12 +62,12 @@ public class Tracker {
      * @param id уникальный номер заявки.
      * @return возвращает статус выполнения метода.
      */
-    public boolean delete(String id) {
+    public final boolean delete(final String id) {
         boolean check = false;
-        for (int i = 0; i < this.position; i++) {
-            if (id.equals(this.items[i].getId())) {
-                System.arraycopy(this.items, i + 1, this.items, i, this.position);
-                this.position--;
+        Iterator<Item> it = this.items.iterator();
+        while (it.hasNext()) {
+            if (id.equals(it.next().getId())) {
+                it.remove();
                 check = true;
                 break;
             }
@@ -81,12 +76,12 @@ public class Tracker {
     }
 
     /**
-     * Метод возвращающий все заявки из хранилище.
+     * Метод возвращающий все заявки из хранилища.
      *
      * @return Item[] массив заявок.
      */
-    public Item[] findAll() {
-        return Arrays.copyOfRange(this.items, 0, this.position);
+    public final List<Item> findAll() {
+        return this.items;
     }
 
     /**
@@ -95,16 +90,14 @@ public class Tracker {
      * @param key имя заявки.
      * @return item возвращает массив найденных заявок.
      */
-    public Item[] findByName(String key) {
-        Item[] seeker = new Item[this.index];
-        int count = 0;
-        for (int i = 0; i < this.position; i++) {
-            if (key.equals(this.items[i].getName())) {
-                seeker[count++] = this.items[i];
+    public final List<Item> findByName(final String key) {
+        List<Item> picker = new ArrayList<>();
+        for (int index = 0; index < this.items.size(); index++) {
+            if (key.equals(this.items.get(index).getName())) {
+                picker.add(this.items.get(index));
             }
         }
-        seeker = Arrays.copyOf(seeker, count);
-        return seeker;
+        return picker;
     }
 
     /**
@@ -113,11 +106,11 @@ public class Tracker {
      * @param id уникальный ключ заявки.
      * @return item возвращает найденую заявку.
      */
-    public Item findById(String id) {
+    public final Item findById(final String id) {
         Item seeker = null;
-        for (int i = 0; i < this.position; i++) {
-            if (id.equals(this.items[i].getId())) {
-                seeker = this.items[i];
+        for (int index = 0; index < this.items.size(); index++) {
+            if (id.equals(this.items.get(index).getId())) {
+                seeker = this.items.get(index);
                 break;
             }
         }

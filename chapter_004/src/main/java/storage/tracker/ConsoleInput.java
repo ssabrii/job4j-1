@@ -3,17 +3,19 @@ package storage.tracker;
 import java.util.Scanner;
 
 /**
+ * * Storage.
  * ConsoleInput.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
+@SuppressWarnings("Duplicates")
 public class ConsoleInput implements Input {
     /**
      * получение данных от пользователя с консоли.
      */
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * получение ответа на запрос.
@@ -22,7 +24,7 @@ public class ConsoleInput implements Input {
      * @return возвращает ответ пользователя на запрос.
      */
     @Override
-    public String ask(final String question) {
+    public final String ask(final String question) {
         System.out.println(question);
         return scanner.nextLine();
     }

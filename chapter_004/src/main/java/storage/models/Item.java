@@ -1,12 +1,14 @@
 package storage.models;
 
 /**
+ * * Storage.
  * Item.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
+@SuppressWarnings("Duplicates")
 public class Item {
     /**
      * уникальный ключ заявки.
@@ -28,25 +30,25 @@ public class Item {
     /**
      * констуртор заявки.
      *
-     * @param name        название заявки.
-     * @param description описание заявки.
-     * @param create      создание заявки.
+     * @param aName   название заявки.
+     * @param aDesc   описание заявки.
+     * @param aCreate создание заявки.
      */
-    public Item(String name, String description, long create) {
-        this.name = name;
-        this.description = description;
-        this.create = create;
+    public Item(final String aName, final String aDesc, final long aCreate) {
+        this.name = aName;
+        this.description = aDesc;
+        this.create = aCreate;
     }
 
     /**
      * констуртор заявки.
      *
-     * @param name        название заявки.
-     * @param description описание заявки.
+     * @param aName        название заявки.
+     * @param aDescription описание заявки.
      */
-    public Item(String name, String description) {
-        this.name = name;
-        this.description = description;
+    public Item(final String aName, final String aDescription) {
+        this.name = aName;
+        this.description = aDescription;
     }
 
     /**
@@ -54,7 +56,7 @@ public class Item {
      *
      * @return возвращает имя заявки.
      */
-    public String getName() {
+    public final String getName() {
         return this.name;
     }
 
@@ -63,7 +65,7 @@ public class Item {
      *
      * @return возвращает описание заявки.
      */
-    public String getDescription() {
+    public final String getDescription() {
         return this.description;
     }
 
@@ -72,26 +74,26 @@ public class Item {
      *
      * @return возращает создание заявки.
      */
-    public long getCreate() {
+    public final long getCreate() {
         return this.create;
     }
 
     /**
      * устанавливает создание заявки.
      *
-     * @param create создание заявки.
+     * @param aCreate создание заявки.
      */
-    public void setCreate(long create) {
-        this.create = create;
+    public final void setCreate(final long aCreate) {
+        this.create = aCreate;
     }
 
     /**
      * устанавливает уникальный ключ для заявки.
      *
-     * @param id уникальный ключ заявки.
+     * @param aId уникальный ключ заявки.
      */
-    public void setId(String id) {
-        this.id = id;
+    public final void setId(final String aId) {
+        this.id = aId;
     }
 
     /**
@@ -99,12 +101,17 @@ public class Item {
      *
      * @return уникальный ключ заявки.
      */
-    public String getId() {
+    public final String getId() {
         return id;
     }
 
+    /**
+     * Method toString.
+     *
+     * @return string mapping object
+     */
     @Override
-    public String toString() {
+    public final String toString() {
         return '\n'
                 + "Заявка: id '"
                 + id

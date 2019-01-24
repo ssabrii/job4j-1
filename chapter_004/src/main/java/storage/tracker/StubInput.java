@@ -1,12 +1,14 @@
 package storage.tracker;
 
 /**
+ * * Storage.
  * Input for StartUITest.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
+@SuppressWarnings("Duplicates")
 public class StubInput implements Input {
     /**
      * Это поле содержит последовательность ответов пользователя.
@@ -28,22 +30,23 @@ public class StubInput implements Input {
     /**
      * Конструктор.
      *
-     * @param value массив ответов пользователя.
+     * @param aValue массив ответов пользователя.
      */
-    public StubInput(final String[] value) {
-        this.value = value;
+    public StubInput(final String[] aValue) {
+        this.value = aValue;
     }
 
     /**
      * Давайте рассмотрим, как работает этот метод.
      * у нас есть объект в котором содержатся заранее продуманные ответы.
-     * При последовательном вызове метода ask нам надо возвращать соответствующие данные.
+     * При последовательном вызове метода ask.
+     * нам надо возвращать соответствующие данные.
      * Как если бы мы симулировали поведение пользователя.
      * Для этого при каждом вызове метода ask мы увеличиваем счетчик и
      * при следующем вызове он вернет нам новое значение.
      */
     @Override
-    public String ask(final String question) {
+    public final String ask(final String question) {
         return this.value[this.position++];
     }
 

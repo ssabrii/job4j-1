@@ -3,12 +3,14 @@ package storage.tracker;
 import storage.exception.MenuOutException;
 
 /**
+ * * Storage.
  * Input.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
+@SuppressWarnings("Duplicates")
 public interface Input {
     /**
      * получение ответа на запрос.

@@ -3,12 +3,14 @@ package storage.tracker;
 import storage.exception.MenuOutException;
 
 /**
+ * * Storage.
  * ValidateConsoleInput.
  *
  * @author Maxim Vanny.
- * @version 2.0
+ * @version 4.0
  * @since 0.1
  */
+@SuppressWarnings("Duplicates")
 public class ValidateInput implements Input {
     /**
      * Интерфейс ввода.
@@ -18,10 +20,10 @@ public class ValidateInput implements Input {
     /**
      * Конструктор.
      *
-     * @param input интерфейс ввода.
+     * @param aInput интерфейс ввода.
      */
-    public ValidateInput(Input input) {
-        this.input = input;
+    public ValidateInput(final Input aInput) {
+        this.input = aInput;
     }
 
     /**
@@ -31,7 +33,7 @@ public class ValidateInput implements Input {
      * @return ответ пользователя.
      */
     @Override
-    public String ask(String question) {
+    public final String ask(final String question) {
         return input.ask(question);
     }
 
@@ -43,7 +45,7 @@ public class ValidateInput implements Input {
      * @return key menu.
      */
     @Override
-    public int ask(final String question, final int[] range) {
+    public final int ask(final String question, final int[] range) {
         boolean invalid = true;
         int value = -1;
         do {
