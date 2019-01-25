@@ -104,7 +104,7 @@ public class MenuTracker {
         System.out.println("-----------------------------------------------");
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.info());
+                output.accept(action.info());
             }
         }
     }
@@ -137,7 +137,7 @@ public class MenuTracker {
             String desc = pInput.ask("Введите описание заявки: ");
             Item item = new Item(name, desc);
             pTracker.add(item);
-            System.out.println("----- Новая заявка ID: " + item.getId());
+            output.accept("----- Новая заявка ID: " + item.getId());
         }
     }
 
@@ -197,9 +197,9 @@ public class MenuTracker {
             String name = pInput.ask("Введите имя заявки: ");
             String desc = pInput.ask("Введите описание заявки: ");
             if (!pTracker.replace(id, new Item(name, desc))) {
-                System.out.println("Заявка ID: " + id + " не обновлена.");
+                output.accept("Заявка ID: " + id + " не обновлена.");
             } else {
-                System.out.println("Заявка ID: " + id + " обновлена.");
+                output.accept("Заявка ID: " + id + " обновлена.");
             }
         }
     }
@@ -229,9 +229,9 @@ public class MenuTracker {
         public final void execute(final Input pInput, final Tracker pTracker) {
             String id = pInput.ask("Введите ID удаляемой заявки: ");
             if (!pTracker.delete(id)) {
-                System.out.println("Заявка не удалена. Уточните ID заявки.");
+                output.accept("Заявка не удалена. Уточните ID заявки.");
             } else {
-                System.out.println("Заявка " + id + " удалена.");
+                output.accept("Заявка " + id + " удалена.");
             }
         }
     }
@@ -261,9 +261,9 @@ public class MenuTracker {
             String id = pInput.ask("Поиск, введите ID заявки: ");
             Item byId = pTracker.findById(id);
             if (byId == null) {
-                System.out.println("Заявка не обнаружена. Уточните ID");
+                output.accept("Заявка не обнаружена. Уточните ID");
             } else {
-                System.out.println(byId);
+                output.accept(String.valueOf(byId));
             }
         }
     }
@@ -294,9 +294,9 @@ public class MenuTracker {
             String name = pInput.ask("Поиск, введите название заявки:");
             List<Item> byNames = pTracker.findByName(name);
             if (byNames.size() == 0) {
-                System.out.println("Заявка не обнаружена. Уточните название.");
+                output.accept("Заявка не обнаружена. Уточните название.");
             } else {
-                System.out.println(byNames);
+                output.accept(String.valueOf(byNames));
             }
         }
     }

@@ -7,6 +7,7 @@ import storage.start.StartUI;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.function.Consumer;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -24,6 +25,7 @@ public class ValidateInputTest {
     private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
     private final PrintStream out = System.out;
     private final String ls = System.lineSeparator();
+    private final Consumer<String> output = out::println;
     private Input input;
 
     @Before
@@ -69,7 +71,7 @@ public class ValidateInputTest {
     @Test
     public void whenInvalidInputNFE() {
         input = new ValidateInput(new StubInput(new String[]{"no", "6"}));
-        new StartUI(input, new Tracker()).init();
+        new StartUI(input, new Tracker(), output).init();
         assertThat(this.bos.toString(), is(new StringBuilder()
                         .append(showCarte())
                         .append("Введите корректные данные.")
@@ -82,7 +84,7 @@ public class ValidateInputTest {
     @Test
     public void whenInvalidInputOUT() {
         input = new ValidateInput(new StubInput(new String[]{"9", "6"}));
-        new StartUI(input, new Tracker()).init();
+        new StartUI(input, new Tracker(), output).init();
         assertThat(this.bos.toString(), is(new StringBuilder()
                         .append(showCarte())
                         .append("Выберите корректный пункт меню.")
@@ -95,11 +97,9 @@ public class ValidateInputTest {
     @Test
     public void whenValidInputOUT() {
         input = new ValidateInput(new StubInput(new String[]{"1", "6"}));
-        new StartUI(input, new Tracker()).init();
+        new StartUI(input, new Tracker(), output).init();
         assertThat(this.bos.toString(), is(new StringBuilder()
                         .append(showCarte())
-                        .append("[]")
-                        .append(ls)
                         .append(showCarte())
                         .toString()
                 )
