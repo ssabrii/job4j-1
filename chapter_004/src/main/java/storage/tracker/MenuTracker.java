@@ -39,6 +39,7 @@ public class MenuTracker {
      *
      * @param aInput   объект типа Input
      * @param aTracker объект типа Tracker
+     * @param aOutput способ вывода
      */
     public MenuTracker(final Input aInput, final Tracker aTracker,
                        final Consumer<String> aOutput) {
@@ -319,7 +320,8 @@ public class MenuTracker {
          * @param aName the name of menu.
          * @param aUi   the link to StartUI.
          */
-        public ExitProgram(final int aKey, final String aName, final StartUI aUi) {
+        public ExitProgram(final int aKey, final String aName,
+                           final StartUI aUi) {
             super(aKey, aName);
             this.ui = aUi;
         }
