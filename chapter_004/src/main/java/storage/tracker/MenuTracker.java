@@ -164,10 +164,12 @@ public class MenuTracker {
         @Override
         public final void execute(final Input pInput, final Tracker pTracker) {
 
-            for (Item item : tracker.findAll()) {
+          /*  for (Item item : tracker.findAll()) {
                 output.accept(String.format("Name: %s| Desc: %s| Id: %s",
                         item.getName(), item.getDescription(), item.getId()));
-            }
+            }*/
+            output.accept(tracker.findAll().toString());
+
         }
     }
 

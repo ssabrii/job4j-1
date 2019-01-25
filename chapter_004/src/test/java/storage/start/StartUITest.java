@@ -161,8 +161,17 @@ public class StartUITest {
         //она ничего не возвращает. как она может быть result в assertThat???
         // делаю по лекции но ничего не выходит.
         // не понятно как получить данные с консоли?
-        assertThat(this.output.toString(), is(expected));
-    }
+        //assertThat(this.output.toString(), is(expected));
+
+        assertThat(new String(bos.toByteArray()),
+                is(new StringBuilder()
+                        .append(showCarte())
+                        .append(tracker.findAll())
+                        .append(ls)
+                        .append(showCarte())
+                        .toString()
+                )
+        );    }
 
     /**
      * метод тестирует положительное добавление заявки в хранилище.
