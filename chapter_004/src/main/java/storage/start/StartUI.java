@@ -40,6 +40,7 @@ public class StartUI {
      *
      * @param aInput   ввод данных.
      * @param aTracker хранилище заявок.
+     * @param aOutput  способ вывода
      */
     public StartUI(final Input aInput,
                    final Tracker aTracker,
@@ -71,6 +72,11 @@ public class StartUI {
         } while (!exit);
     }
 
+    /**
+     * Точка входа в программу.
+     *
+     * @param args массив аргументов.
+     */
     public static void main(final String[] args) {
         new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
     }
