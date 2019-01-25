@@ -99,9 +99,9 @@ public class MenuTracker {
      * Метод выводит на экран меню.
      */
     public final void show() {
-        System.out.println("-----------------------------------------------");
-        System.out.println("Carte.");
-        System.out.println("-----------------------------------------------");
+        output.accept("-----------------------------------------------");
+        output.accept("Carte.");
+        output.accept("-----------------------------------------------");
         for (UserAction action : this.actions) {
             if (action != null) {
                 output.accept(action.info());
@@ -132,7 +132,7 @@ public class MenuTracker {
          */
         @Override
         public final void execute(final Input pInput, final Tracker pTracker) {
-            System.out.println("--------- Добавление новой заявки -----------");
+            output.accept("--------- Добавление новой заявки -----------");
             String name = pInput.ask("Введите имя заявки: ");
             String desc = pInput.ask("Введите описание заявки: ");
             Item item = new Item(name, desc);
