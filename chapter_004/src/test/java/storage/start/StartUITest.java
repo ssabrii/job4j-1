@@ -34,28 +34,18 @@ public class StartUITest {
     private Input input;
     private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
     private final PrintStream out = System.out;
+
     private final Consumer<String> output = new Consumer<String>() {
-        //установил вывод в buffer-bos.
         PrintStream stdout = new PrintStream(bos);
 
         @Override
-        // я добавил третий параметр в конструкторы StartUI и MenuTracker
-        // это сылка на интерфейс потока Вывода.
-        // добавил сылку на этот интерфейс в метод start в этом файле.
-        // в MenuTracker, ShowItems, execute() добавил output.accept()
-        // изменений в коде больше не делал.
-        // **************************
-        // accept(String s) именно в тестах. в этом файле.
-        // не пойму где и как этот метод проявляется?
-        // что такое 'String s'(в методе accept) и откуда берутся значения для неё?
-        // я этот метод в коде не вижу. как его использовать?
-        // все как то запутано, а лекция не обьсняет.
-        // мы использовали раньше буффер. он заменял нам вывод в консоль.
-        // а теперь мы поменяли  буффер опять на вывод в консоль?
         public void accept(final String s) {
-            //откуда 's' берёт реальные данные?
-            // не пойму как до кучи всё работает в тестах
             stdout.println(s);
+        }
+
+        @Override
+        public String toString() {
+            return new String(bos.toByteArray());
         }
     };
     private final String ls = System.lineSeparator();
@@ -126,52 +116,47 @@ public class StartUITest {
     public void whenShowsAllItemsInStorageAndPrint() {
         input = new ValidateInput(new StubInput(new String[]{"1", "6"}));
         start();
+        List<Item> catalog = tracker.findAll();
         String expected = new StringBuilder()
                 .append("Name: ")
-                .append(tracker.findAll().get(0).getName())
+                .append(catalog.get(0).getName())
                 .append("| Desc: ")
-                .append(tracker.findAll().get(0).getDescription())
+                .append(catalog.get(0).getDescription())
                 .append("| Id: ")
-                .append(tracker.findAll().get(0).getId())
+                .append(catalog.get(0).getId())
                 .append(ls)
                 .append("Name: ")
-                .append(tracker.findAll().get(1).getName())
+                .append(catalog.get(1).getName())
                 .append("| Desc: ")
-                .append(tracker.findAll().get(1).getDescription())
+                .append(catalog.get(1).getDescription())
                 .append("| Id: ")
-                .append(tracker.findAll().get(1).getId())
+                .append(catalog.get(1).getId())
                 .append(ls)
                 .append("Name: ")
-                .append(tracker.findAll().get(2).getName())
+                .append(catalog.get(2).getName())
                 .append("| Desc: ")
-                .append(tracker.findAll().get(2).getDescription())
+                .append(catalog.get(2).getDescription())
                 .append("| Id: ")
-                .append(tracker.findAll().get(2).getId())
+                .append(catalog.get(2).getId())
                 .append(ls)
                 .append("Name: ")
-                .append(tracker.findAll().get(3).getName())
+                .append(catalog.get(3).getName())
                 .append("| Desc: ")
-                .append(tracker.findAll().get(3).getDescription())
+                .append(catalog.get(3).getDescription())
                 .append("| Id: ")
-                .append(tracker.findAll().get(3).getId())
+                .append(catalog.get(3).getId())
                 .append(ls)
                 .toString();
 
-        //ничего не пойму . output это ссылка на интерфейс.
-        //она ничего не возвращает. как она может быть result в assertThat???
-        // делаю по лекции но ничего не выходит.
-        // не понятно как получить данные с консоли?
-        //assertThat(this.output.toString(), is(expected));
-
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
-                        .append(tracker.findAll())
-                        .append(ls)
+                        .append(expected)
                         .append(showCarte())
                         .toString()
                 )
-        );    }
+        );
+    }
 
     /**
      * метод тестирует положительное добавление заявки в хранилище.
@@ -208,7 +193,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameNamePrintOK() {
         input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("--------- Добавление новой заявки -----------")
@@ -230,7 +215,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameNameAndPrintOK() {
         input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("--------- Добавление новой заявки -----------")
@@ -277,7 +262,7 @@ public class StartUITest {
         String id = "12345y790";
         input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("Заявка ID: ")
@@ -298,7 +283,7 @@ public class StartUITest {
         String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("Заявка ID: ")
@@ -341,7 +326,7 @@ public class StartUITest {
         String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"4", id, "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append(tracker.findAll().get(0))
@@ -360,7 +345,7 @@ public class StartUITest {
         String id = "1234567890";
         input = new ValidateInput(new StubInput(new String[]{"4", id, "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("Заявка не обнаружена. Уточните ID")
@@ -405,7 +390,7 @@ public class StartUITest {
         String name = "test3";
         input = new ValidateInput(new StubInput(new String[]{"5", name, "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("[")
@@ -428,7 +413,7 @@ public class StartUITest {
         String name = "test6";
         input = new ValidateInput(new StubInput(new String[]{"5", name, "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("Заявка не обнаружена. Уточните название.")
@@ -471,7 +456,7 @@ public class StartUITest {
         String id = tracker.findAll().get(0).getId();
         input = new ValidateInput(new StubInput(new String[]{"3", id, "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("Заявка ")
@@ -492,7 +477,7 @@ public class StartUITest {
         String id = "1234567890";
         input = new ValidateInput(new StubInput(new String[]{"3", id, "6"}));
         start();
-        assertThat(new String(bos.toByteArray()),
+        assertThat(this.output.toString(),
                 is(new StringBuilder()
                         .append(showCarte())
                         .append("Заявка не удалена. Уточните ID заявки.")
