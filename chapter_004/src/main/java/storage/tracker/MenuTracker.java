@@ -28,7 +28,7 @@ public class MenuTracker {
     /**
      * Consumer вывод данных.
      */
-    private Consumer<String> output;
+    private final Consumer<String> output;
     /**
      * Сылка на список типа UserAction.
      */
@@ -210,7 +210,6 @@ public class MenuTracker {
     /**
      * Inner class DeleteItem.
      */
-    @SuppressWarnings("Duplicates")
     public class DeleteItem extends BaseAction {
         /**
          * Constructor.
@@ -274,7 +273,6 @@ public class MenuTracker {
     /**
      * Inner class FindItemByName.
      */
-    @SuppressWarnings("Duplicates")
     public class FindItemsByName extends BaseAction {
         /**
          * Constructor.
