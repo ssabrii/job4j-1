@@ -25,7 +25,19 @@ public class ValidateInputTest {
     private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
     private final PrintStream out = System.out;
     private final String ls = System.lineSeparator();
-    private final Consumer<String> output = out::println;
+    private final Consumer<String> output = new Consumer<>() {
+        PrintStream stdout = new PrintStream(bos);
+
+        @Override
+        public void accept(final String s) {
+            stdout.println(s);
+        }
+
+        @Override
+        public String toString() {
+            return new String(bos.toByteArray());
+        }
+    };
     private Input input;
 
     @Before
@@ -72,7 +84,7 @@ public class ValidateInputTest {
     public void whenInvalidInputNFE() {
         input = new ValidateInput(new StubInput(new String[]{"no", "6"}));
         new StartUI(input, new Tracker(), output).init();
-        assertThat(this.bos.toString(), is(new StringBuilder()
+        assertThat(this.output.toString(), is(new StringBuilder()
                         .append(showCarte())
                         .append("Введите корректные данные.")
                         .append(ls)
@@ -85,7 +97,7 @@ public class ValidateInputTest {
     public void whenInvalidInputOUT() {
         input = new ValidateInput(new StubInput(new String[]{"9", "6"}));
         new StartUI(input, new Tracker(), output).init();
-        assertThat(this.bos.toString(), is(new StringBuilder()
+        assertThat(this.output.toString(), is(new StringBuilder()
                         .append(showCarte())
                         .append("Выберите корректный пункт меню.")
                         .append(ls)
@@ -98,7 +110,7 @@ public class ValidateInputTest {
     public void whenValidInputOUT() {
         input = new ValidateInput(new StubInput(new String[]{"1", "6"}));
         new StartUI(input, new Tracker(), output).init();
-        assertThat(this.bos.toString(), is(new StringBuilder()
+        assertThat(this.output.toString(), is(new StringBuilder()
                         .append(showCarte())
                         .append(showCarte())
                         .toString()
