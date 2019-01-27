@@ -1,6 +1,8 @@
 package stream.task;
 
 import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * PriorityQueue.
@@ -9,7 +11,7 @@ import java.util.LinkedList;
  * @version 4.0
  * @since 0.1
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("Duplicates")
 public class PriorityQueue {
     /**
      * List tasks.
@@ -23,13 +25,20 @@ public class PriorityQueue {
      */
     public final void put1(final Task task) {
         int count = tasks.size();
-        for (int index = 0; index < tasks.size(); index++) {
-            if (tasks.get(index).getPriority() > task.getPriority()) {
-                count = index;
-                break;
-            }
+        //шляпа какая то получается.
+        int middle = Optional.of(tasks.stream()
+                .filter(x -> x.getPriority() > task.getPriority())
+                // filter вернет да или нет
+                //не понятно что делать после filter
+                // как получить индекс для вставки
+                // если совпадение есть
+                // и если совпдадения нет.
+               ;
+        if (middle.is) {
+            tasks.add(middle, task);
+        } else {
+            tasks.add(count, task);
         }
-        tasks.add(count, task);
     }
 
     /**
