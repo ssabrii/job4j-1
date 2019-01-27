@@ -9,7 +9,7 @@ package color;
  */
 @SuppressWarnings("ALL")
 public final class Color {
-    public class ConsoleColors {
+ /*   public class ConsoleColors {
         // Reset
         public static final String RESET = "\033[0m";  // Text Reset
 
@@ -74,34 +74,43 @@ public final class Color {
         public static final String WHITE_BOLD_BRIGHT = "\033[1;97m"; // WHITE
 
         // High Intensity backgrounds
-        public static final String BLACK_BACKGROUND_BRIGHT = "\033[0;100m"; // BLACK
-        public static final String RED_BACKGROUND_BRIGHT = "\033[0;101m"; // RED
-        public static final String GREEN_BACKGROUND_BRIGHT = "\033[0;102m"; // GREEN
-        public static final String YELLOW_BACKGROUND_BRIGHT = "\033[0;103m"; // YELLOW
-        public static final String BLUE_BACKGROUND_BRIGHT = "\033[0;104m"; // BLUE
-        public static final String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m"; // PURPLE
-        public static final String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";  // CYAN
-        public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";   // WHITE
-    }
+        public static final String BLACK_BACKGROUND_BRIGHT = "\033[0;100m";
+        // BLACK
+        public static final String RED_BACKGROUND_BRIGHT = "\033[0;101m"; //RED
+        public static final String GREEN_BACKGROUND_BRIGHT = "\033[0;102m";
+        // GREEN
+        public static final String YELLOW_BACKGROUND_BRIGHT = "\033[0;103m";
+        // YELLOW
+        public static final String BLUE_BACKGROUND_BRIGHT = "\033[0;104m";
+        // BLUE
+        public static final String PURPLE_BACKGROUND_BRIGHT = "\033[0;105m";
+        // PURPLE
+        public static final String CYAN_BACKGROUND_BRIGHT = "\033[0;106m";
+        // CYAN
+        public static final String WHITE_BACKGROUND_BRIGHT = "\033[0;107m";
+        // WHITE
+    }*/
     /**
      * Constructor.
      */
     private Color() {
     }
-
-
     /**
      * point to program.
      *
      * @param args args
      */
     public static void main(final String[] args) {
-        System.out.println(ConsoleColors.RED + "This text is red!");
-        System.out.println(ConsoleColors.RED_BACKGROUND + "This text is red!");
-        System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT + "This text is red!");
-        System.out.println(ConsoleColors.RED_BOLD + "This text is red!");
-        System.out.println(ConsoleColors.RED_BRIGHT + "This text is red!");
-        System.out.println(ConsoleColors.RED_UNDERLINED + "This text is red!");
+        //System.out.println(ConsoleColors.RED + "This text is red!");
+        //System.out.println(
+        // ConsoleColors.RED_BACKGROUND + "This text is red!");
+        //System.out.println(
+        // ConsoleColors.RED_BACKGROUND_BRIGHT + "This text is red!");
+        //System.out.println(ConsoleColors.RED_BOLD + "This text is red!");
+        //System.out.println(ConsoleColors.RED_BRIGHT + "This text is red!");
+        //System.out.println(
+        // ConsoleColors.RED_UNDERLINED + "This text is red!");
     }
+
 }
 
