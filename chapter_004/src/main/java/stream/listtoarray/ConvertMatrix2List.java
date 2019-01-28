@@ -1,7 +1,8 @@
 package stream.listtoarray;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ConvertMatrix2List.
@@ -19,12 +20,16 @@ public class ConvertMatrix2List {
      * @return list from array.
      */
     public final List<Integer> toList(final int[][] array) {
-        List<Integer> list = new ArrayList<>();
+        return Arrays.stream(array)
+                .flatMapToInt(Arrays::stream)
+                .boxed()
+                .collect(Collectors.toList());
+     /*   List<Integer> list = new ArrayList<>();
         for (int[] out : array) {
             for (int in : out) {
                 list.add(in);
             }
         }
-        return list;
+        return list;*/
     }
 }

@@ -1,8 +1,9 @@
 package stream.listtoarray;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ConvertList2Array.
@@ -21,6 +22,7 @@ public class ConvertList2Array {
      * @return array from list.
      */
     public final int[][] toArray(final List<Integer> list, final int rows) {
+
         int cells;
         if (list.size() % rows == 0) {
             cells = list.size() / rows;
@@ -29,7 +31,9 @@ public class ConvertList2Array {
         }
         Iterator<Integer> iterator = list.iterator();
         int[][] array = new int[rows][cells];
-        for (int out = 0; out < rows; out++) {
+        final int[] ints = list.stream().mapToInt(Integer::intValue).toArray();
+
+  /*      for (int out = 0; out < rows; out++) {
             for (int in = 0; in < cells; in++) {
                 if (iterator.hasNext()) {
                     array[out][in] = iterator.next();
@@ -37,8 +41,9 @@ public class ConvertList2Array {
                     break;
                 }
             }
-        }
-        return array;
+        }*/
+
+        return null;
     }
 
     /**
@@ -48,12 +53,9 @@ public class ConvertList2Array {
      * @return the list of Integers.
      */
     public final List<Integer> convert(final List<int[]> list) {
-        List<Integer> integers = new ArrayList<>();
-        for (int[] out : list) {
-            for (int in : out) {
-                integers.add(in);
-            }
-        }
-        return integers;
+        return list.stream()
+                .flatMapToInt(Arrays::stream)
+                .boxed()
+                .collect(Collectors.toList());
     }
 }

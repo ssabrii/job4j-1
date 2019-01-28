@@ -3,7 +3,6 @@ package stream.listtoarray;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -20,7 +19,7 @@ public class ConvertList2ArrayTest {
     @Test
     public void when7ElementsThen9() {
         ConvertList2Array list = new ConvertList2Array();
-        int[][] result = list.toArray(Arrays.asList(1, 2, 3, 4, 5, 6, 7), 3);
+        int[][] result = list.toArray(List.of(1, 2, 3, 4, 5, 6, 7), 3);
         int[][] expect = {
                 {1, 2, 3},
                 {4, 5, 6},
@@ -35,7 +34,7 @@ public class ConvertList2ArrayTest {
         List<int[]> library = new ArrayList<>();
         library.add(new int[]{1, 2});
         library.add(new int[]{3, 4, 5, 6});
-        List<Integer> expected = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        List<Integer> expected = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6));
         List<Integer> result = list.convert(library);
         assertThat(result, is(expected));
     }
