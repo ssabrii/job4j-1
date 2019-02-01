@@ -1,5 +1,6 @@
 package company;
 
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -43,6 +44,15 @@ public class Address {
         this.apartment = aApartment;
     }
 
+    /**
+     * Method get user's city.
+     *
+     * @return city
+     */
+    public final String getCity() {
+        return this.city;
+    }
+
     @Override
     public final String toString() {
         return new StringJoiner(", ", Address.class.getSimpleName()
@@ -52,5 +62,22 @@ public class Address {
                 .add("home=" + home)
                 .add("apartment=" + apartment)
                 .toString();
+    }
+
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Address address = (Address) o;
+        return  this.city.equals(address.city);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.city);
     }
 }

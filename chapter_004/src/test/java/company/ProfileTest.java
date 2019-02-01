@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 public class ProfileTest {
     private final Profiles profiles = new Profiles();
-
+    private final List<Profile> catalog;
     private final Profile first;
     private final Profile second;
     private final Profile third;
@@ -23,18 +23,17 @@ public class ProfileTest {
                 2, 20));
         third = new Profile(new Address("Munich", "Manor",
                 3, 30));
-        four = new Profile(new Address("Berlin", "Manor",
+        four = new Profile(new Address("Zurich", "Manor",
                 4, 40));
         fifth = new Profile(new Address("Paris", "Manor",
                 5, 50));
+        catalog = List.of(this.first, this.second,
+                this.third, this.four,
+                this.fifth);
     }
 
     @Test
     public void whenCollectAddressFromProfileToList() {
-        List<Profile> catalog = List.of(
-                this.first, this.second,
-                this.third, this.four,
-                this.fifth);
         List<Address> result = this.profiles.collect(catalog);
         assertThat(result.size(), is(5));
         assertThat(result.toString(), is(new StringBuilder()
@@ -51,5 +50,23 @@ public class ProfileTest {
                 .append("]")
                 .toString()
         ));
+    }
+
+    @Test
+    public void whenDistinctAddress() {
+        List<Address> result = this.profiles.distinct(catalog);
+        assertThat(result.size(), is(4));
+        assertThat(result.toString(), is(new StringBuilder()
+                .append("[")
+                .append(result.get(0).toString())
+                .append(", ")
+                .append(result.get(1).toString())
+                .append(", ")
+                .append(result.get(2).toString())
+                .append(", ")
+                .append(result.get(3).toString())
+                .append("]")
+                .toString())
+        );
     }
 }
