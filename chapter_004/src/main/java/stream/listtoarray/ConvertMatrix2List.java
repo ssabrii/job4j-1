@@ -19,7 +19,8 @@ public class ConvertMatrix2List {
      * @param array array.
      * @return list from array.
      */
-    public final List<Integer> toList(final int[][] array) {
+    public final List<Integer> arrayToList(final int[][] array) {
+
         return Arrays.stream(array)
                 .flatMapToInt(Arrays::stream)
                 .boxed()
@@ -31,5 +32,29 @@ public class ConvertMatrix2List {
             }
         }
         return list;*/
+    }
+
+    /**
+     * Method get list from array.
+     *
+     * @param array array.
+     * @return list from array.
+     */
+    public final List<List<String>> stringToList(final String[][] array) {
+        return Arrays.stream(array)
+                .map(Arrays::asList)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Method get flat list from array.
+     *
+     * @param array array.
+     * @return list from array.
+     */
+    public final List<String> stringToFlatList(final String[][] array) {
+        return Arrays.stream(array)
+                .flatMap(Arrays::stream)
+                .collect(Collectors.toList());
     }
 }
