@@ -1,9 +1,9 @@
 package stream.listtoarray;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * ConvertList2Array.
@@ -21,7 +21,7 @@ public class ConvertList2Array {
      * @param rows number rows.
      * @return array from list.
      */
-    public final int[][] toArray(final List<Integer> list, final int rows) {
+    public final Integer[][] toArray(final List<Integer> list, final int rows) {
 
         int cells;
         if (list.size() % rows == 0) {
@@ -29,21 +29,14 @@ public class ConvertList2Array {
         } else {
             cells = (list.size() / rows) + 1;
         }
-        Iterator<Integer> iterator = list.iterator();
-        int[][] array = new int[rows][cells];
-        final int[] ints = list.stream().mapToInt(Integer::intValue).toArray();
+        final int[] count = {0};
 
-  /*      for (int out = 0; out < rows; out++) {
-            for (int in = 0; in < cells; in++) {
-                if (iterator.hasNext()) {
-                    array[out][in] = iterator.next();
-                } else {
-                    break;
-                }
-            }
-        }*/
 
-        return null;
+        return IntStream.range(0, rows)
+                .mapToObj(x -> IntStream.range(0, cells)
+                        .mapToObj(y -> count[0] >= list.size() ? 0 : list.get(count[0]++))
+                        .toArray(Integer[]::new))
+                .toArray(Integer[][]::new);
     }
 
     /**
