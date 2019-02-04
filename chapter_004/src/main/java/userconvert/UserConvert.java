@@ -2,8 +2,7 @@ package userconvert;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collector;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -20,26 +19,30 @@ public class UserConvert {
      * @param list the list of users
      * @return the Map this users
      */
-    public final HashMap<Integer, User> process(final List<User> list) {
-        //пробывал разные варианты. гуглил часа 3. но получается каша.
-        //не могу выйти на загрузку значений в мапу. функции не подтягиваются.
-        list.stream().collect(HashMap<Integer, User>::new,
-                (i, u) -> i.put(u.getId(), new User(u.getName(), u.getCity())));
-        // getId пишет используется в статическом контексте.
-        //getName getCity не функциональные интерфейсы.
-        //не понятно как создать новый обьект используя обьект со стрима.
-        list.stream().collect(Collectors.toMap(User::getId, new User(User::getName, User::getCity)));
-        //здесь m u не подтягивают функции.
-        Collector.of(HashMap<Integer, User>::new, (m, u) -> m.put(u.));
+    public final Map<Integer, User> process(final List<User> list) {
+        final Map<Integer, User> map = list.stream()
+                .collect(Collectors.toMap(
+                        User::getId,
+                        user -> new User(user.getName(), user.getCity())));
+        //  list.forEach(e -> map.put(e.getId(),
+        //  new User(e.getName(), e.getCity())));
+
         list.stream()
-                .collect(Collectors.toMap(User::getId, Function.identity()));
-        @SuppressWarnings("Duplicates")
-        HashMap<Integer, User> map = new HashMap<>();
-        // здесь работает но это не не Java8 Stream
-        list.forEach(e -> map.put(e.getId(), new User(e.getName(), e.getCity())));
-        /*for (User user : list) {
-            map.put(user.getId(), new User(user.getName(), user.getCity()));
-        }*/
+                .collect(Collectors
+                        //@param keyMapper a mapping function to produce keys
+                        .toMap(User::getId,
+                                // @param valueMapper a mapping
+                                // function to produce values
+                                user -> user,
+                                //  @param mergeFunction a merge function,
+                                //  used to resolve collisions
+                                (a, b) -> a,
+                                // between  values associated with the same key,
+                                HashMap::new
+                                //  @param mapFactory  a supplier
+                                //  providing a new empty {@code Map}
+                                //   into which the results will be inserted
+                        ));
         return map;
     }
 }
