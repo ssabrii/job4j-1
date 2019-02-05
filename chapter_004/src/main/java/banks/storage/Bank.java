@@ -9,11 +9,11 @@ import banks.models.Account;
 import banks.models.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -29,7 +29,7 @@ public class Bank {
     /**
      * Storage safe user's account.
      */
-    private final Map<User, List<Account>> map = new TreeMap<>();
+    private final Map<User, List<Account>> map = new HashMap<>();
 
     /**
      * Method get all user accounts.
@@ -207,11 +207,9 @@ public class Bank {
      * @return 0/1 number is contain users
      */
     private long checkUsers(final User user) {
-        final Set<String> catalogSet = this.map.entrySet().stream()
-                .map(e -> e.getKey().getPassport())
-                .collect(Collectors.toSet());
         return this.map.entrySet().stream()
-                .filter(z -> catalogSet.contains(user.getPassport()))
+                .map(e -> e.getKey().getPassport())
+                .filter(z -> z.contains(user.getPassport()))
                 .takeWhile(Objects::nonNull)
                 .count();
     }
