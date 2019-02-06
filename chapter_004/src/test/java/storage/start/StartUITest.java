@@ -35,7 +35,7 @@ public class StartUITest {
     private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
     private final PrintStream out = System.out;
 
-    private final Consumer<String> output = new Consumer<String>() {
+    private final Consumer<String> output = new Consumer<>() {
         PrintStream stdout = new PrintStream(bos);
 
         @Override
@@ -163,7 +163,8 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameNameOK() {
-        input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
+        input = new ValidateInput(new StubInput(
+                new String[]{"0", "test5", "desc", "6"}));
         start();
         assertThat(tracker.findAll().get(4).getName(), is("test5"));
     }
@@ -180,7 +181,8 @@ public class StartUITest {
         item.setId("0123456789");
         String name = item.getName();
         String description = item.getDescription();
-        input = new ValidateInput(new StubInput(new String[]{"0", name, description, "6"}));
+        input = new ValidateInput(new StubInput(
+                new String[]{"0", name, description, "6"}));
         start();
         assertNull(tracker.findById(item.getId()));
     }
@@ -191,7 +193,8 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameNamePrintOK() {
-        input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
+        input = new ValidateInput(new StubInput(
+                new String[]{"0", "test5", "desc", "6"}));
         start();
         assertThat(this.output.toString(),
                 is(new StringBuilder()
@@ -213,7 +216,8 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameNameAndPrintOK() {
-        input = new ValidateInput(new StubInput(new String[]{"0", "test5", "desc", "6"}));
+        input = new ValidateInput(new StubInput(
+                new String[]{"0", "test5", "desc", "6"}));
         start();
         assertThat(this.output.toString(),
                 is(new StringBuilder()
@@ -236,7 +240,8 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValueOK() {
         System.out.println(tracker.findAll());
         String id = tracker.findAll().get(0).getId();
-        input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
+        input = new ValidateInput(new StubInput(
+                new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
         String expected = tracker.findById(id).getName();
         assertThat(expected, is("test replace"));
@@ -248,8 +253,9 @@ public class StartUITest {
 
     @Test
     public void whenUpdateThenTrackerHasUpdatedValueAndFall() {
-        String id = "12345y7890";
-        input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
+        String id = "123457890";
+        input = new ValidateInput(new StubInput(
+                new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
         assertNull(tracker.findById(id));
     }
@@ -259,8 +265,9 @@ public class StartUITest {
      */
     @Test
     public void whenUpdateThenTrackerHasUpdatedValueAndPrintFall() {
-        String id = "12345y790";
-        input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
+        String id = "12345790";
+        input = new ValidateInput(new StubInput(
+                new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
         assertThat(this.output.toString(),
                 is(new StringBuilder()
@@ -281,7 +288,8 @@ public class StartUITest {
     @Test
     public void whenUpdateThenTrackerHasUpdatedValueAndPrintOK() {
         String id = tracker.findAll().get(0).getId();
-        input = new ValidateInput(new StubInput(new String[]{"2", id, "test replace", "заменили заявку", "6"}));
+        input = new ValidateInput(new StubInput(
+                new String[]{"2", id, "test replace", "заменили заявку", "6"}));
         start();
         assertThat(this.output.toString(),
                 is(new StringBuilder()
