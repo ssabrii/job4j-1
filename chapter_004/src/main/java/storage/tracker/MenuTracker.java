@@ -77,7 +77,8 @@ public class MenuTracker {
                 .add(new FindItemById(4, "Find item by Id"));
         this.actions
                 .add(new FindItemsByName(5, "Find items by name"));
-        this.actions.add(new ExitProgram(6, "Exit Program", ui));
+        this.actions
+                .add(new ExitProgram(6, "Exit Program", ui));
     }
 
     /**
