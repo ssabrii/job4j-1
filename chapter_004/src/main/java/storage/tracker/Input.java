@@ -2,6 +2,8 @@ package storage.tracker;
 
 import storage.exception.MenuOutException;
 
+import java.util.stream.IntStream;
+
 /**
  * * Storage.
  * Input.
@@ -33,13 +35,9 @@ public interface Input {
      */
     default int ask(String question, int[] range) {
         int key = Integer.valueOf(this.ask(question));
-        boolean exist = false;
-        for (int value : range) {
-            if (value == key) {
-                exist = true;
-                break;
-            }
-        }
+        final boolean exist = IntStream
+                .range(0, range.length)
+                .anyMatch(z -> z == key);
         if (!exist) {
             throw new MenuOutException("Out of range");
         }

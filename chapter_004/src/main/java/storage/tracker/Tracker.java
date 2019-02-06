@@ -3,9 +3,10 @@ package storage.tracker;
 import storage.models.Item;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 /**
  * * Storage.
@@ -44,14 +45,16 @@ public class Tracker {
      */
     public final boolean replace(final String id, final Item item) {
         boolean check = false;
-        for (int index = 0; index < this.items.size(); index++) {
-            String seek = this.items.get(index).getId();
-            item.setId(id);
-            if (id.equals(seek)) {
-                this.items.set(index, item);
-                check = true;
-                break;
-            }
+        final OptionalInt first = IntStream.range(0, items.size())
+                .filter(z -> id.equals(items.get(z).getId()))
+                .takeWhile(Objects::nonNull)
+                .peek(z -> {
+                    item.setId(id);
+                    this.items.set(z, item);
+                })
+                .findFirst();
+        if (first.isPresent()) {
+            check = true;
         }
         return check;
     }
@@ -63,16 +66,7 @@ public class Tracker {
      * @return возвращает статус выполнения метода.
      */
     public final boolean delete(final String id) {
-        boolean check = false;
-        Iterator<Item> it = this.items.iterator();
-        while (it.hasNext()) {
-            if (id.equals(it.next().getId())) {
-                it.remove();
-                check = true;
-                break;
-            }
-        }
-        return check;
+        return items.removeIf(z -> id.equals(z.getId()));
     }
 
     /**
@@ -91,13 +85,9 @@ public class Tracker {
      * @return item возвращает массив найденных заявок.
      */
     public final List<Item> findByName(final String key) {
-        List<Item> picker = new ArrayList<>();
-        for (Item item : this.items) {
-            if (key.equals(item.getName())) {
-                picker.add(item);
-            }
-        }
-        return picker;
+        return items.stream()
+                .filter(z -> key.equals(z.getName()))
+                .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
 
     /**
@@ -107,14 +97,10 @@ public class Tracker {
      * @return item возвращает найденую заявку.
      */
     public final Item findById(final String id) {
-        Item seeker = null;
-        for (Item item : this.items) {
-            if (id.equals(item.getId())) {
-                seeker = item;
-                break;
-            }
-        }
-        return seeker;
+        return items.stream()
+                .filter(z -> id.equals(z.getId()))
+                .takeWhile(Objects::nonNull)
+                .findFirst().orElse(null);
     }
 
     /**

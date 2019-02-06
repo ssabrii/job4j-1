@@ -5,7 +5,9 @@ import storage.start.StartUI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
 /**
  * * Storage.
@@ -39,7 +41,7 @@ public class MenuTracker {
      *
      * @param aInput   объект типа Input
      * @param aTracker объект типа Tracker
-     * @param aOutput способ вывода
+     * @param aOutput  способ вывода
      */
     public MenuTracker(final Input aInput, final Tracker aTracker,
                        final Consumer<String> aOutput) {
@@ -63,12 +65,18 @@ public class MenuTracker {
      * @param ui сылка на основной класс программы.
      */
     public final void fillActions(final StartUI ui) {
-        this.actions.add(new AddItem(0, "Add new item"));
-        this.actions.add(new ShowItems(1, "Show all items"));
-        this.actions.add(new UpdateItem(2, "Edit item"));
-        this.actions.add(new DeleteItem(3, "Delete item"));
-        this.actions.add(new FindItemById(4, "Find item by Id"));
-        this.actions.add(new FindItemsByName(5, "Find items by name"));
+        this.actions
+                .add(new AddItem(0, "Add new item"));
+        this.actions
+                .add(new ShowItems(1, "Show all items"));
+        this.actions
+                .add(new UpdateItem(2, "Edit item"));
+        this.actions
+                .add(new DeleteItem(3, "Delete item"));
+        this.actions
+                .add(new FindItemById(4, "Find item by Id"));
+        this.actions
+                .add(new FindItemsByName(5, "Find items by name"));
         this.actions.add(new ExitProgram(6, "Exit Program", ui));
     }
 
@@ -79,11 +87,7 @@ public class MenuTracker {
      * @return установленное количество элементов меню.
      */
     public final int[] fillMenu(final int length) {
-        int[] menu = new int[length];
-        for (int index = 0; index < this.getActionsSize(); index++) {
-            menu[index] = index;
-        }
-        return menu;
+        return IntStream.range(0, length).toArray();
     }
 
     /**
@@ -93,6 +97,7 @@ public class MenuTracker {
      * @param key ключ операции
      */
     public final void select(final int key) {
+
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
@@ -103,11 +108,9 @@ public class MenuTracker {
         output.accept("-----------------------------------------------");
         output.accept("Carte.");
         output.accept("-----------------------------------------------");
-        for (UserAction action : this.actions) {
-            if (action != null) {
-                output.accept(action.info());
-            }
-        }
+        actions.stream()
+                .filter(Objects::nonNull)
+                .forEachOrdered(z->output.accept(z.info()));
     }
 
     /**
@@ -164,13 +167,9 @@ public class MenuTracker {
          */
         @Override
         public final void execute(final Input pInput, final Tracker pTracker) {
-
-            for (Item item : tracker.findAll()) {
-                output.accept(String.format("Name: %s| Desc: %s| Id: %s",
-                        item.getName(), item.getDescription(), item.getId()));
-            }
-          //  output.accept(tracker.findAll().toString());
-
+            tracker.findAll().forEach(z -> output.accept(
+                    String.format("Name: %s| Desc: %s| Id: %s",
+                    z.getName(), z.getDescription(), z.getId())));
         }
     }
 
