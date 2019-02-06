@@ -34,7 +34,8 @@ public class ConvertList2Array {
 
         return IntStream.range(0, rows)
                 .mapToObj(x -> IntStream.range(0, cells)
-                        .mapToObj(y -> count[0] >= list.size() ? 0 : list.get(count[0]++))
+                        .mapToObj(y -> count[0] >= list.size()
+                                ? 0 : list.get(count[0]++))
                         .toArray(Integer[]::new))
                 .toArray(Integer[][]::new);
     }
