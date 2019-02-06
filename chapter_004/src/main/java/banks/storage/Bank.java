@@ -48,7 +48,6 @@ public class Bank {
      */
     public final void addUser(final User user) throws ExistStorageException {
         Objects.requireNonNull(user, "user must not be null");
-        //0(1)Set 0(n)List
         if (this.map.containsKey(user)) {
             throw new ExistStorageException("user is in storage.");
         } else {
@@ -185,33 +184,29 @@ public class Bank {
      *
      * @param passport passport
      * @param account  account
-     * @return 0/1 is contain accounts
+     * @return boolean is contain accounts
      * @throws NotExistAccountException not exist account in storage
      */
     private boolean checkAccounts(final String passport, final Account account)
             throws NotExistAccountException {
-        boolean isExist;
         final Set<String> catalogSet = getUserAccounts(passport).stream()
                 .map(Account::getRequisites)
                 .collect(Collectors.toSet());
-        isExist = getUserAccounts(passport).stream()
+        return getUserAccounts(passport).stream()
                 .anyMatch((z) -> catalogSet.contains(account.getRequisites()));
-        return isExist;
     }
+
     /**
      * Method check contain user in storage.
+     * Method not used.
      *
      * @param user user
-     * @return 0/1 number is contain users
+     * @return boolean is contain users
      */
-    private long checkUsers(final User user) {
+    private boolean checkUsers(final User user) {
         return this.map.entrySet().stream()
                 .map(e -> e.getKey().getPassport())
-                .filter(z -> z.contains(user.getPassport()))
-                .takeWhile(Objects::nonNull)
-                .count();
-       /* map.keySet()
-                .stream()
-                .filter(u -> u.getPassport().equals(passport));*/
+                .anyMatch(z -> z.contains(user.getPassport()));
+
     }
 }
