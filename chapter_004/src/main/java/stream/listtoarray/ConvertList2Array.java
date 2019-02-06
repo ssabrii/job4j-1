@@ -22,11 +22,12 @@ public class ConvertList2Array {
      * @return array from list.
      */
     public final Integer[][] toArray(final List<Integer> list, final int rows) {
-
-        final int cells = list.size() % rows == 0 ?
-                list.size() / rows :
-                list.size() / rows + 1;
-
+        int cells;
+        if (list.size() % rows == 0) {
+            cells = list.size() / rows;
+        } else {
+            cells = (list.size() / rows) + 1;
+        }
         final int[] count = {0};
         return IntStream.range(0, rows)
                 .mapToObj(x -> IntStream.range(0, cells)
