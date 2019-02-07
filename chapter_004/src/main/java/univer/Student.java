@@ -20,15 +20,6 @@ public class Student implements Comparator<Student> {
      */
     private final int scope;
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ",
-                Student.class.getSimpleName() + "[", "]")
-                .add("name='" + name + "'")
-                .add("scope=" + scope)
-                .toString();
-    }
-
     /**
      * getter name.
      *
@@ -59,7 +50,16 @@ public class Student implements Comparator<Student> {
     }
 
     @Override
-    public int compare(final Student o1, final Student o2) {
+    public final int compare(final Student o1, final Student o2) {
         return o1.scope - o2.scope;
+    }
+
+    @Override
+    public final String toString() {
+        return new StringJoiner(", ",
+                Student.class.getSimpleName() + "[", "]")
+                .add("name='" + name + "'")
+                .add("scope=" + scope)
+                .toString();
     }
 }
