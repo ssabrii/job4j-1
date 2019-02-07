@@ -1,4 +1,4 @@
-package sortstring4;
+package sortstring;
 
 import java.util.Comparator;
 import java.util.stream.IntStream;

@@ -5,4 +5,4 @@
  * @version 4.0
  * @since 0.1
  */
-package sortstring4;
+package sortstring;
