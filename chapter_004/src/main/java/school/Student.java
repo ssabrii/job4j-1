@@ -1,5 +1,6 @@
 package school;
 
+import java.util.Comparator;
 import java.util.StringJoiner;
 
 /**
@@ -9,7 +10,7 @@ import java.util.StringJoiner;
  * @version 4.0
  * @since 0.1
  */
-public class Student {
+public class Student implements Comparator<Student> {
     /**
      * User's score.
      */
@@ -57,5 +58,10 @@ public class Student {
                 .add("secondName=" + this.secondName)
                 .add("\n")
                 .toString();
+    }
+
+    @Override
+    public int compare(final Student o1, final Student o2) {
+        return o1.score - o2.score;
     }
 }

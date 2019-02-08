@@ -34,7 +34,6 @@ public class StudentUtilTest {
     @Test
     public void whenBoundGreaterTen() {
         StudentUtil util = new StudentUtil();
-
         final List<Student> result = util.levelOf(catalog, 10);
         final List<Student> expected = List.of(
                 new Student("C", 50),

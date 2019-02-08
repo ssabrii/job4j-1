@@ -37,4 +37,5 @@ public class School {
         return list.stream()
                 .collect(Collectors.toMap(Student::getSecondName, k -> k));
     }
+
 }

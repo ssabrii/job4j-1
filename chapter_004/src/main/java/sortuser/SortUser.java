@@ -29,8 +29,8 @@ public class SortUser {
      */
     public final List<User> sortNameLength(final List<User> list) {
         list.sort((o1, o2) -> {
-            int name1 = o1.getName().toCharArray().length;
-            int name2 = o2.getName().toCharArray().length;
+            int name1 = o1.getName().length();
+            int name2 = o2.getName().length();
             return name1 - name2;
         });
         return list;
