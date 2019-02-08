@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 
 public class SchoolTest {
     private final School school = new School();
-    private final List<Student> students = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
     private final Predicate<Student> ss10A;
     private final Predicate<Student> ss10B;
     private final Predicate<Student> ss10C;
@@ -28,6 +28,7 @@ public class SchoolTest {
 
     @Before
     public void beforeFillList() {
+        students = new ArrayList<>();
         students.add(new Student(10, "Donald"));
         students.add(new Student(20, "Barrack"));
         students.add(new Student(30, "Marcel"));
@@ -89,15 +90,15 @@ public class SchoolTest {
     @Test
     public void whenListToMap() {
         final Map<String, Student> resultMap = school.listToMap(students);
-        final Map<String, Student> expectedMap = new HashMap<>();
-        expectedMap.put("Soul", new Student(80, "Soul"));
-        expectedMap.put("Idea", new Student(100, "Idea"));
-        expectedMap.put("Carry", new Student(70, "Carry"));
-        expectedMap.put("Barrack", new Student(20, "Barrack"));
-        expectedMap.put("Marcel", new Student(30, "Marcel"));
-        expectedMap.put("Messy", new Student(90, "Messy"));
-        expectedMap.put("Donald", new Student(10, "Donald"));
-        expectedMap.put("Dart", new Student(60, "Dart"));
+        final Map<String, Student> expectedMap = new HashMap<>(Map.of(
+                "Soul", new Student(80, "Soul"),
+                "Idea", new Student(100, "Idea"),
+                "Carry", new Student(70, "Carry"),
+                "Barrack", new Student(20, "Barrack"),
+                "Marcel", new Student(30, "Marcel"),
+                "Messy", new Student(90, "Messy"),
+                "Donald", new Student(10, "Donald"),
+                "Dart", new Student(60, "Dart")));
         assertThat(resultMap.toString(), is(expectedMap.toString()));
     }
 
