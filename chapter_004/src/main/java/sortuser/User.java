@@ -1,5 +1,7 @@
 package sortuser;
 
+import java.util.Objects;
+
 /**
  * User.
  *
@@ -36,6 +38,7 @@ public class User implements Comparable<User> {
         this.name = aName;
         this.age = aAge;
     }
+
     /**
      * Method gets the name of user.
      *
@@ -46,8 +49,25 @@ public class User implements Comparable<User> {
     }
 
     @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final User user = (User) o;
+        return age == user.age && Objects.equals(name, user.name);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+    @Override
     public final int compareTo(final User o) {
-        return this.age - o.age;
+        return Integer.compare(this.age, o.age);
     }
 
     @Override
