@@ -1,6 +1,6 @@
 package school;
 
-import java.util.Comparator;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -10,7 +10,7 @@ import java.util.StringJoiner;
  * @version 4.0
  * @since 0.1
  */
-public class Student implements Comparator<Student> {
+public class Student implements Comparable<Student> {
     /**
      * User's score.
      */
@@ -40,6 +40,23 @@ public class Student implements Comparator<Student> {
         return this.score;
     }
 
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Student student = (Student) o;
+        return score == student.score && secondName.equals(student.secondName);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(score, secondName);
+    }
+
     /**
      * Method get user's second name.
      *
@@ -61,7 +78,7 @@ public class Student implements Comparator<Student> {
     }
 
     @Override
-    public final int compare(final Student o1, final Student o2) {
-        return o1.score - o2.score;
+    public final int compareTo(final Student o) {
+        return Integer.compare(this.score, o.score);
     }
 }

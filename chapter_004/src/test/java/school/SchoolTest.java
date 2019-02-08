@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class SchoolTest {
     private final School school = new School();
@@ -99,7 +100,8 @@ public class SchoolTest {
                 "Messy", new Student(90, "Messy"),
                 "Donald", new Student(10, "Donald"),
                 "Dart", new Student(60, "Dart")));
-        assertThat(resultMap.toString(), is(expectedMap.toString()));
+        assertTrue(resultMap.entrySet().containsAll(expectedMap.entrySet()));
+        assertTrue(expectedMap.entrySet().containsAll(resultMap.entrySet()));
     }
 
     @Test(expected = IllegalStateException.class)
