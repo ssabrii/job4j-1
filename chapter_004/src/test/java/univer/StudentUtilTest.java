@@ -36,8 +36,8 @@ public class StudentUtilTest {
         StudentUtil util = new StudentUtil();
         final List<Student> result = util.levelOf(catalog, 10);
         final List<Student> expected = List.of(
-                new Student("C", 50),
-                new Student("D", 60)
+                new Student("D", 60),
+                new Student("C", 50)
         );
         assertThat(result.toString(), is(expected.toString()));
     }
@@ -49,6 +49,7 @@ public class StudentUtilTest {
         final List<Student> expected = List.of();
         assertThat(result.toString(), is(expected.toString()));
     }
+
     @Test
     public void whenBoundLessNull() {
         StudentUtil util = new StudentUtil();

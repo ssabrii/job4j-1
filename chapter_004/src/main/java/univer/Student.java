@@ -1,6 +1,6 @@
 package univer;
 
-import java.util.Comparator;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
@@ -10,7 +10,7 @@ import java.util.StringJoiner;
  * @version 4.0
  * @since 0.1
  */
-public class Student implements Comparator<Student> {
+public class Student implements Comparable<Student> {
     /**
      * FIO student.
      */
@@ -49,9 +49,19 @@ public class Student implements Comparator<Student> {
         this.scope = aScope;
     }
 
+
     @Override
-    public final int compare(final Student o1, final Student o2) {
-        return o1.scope - o2.scope;
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final Student student = (Student) o;
+        return scope == student.scope &&
+                Objects.equals(name, student.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, scope);
     }
 
     @Override
@@ -61,5 +71,10 @@ public class Student implements Comparator<Student> {
                 .add("name='" + name + "'")
                 .add("scope=" + scope)
                 .toString();
+    }
+
+    @Override
+    public int compareTo(final Student o) {
+        return Integer.compare(this.scope, o.scope);
     }
 }
