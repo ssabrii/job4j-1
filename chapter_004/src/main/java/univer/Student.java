@@ -51,16 +51,19 @@ public class Student implements Comparable<Student> {
 
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         final Student student = (Student) o;
-        return scope == student.scope &&
-                Objects.equals(name, student.name);
+        return scope == student.scope && Objects.equals(name, student.name);
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(name, scope);
     }
 
@@ -74,7 +77,7 @@ public class Student implements Comparable<Student> {
     }
 
     @Override
-    public int compareTo(final Student o) {
+    public final int compareTo(final Student o) {
         return Integer.compare(this.scope, o.scope);
     }
 }
