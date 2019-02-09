@@ -9,7 +9,6 @@ import java.util.LinkedList;
  * @version 4.0
  * @since 0.1
  */
-@SuppressWarnings("Duplicates")
 public class PriorityQueue {
     /**
      * List tasks.
@@ -22,7 +21,7 @@ public class PriorityQueue {
      * @param task задача
      */
     public final void put(final Task task) {
-        int index = (int) tasks.stream()
+        var index = (int) tasks.stream()
                 .filter(t -> t.getPriority() < task.getPriority())
                 .count();
         tasks.add(index, task);
