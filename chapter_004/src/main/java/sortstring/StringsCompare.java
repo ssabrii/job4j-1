@@ -21,17 +21,11 @@ public class StringsCompare implements Comparator<String> {
     @Override
     @SuppressWarnings("Duplicates")
     public final int compare(final String left, final String right) {
-        int length = left.length();
-        int length1 = right.length();
-        int result = length - length1;
-        int min = Math.min(length, length1);
-        final int first = IntStream.range(0, min)
+        int min = Math.min(left.length(), right.length());
+        return IntStream.range(0, min)
                 .map(z -> Character.compare(left.charAt(z), right.charAt(z)))
                 .filter(z -> z != 0)
-                .findFirst().orElse(0);
-        if (first != 0) {
-            result = first;
-        }
-        return result;
+                .findFirst()
+                .orElse(Integer.compare(left.length(), right.length()));
     }
 }
