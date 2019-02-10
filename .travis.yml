@@ -12,6 +12,6 @@ after_success:
 notifications:
   email:
     recipients:
-      - mailtime2010@gmail.com
+      - david.klarson@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
