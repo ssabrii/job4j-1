@@ -31,7 +31,7 @@ public class Tracker {
      * @param item новая заявка.
      * @return возвращает добавленную заявку
      */
-    public Item add(Item item) {
+    public final Item add(final Item item) {
         Item seeker = null;
         if (position < this.items.length - 1) {
             item.setId(this.generateId());
@@ -48,7 +48,7 @@ public class Tracker {
      * @param item новая заявка для замены.
      * @return check статус выполнения метода.
      */
-    public boolean replace(String id, Item item) {
+    public final boolean replace(final String id, final Item item) {
         boolean check = false;
         for (int i = 0; i < this.position; i++) {
             if (id.equals(this.items[i].getId())) {
@@ -67,11 +67,12 @@ public class Tracker {
      * @param id уникальный номер заявки.
      * @return возвращает статус выполнения метода.
      */
-    public boolean delete(String id) {
+    public final boolean delete(final String id) {
         boolean check = false;
         for (int i = 0; i < this.position; i++) {
             if (id.equals(this.items[i].getId())) {
-                System.arraycopy(this.items, i + 1, this.items, i, this.position);
+                System.arraycopy(this.items, i + 1,
+                        this.items, i, this.position);
                 this.position--;
                 check = true;
                 break;
@@ -85,7 +86,7 @@ public class Tracker {
      *
      * @return Item[] массив заявок.
      */
-    public Item[] findAll() {
+    public final Item[] findAll() {
         return Arrays.copyOfRange(this.items, 0, this.position);
     }
 
@@ -95,7 +96,7 @@ public class Tracker {
      * @param key имя заявки.
      * @return item возвращает массив найденных заявок.
      */
-    public Item[] findByName(String key) {
+    public final Item[] findByName(final String key) {
         Item[] seeker = new Item[this.index];
         int count = 0;
         for (int i = 0; i < this.position; i++) {
@@ -113,7 +114,7 @@ public class Tracker {
      * @param id уникальный ключ заявки.
      * @return item возвращает найденую заявку.
      */
-    public Item findById(String id) {
+    public final Item findById(final String id) {
         Item seeker = null;
         for (int i = 0; i < this.position; i++) {
             if (id.equals(this.items[i].getId())) {

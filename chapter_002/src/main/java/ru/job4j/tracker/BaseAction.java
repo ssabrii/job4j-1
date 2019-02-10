@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 /**
- * BaseAction
+ * BaseAction.
  *
  * @author Maxim Vannny.
  * @version 2.0
@@ -20,12 +20,12 @@ public abstract class BaseAction implements UserAction {
     /**
      * Constructor.
      *
-     * @param key  the of menu.
-     * @param name the name of menu.
+     * @param aKey  the of menu.
+     * @param aName the name of menu.
      */
-    protected BaseAction(final int key, final String name) {
-        this.key = key;
-        this.name = name;
+    protected BaseAction(final int aKey, final String aName) {
+        this.key = aKey;
+        this.name = aName;
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class BaseAction implements UserAction {
      * @return the key of menu.
      */
     @Override
-    public int key() {
+    public final int key() {
         return this.key;
     }
 
@@ -44,7 +44,7 @@ public abstract class BaseAction implements UserAction {
      * @return string the key and name of menu.
      */
     @Override
-    public String info() {
+    public final String info() {
         return String.format("%s.%s", this.key, this.name);
     }
 }

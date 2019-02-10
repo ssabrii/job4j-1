@@ -4,10 +4,14 @@ package ru.job4j.calculator;
  * Calculator.
  * Simple calculator.
  *
- * @author Maxim Vanny
+ * @author Maxim Vanny.
+ * @version 1.0
+ * @since 0.1
  */
-
 public class Calculator {
+    /**
+     * field result.
+     */
     private double result;
 
     /**
@@ -16,7 +20,7 @@ public class Calculator {
      * @param first  one number
      * @param second second number
      */
-    public void add(double first, double second) {
+    public final void add(final double first, final double second) {
         this.result = first + second;
     }
 
@@ -26,7 +30,7 @@ public class Calculator {
      * @param first  one number
      * @param second second number
      */
-    public void minus(double first, double second) {
+    public final void minus(final double first, final double second) {
         this.result = first - second;
     }
 
@@ -36,7 +40,7 @@ public class Calculator {
      * @param first  one number
      * @param second second number
      */
-    public void multiply(double first, double second) {
+    public final void multiply(final double first, final double second) {
         this.result = first * second;
     }
 
@@ -46,7 +50,7 @@ public class Calculator {
      * @param first  one number
      * @param second second number
      */
-    public void divide(double first, double second) {
+    public final void divide(final double first, final double second) {
         this.result = first / second;
     }
 
@@ -55,7 +59,7 @@ public class Calculator {
      *
      * @return result
      */
-    public double getResult() {
+    public final double getResult() {
         return this.result;
     }
 }

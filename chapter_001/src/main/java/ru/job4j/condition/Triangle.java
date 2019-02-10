@@ -1,14 +1,37 @@
 package ru.job4j.condition;
 
+/**
+ * Point.
+ *
+ * @author Maxim Vanny.
+ * @version 1.0
+ * @since 0.1
+ */
 public class Triangle {
+    /**
+     * field a.
+     */
     private final Point a;
+    /**
+     * field b.
+     */
     private final Point b;
+    /**
+     * field c.
+     */
     private final Point c;
 
-    public Triangle(Point a, Point b, Point c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+    /**
+     * Constructor.
+     *
+     * @param aA first point.
+     * @param aB second point.
+     * @param ac second point.
+     */
+    public Triangle(final Point aA, final Point aB, final Point ac) {
+        this.a = aA;
+        this.b = aB;
+        this.c = ac;
     }
 
     /**
@@ -23,21 +46,25 @@ public class Triangle {
      * @param bc расстояние между точками b c.
      * @return Периметр.
      */
-    public double period(double ab, double ac, double bc) {
+    public final double period(final double ab,
+                               final double ac,
+                               final double bc) {
         return (ab + ac + bc) / 2;
     }
 
     /**
      * Метод должен вычислить площадь треугольника.
      *
-     * @return Вернуть прощадь, если треугольник существует или -1, если треугольника нет.
+     * @return прощадь, если треугольник существует, если треугольника нет -1.
      */
-    public double area() {
-        double rsl = -1; // мы устанавливаем значение -1, так как может быть что треугольника нет. Это значение говорит о том. что треугольника нет.
-        double ab = this.a.distanceTo(this.b);
-        double ac = this.a.distanceTo(this.c);
-        double bc = this.b.distanceTo(this.c);
-        double p = this.period(ab, ac, bc);
+    public final double area() {
+        double rsl = -1;
+        // мы устанавливаем значение -1, так как может быть,
+        // что треугольника нет.
+        final double ab = this.a.distanceTo(this.b);
+        final double ac = this.a.distanceTo(this.c);
+        final double bc = this.b.distanceTo(this.c);
+        final double p = this.period(ab, ac, bc);
         if (this.exist(ab, ac, bc)) {
             // написать формулу для расчета площади треугольника.
             rsl = Math.sqrt(p * (p - ab) * (p - ac) * (p - bc));
@@ -47,16 +74,15 @@ public class Triangle {
 
     /**
      * Метод проверяет можно ли построить треугольник с такими длинами сторон.
-     * <p>
-     * Подумайте какое надо написать условие, чтобы определить можно ли построить треугольник.
      *
      * @param ab Длина от точки a b.
      * @param ac Длина от точки a c.
      * @param bc Длина от точки b c.
      * @return false.
      */
-    private boolean exist(double ab, double ac, double bc) {
-
+    private boolean exist(final double ab,
+                          final double ac,
+                          final double bc) {
         return (ab + ac > bc) && (ab + bc > ac) && (ac + bc > ab);
     }
 }

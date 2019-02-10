@@ -16,7 +16,7 @@ public class ArrayDuplicate {
      * @param array string array.
      * @return array without duplicate.
      */
-    public String[] remove(String[] array) {
+    public final String[] remove(final String[] array) {
         int unique = array.length;
 
         for (int out = 0; out < unique; out++) {

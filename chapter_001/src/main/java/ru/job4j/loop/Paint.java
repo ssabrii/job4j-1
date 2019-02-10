@@ -5,26 +5,27 @@ package ru.job4j.loop;
  * It paints pyramid.
  *
  * @author Maxim Vanny.
+ * @version 1.0
+ * @since 0.1
  */
 public class Paint {
-
     /**
      * Method pains right side pyramid..
      *
      * @param height height pyramid.
      * @return pyramid.
      */
-    public String rightTrl(int height) {
+    public final String rightTrl(final int height) {
         // Буфер для результата.
-        StringBuilder screen = new StringBuilder();
+        var screen = new StringBuilder();
         // ширина будет равна высоте.
-        int weight = height;
         // внешний цикл двигается по строкам.
         for (int row = 0; row != height; row++) {
             // внутренний цикл определяет положение ячейки в строке.
-            for (int column = 0; column != weight; column++) {
+            for (int column = 0; column != height; column++) {
                 // если строка равна ячейки, то рисуем галку.
-                // в данном случае строка определяем, сколько галок будет на строке
+                // в данном случае строка определяем,
+                // сколько галок будет на строке
                 if (row >= column) {
                     screen.append("^");
                 } else {
@@ -37,18 +38,18 @@ public class Paint {
         // Получаем результат.
         return screen.toString();
     }
+
     /**
      * Method pains left side pyramid.
      *
      * @param height height pyramid.
      * @return pyramid.
      */
-    public String leftTrl(int height) {
-        StringBuilder screen = new StringBuilder();
-        int weight = height;
+    public final String leftTrl(final int height) {
+        var screen = new StringBuilder();
         for (int row = 0; row != height; row++) {
-            for (int column = 0; column != weight; column++) {
-                if (row >= weight - column - 1) {
+            for (int column = 0; column != height; column++) {
+                if (row >= height - column - 1) {
                     screen.append("^");
                 } else {
                     screen.append(" ");
@@ -58,14 +59,15 @@ public class Paint {
         }
         return screen.toString();
     }
+
     /**
      * Method paints simple pyramid.
      *
      * @param height height pyramid.
      * @return pyramid.
      */
-    public String pyramid(int height) {
-        StringBuilder screen = new StringBuilder();
+    public final String pyramid(final int height) {
+        var screen = new StringBuilder();
         int weight = 2 * height - 1;
         for (int row = 0; row != height; row++) {
             for (int column = 0; column != weight; column++) {

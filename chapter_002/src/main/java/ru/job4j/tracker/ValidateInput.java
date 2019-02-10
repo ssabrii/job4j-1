@@ -18,10 +18,10 @@ public class ValidateInput implements Input {
     /**
      * Конструктор.
      *
-     * @param input интерфейс ввода.
+     * @param aInput интерфейс ввода.
      */
-    public ValidateInput(Input input) {
-        this.input = input;
+    public ValidateInput(final Input aInput) {
+        this.input = aInput;
     }
 
     /**
@@ -31,7 +31,7 @@ public class ValidateInput implements Input {
      * @return ответ пользователя.
      */
     @Override
-    public String ask(String question) {
+    public final String ask(final String question) {
         return input.ask(question);
     }
 
@@ -43,7 +43,7 @@ public class ValidateInput implements Input {
      * @return key menu.
      */
     @Override
-    public int ask(final String question, final int[] range) {
+    public final int ask(final String question, final int[] range) {
         boolean invalid = true;
         int value = -1;
         do {

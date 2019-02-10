@@ -32,6 +32,7 @@ public final class TrackerSingletonInner {
      * @param model model.
      * @return model.
      */
+    @SuppressWarnings("unused")
     public Item add(final Item model) {
         return model;
     }
@@ -48,7 +49,8 @@ public final class TrackerSingletonInner {
         /**
          * static final link to object TSI.
          */
-        public static final TrackerSingletonInner INSTANCE = new TrackerSingletonInner();
+        public static final TrackerSingletonInner INSTANCE =
+                new TrackerSingletonInner();
     }
 
     /**
@@ -57,6 +59,6 @@ public final class TrackerSingletonInner {
      * @param args string.
      */
     public static void main(final String[] args) {
-        TrackerSingletonInner tracker = TrackerSingletonInner.getInstance();
+        var tracker = TrackerSingletonInner.getInstance();
     }
 }

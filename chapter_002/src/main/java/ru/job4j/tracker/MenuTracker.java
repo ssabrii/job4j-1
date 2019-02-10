@@ -26,17 +26,46 @@ public class MenuTracker {
     /**
      * Сылка на список типа UserAction.
      */
-    private final List<UserAction> actions = new ArrayList<>();
+    private List<UserAction> actions = new ArrayList<>();
+    /**
+     * ADD.
+     */
+    public static final int ADD = 0;
+    /**
+     * SHOW.
+     */
+    public static final int SHOW = 1;
+    /**
+     * UPDATE.
+     */
+    public static final int UPD = 2;
+    /**
+     * DELETE.
+     */
+    public static final int DEL = 3;
+    /**
+     * FIND BY ID.
+     */
+    public static final int FIND_ID = 4;
+    /**
+     * FIND BY NAME.
+     */
+    public static final int FIND_BY_NAME = 5;
+    /**
+     * EXIT.
+     */
+    public static final int EXIT = 6;
+
 
     /**
      * Конструктор.
      *
-     * @param input   объект типа Input
-     * @param tracker объект типа Tracker
+     * @param aInput   объект типа Input
+     * @param aTracker объект типа Tracker
      */
-    public MenuTracker(Input input, Tracker tracker) {
-        this.input = input;
-        this.tracker = tracker;
+    public MenuTracker(final Input aInput, final Tracker aTracker) {
+        this.input = aInput;
+        this.tracker = aTracker;
     }
 
     /**
@@ -44,7 +73,7 @@ public class MenuTracker {
      *
      * @return размер списка
      */
-    public int getActionsSize() {
+    public final int getActionsSize() {
         return this.actions.size();
     }
 
@@ -53,14 +82,16 @@ public class MenuTracker {
      *
      * @param ui сылка на основной класс программы.
      */
-    public void fillActions(StartUI ui) {
-        this.actions.add(new AddItem(0, "Add new item"));
-        this.actions.add(new ShowItems(1, "Show all items"));
-        this.actions.add(new UpdateItem(2, "Edit item"));
-        this.actions.add(new DeleteItem(3, "Delete item"));
-        this.actions.add(new FindItemById(4, "Find item by Id"));
-        this.actions.add(new FindItemsByName(5, "Find items by name"));
-        this.actions.add(new ExitProgram(6, "Exit Program", ui));
+    @SuppressWarnings("Duplicates")
+    public final void fillActions(final StartUI ui) {
+        this.actions = List.of(
+                new AddItem(ADD, "Add new item"),
+                new ShowItems(SHOW, "Show all items"),
+                new UpdateItem(UPD, "Edit item"),
+                new DeleteItem(DEL, "Delete item"),
+                new FindItemById(FIND_ID, "Find item by Id"),
+                new FindItemsByName(FIND_BY_NAME, "Find items by name"),
+                new ExitProgram(EXIT, "Exit Program", ui));
     }
 
     /**
@@ -69,7 +100,7 @@ public class MenuTracker {
      * @param length количество элементов меню.
      * @return установленное количество элементов меню.
      */
-    public int[] fillMenu(int length) {
+    public final int[] fillMenu(final int length) {
         int[] menu = new int[length];
         for (int index = 0; index < this.getActionsSize(); index++) {
             menu[index] = index;
@@ -83,18 +114,18 @@ public class MenuTracker {
      *
      * @param key ключ операции
      */
-    public void select(int key) {
+    public final void select(final int key) {
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
     /**
      * Метод выводит на экран меню.
      */
-    public void show() {
+    public final void show() {
         System.out.println("-----------------------------------------------");
         System.out.println("Carte.");
         System.out.println("-----------------------------------------------");
-        for (UserAction action : this.actions) {
+        for (var action : this.actions) {
             if (action != null) {
                 System.out.println(action.info());
             }
@@ -112,26 +143,27 @@ public class MenuTracker {
          * @param key  the key of menu.
          * @param name the name of menu
          */
-        public AddItem(int key, String name) {
+        public AddItem(final int key, final String name) {
             super(key, name);
         }
 
         /**
          * Override method adds new Item.
          *
-         * @param input   объект типа Input.
-         * @param tracker объект типа Tracker.
+         * @param aInput   объект типа Input.
+         * @param aTracker объект типа Tracker.
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public final void execute(final Input aInput, final Tracker aTracker) {
             System.out.println("--------- Добавление новой заявки -----------");
-            String name = input.ask("Введите имя заявки: ");
-            String desc = input.ask("Введите описание заявки: ");
-            Item item = new Item(name, desc);
-            if (tracker.add(item) == null) {
+            var name = aInput.ask("Введите имя заявки: ");
+            var desc = aInput.ask("Введите описание заявки: ");
+            var item = new Item(name, desc);
+            if (aTracker.add(item) == null) {
                 System.out.println("Заявка не добавлена. Хранилище полное.");
             } else {
-                System.out.println("----- Новая заявка с ID: " + item.getId() + "----");
+                System.out.println("----- Новая заявка с ID: "
+                        + item.getId() + "----");
             }
         }
     }
@@ -146,20 +178,19 @@ public class MenuTracker {
          * @param key  the key of menu.
          * @param name the name of menu
          */
-        public ShowItems(int key, String name) {
+        public ShowItems(final int key, final String name) {
             super(key, name);
         }
 
         /**
          * Override method shows all Items.
          *
-         * @param input   объект типа Input.
-         * @param tracker объект типа Tracker.
+         * @param aInput   объект типа aInput.
+         * @param aTracker объект типа Tracker.
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-
-            System.out.println(Arrays.toString(tracker.findAll()));
+        public final void execute(final Input aInput, final Tracker aTracker) {
+            System.out.println(Arrays.toString(aTracker.findAll()));
         }
     }
 
@@ -173,22 +204,22 @@ public class MenuTracker {
          * @param key  the key of menu.
          * @param name the name of menu
          */
-        public UpdateItem(int key, String name) {
+        public UpdateItem(final int key, final String name) {
             super(key, name);
         }
 
         /**
          * Override method updates Item.
          *
-         * @param input   объект типа Input.
-         * @param tracker объект типа Tracker.
+         * @param aInput   объект типа aInput.
+         * @param aTracker объект типа Tracker.
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Введите ID обновляемой заявки: ");
-            String name = input.ask("Введите имя заявки: ");
-            String desc = input.ask("Введите описание заявки: ");
-            if (!tracker.replace(id, new Item(name, desc))) {
+        public final void execute(final Input aInput, final Tracker aTracker) {
+            var id = aInput.ask("Введите ID обновляемой заявки: ");
+            var name = aInput.ask("Введите имя заявки: ");
+            var desc = aInput.ask("Введите описание заявки: ");
+            if (!aTracker.replace(id, new Item(name, desc))) {
                 System.out.println("Заявка ID: " + id + " не обновлена.");
             } else {
                 System.out.println("Заявка ID: " + id + " обновлена.");
@@ -206,20 +237,20 @@ public class MenuTracker {
          * @param key  the key of menu.
          * @param name the name of menu
          */
-        public DeleteItem(int key, String name) {
+        public DeleteItem(final int key, final String name) {
             super(key, name);
         }
 
         /**
          * Override method delete Item.
          *
-         * @param input   объект типа Input.
-         * @param tracker объект типа Tracker.
+         * @param aInput   объект типа aInput.
+         * @param aTracker объект типа Tracker.
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Введите ID удаляемой заявки: ");
-            if (!tracker.delete(id)) {
+        public final void execute(final Input aInput, final Tracker aTracker) {
+            var id = aInput.ask("Введите ID удаляемой заявки: ");
+            if (!aTracker.delete(id)) {
                 System.out.println("Заявка не удалена. Уточните ID заявки.");
             } else {
                 System.out.println("Заявка " + id + " удалена.");
@@ -237,20 +268,20 @@ public class MenuTracker {
          * @param key  the key of menu.
          * @param name the name of menu
          */
-        public FindItemById(int key, String name) {
+        public FindItemById(final int key, final String name) {
             super(key, name);
         }
 
         /**
          * Override method finds Item by ID.
          *
-         * @param input   объект типа Input.
-         * @param tracker объект типа Tracker.
+         * @param aInput   объект типа aInput.
+         * @param aTracker объект типа Tracker.
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            String id = input.ask("Поиск, введите ID заявки: ");
-            Item byId = tracker.findById(id);
+        public final void execute(final Input aInput, final Tracker aTracker) {
+            var id = aInput.ask("Поиск, введите ID заявки: ");
+            var byId = aTracker.findById(id);
             if (byId == null) {
                 System.out.println("Заявка не обнаружена. Уточните ID");
             } else {
@@ -269,20 +300,20 @@ public class MenuTracker {
          * @param key  the key of menu.
          * @param name the name of menu
          */
-        public FindItemsByName(int key, String name) {
+        public FindItemsByName(final int key, final String name) {
             super(key, name);
         }
 
         /**
          * Override method find Item by name.
          *
-         * @param input   объект типа Input.
-         * @param tracker объект типа Tracker.
+         * @param aInput   объект типа Input.
+         * @param aTracker объект типа Tracker.
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
-            String name = input.ask("Поиск, введите название заявки:");
-            Item[] byNames = tracker.findByName(name);
+        public final void execute(final Input aInput, final Tracker aTracker) {
+            var name = aInput.ask("Поиск, введите название заявки:");
+            Item[] byNames = aTracker.findByName(name);
             if (byNames.length == 0) {
                 System.out.println("Заявка не обнаружена. Уточните название.");
             } else {
@@ -305,21 +336,23 @@ public class MenuTracker {
          *
          * @param key  the key of menu.
          * @param name the name of menu.
-         * @param  ui the link to StartUI.
+         * @param aUi  the link to StartUI.
          */
-        public ExitProgram(int key, String name, StartUI ui) {
+        public ExitProgram(final int key, final String name,
+                           final StartUI aUi) {
             super(key, name);
-            this.ui = ui;
+            this.ui = aUi;
         }
 
         /**
          * Override method to close program.
          *
-         * @param input   объект типа Input.
-         * @param tracker объект типа Tracker.
+         * @param aInput   объект типа Input.
+         * @param aTracker объект типа Tracker.
          */
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public final void execute(final Input aInput,
+                                  final Tracker aTracker) {
             this.ui.stop();
         }
 

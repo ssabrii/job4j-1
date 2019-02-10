@@ -29,7 +29,7 @@ public interface Input {
      * @param range    диапзон пунктов мен.
      * @return возвращает введёный пользователем пункт меню.
      */
-    default int ask(String question, int[] range) {
+    default int ask(final String question, final int[] range) {
         int key = Integer.valueOf(this.ask(question));
         boolean exist = false;
         for (int value : range) {

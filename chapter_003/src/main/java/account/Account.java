@@ -56,7 +56,8 @@ public class Account {
      * @param amount amount in account
      * @throws LimitMoneyException exception if limit is out
      */
-    public final void transfer(final Account target, final double amount) throws LimitMoneyException {
+    public final void transfer(final Account target, final double amount)
+            throws LimitMoneyException {
         Objects.requireNonNull(target, "account must not be null");
         if ((this.values - amount) >= 0) {
             this.values -= amount;

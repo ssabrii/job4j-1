@@ -15,10 +15,10 @@ public class Square {
      * @param bound the length of array.
      * @return array.
      */
-    public int[] calculate(int bound) {
+    public final int[] calculate(final int bound) {
         int[] rst = new int[bound];
-
-        // заполнить массив через цикл элементами от 1 до bound возведенными в квадрат
+        // заполнить массив через цикл элементами
+        // от 1 до bound возведенными в квадрат
         for (int i = 1; i <= rst.length; i++) {
             rst[i - 1] = (int) Math.pow(i, 2);
         }

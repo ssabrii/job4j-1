@@ -56,7 +56,8 @@ public class Bank {
      * @param account account
      * @throws NotExistStorageException the user is't in storage
      */
-    public final void add(final User user, final Account account) throws NotExistStorageException {
+    public final void add(final User user, final Account account)
+            throws NotExistStorageException {
         Objects.requireNonNull(user, "user must not be null");
         Objects.requireNonNull(user, "account must not be null");
         if (this.map.containsKey(user)) {
@@ -74,7 +75,8 @@ public class Bank {
      * @return the list of user's account in storage
      * @throws NotExistStorageException the user is't in storage
      */
-    public final Account getUserAccount(final User user, final Account account) throws NotExistStorageException {
+    public final Account getUserAccount(final User user, final Account account)
+            throws NotExistStorageException {
         Objects.requireNonNull(user, "user must not be null");
         Objects.requireNonNull(user, "account must not be null");
         ArrayList<Account> list;
@@ -93,7 +95,8 @@ public class Bank {
      * @param account user's account
      * @throws NotExistStorageException the user is't in storage
      */
-    public final void deleteAccount(final User user, final Account account) throws NotExistStorageException {
+    public final void deleteAccount(final User user, final Account account)
+            throws NotExistStorageException {
         Objects.requireNonNull(user, "user must not be null");
         Objects.requireNonNull(user, "account must not be null");
         if (this.map.containsKey(user)) {
@@ -110,7 +113,8 @@ public class Bank {
      * @return all user's account from storage
      * @throws NotExistStorageException the user is't in storage
      */
-    public final List<Account> getAccounts(final User user) throws NotExistStorageException {
+    public final List<Account> getAccounts(final User user)
+            throws NotExistStorageException {
         Objects.requireNonNull(user, "user must not be null");
         if (this.map.containsKey(user)) {
             return this.map.get(user);
@@ -141,7 +145,8 @@ public class Bank {
      */
     public final void transferTo(final User user1, final Account account1,
                                  final User user2, final Account account2,
-                                 final double amount) throws NotExistStorageException, NotExistAccountException {
+                                 final double amount)
+            throws NotExistStorageException, NotExistAccountException {
         Objects.requireNonNull(user1, "user1 must not be null");
         Objects.requireNonNull(user2, "user2 must not be null");
         Objects.requireNonNull(account1, "account1 must not be null");
@@ -162,6 +167,7 @@ public class Bank {
             throw new NotExistStorageException("User is't in storage.");
         }
     }
+
     /**
      * Method toString.
      *

@@ -58,7 +58,8 @@ public class Bank {
      * @param user user
      * @throws NotExistStorageException user is't in storage
      */
-    public final void deleteUser(final User user) throws NotExistStorageException {
+    public final void deleteUser(final User user)
+            throws NotExistStorageException {
         Objects.requireNonNull(user, "user must not be null");
         if (!this.map.containsKey(user)) {
             throw new NotExistStorageException("user is't in storage.");
@@ -74,7 +75,8 @@ public class Bank {
      * @param account  the account of user
      * @throws NotExistAccountException account is't in storage
      */
-    public final void deleteAccountFromUser(final String passport, final Account account)
+    public final void deleteAccountFromUser(final String passport,
+                                            final Account account)
             throws NotExistAccountException {
         Objects.requireNonNull(passport, "passport must not be null");
         Objects.requireNonNull(account, "account must not be null");
@@ -96,7 +98,8 @@ public class Bank {
      * @param account  new account for user
      * @throws ExistAccountException account is in storage
      */
-    public final void addAccountToUser(final String passport, final Account account)
+    public final void addAccountToUser(final String passport,
+                                       final Account account)
             throws ExistAccountException {
         Objects.requireNonNull(passport, "passport must not be null");
         Objects.requireNonNull(account, "account must not be null");
@@ -161,7 +164,8 @@ public class Bank {
      * @return the index in storage
      * @throws NotExistAccountException account is't storage
      */
-    protected final Account getUserAccount(final String passport, final String requisite)
+    protected final Account getUserAccount(final String passport,
+                                           final String requisite)
             throws NotExistAccountException {
         Account account = null;
         final List<Account> userAccounts = getUserAccounts(passport);

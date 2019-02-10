@@ -13,12 +13,17 @@ public class Paint {
      *
      * @param shape reference to interface Shape.
      */
-    public void draw(Shape shape) {
+    public final void draw(final Shape shape) {
         System.out.println(shape.draw());
     }
 
-    public static void main(String[] args) {
-        Paint paint = new Paint();
+    /**
+     * main.
+     *
+     * @param args strings
+     */
+    public static void main(final String[] args) {
+        var paint = new Paint();
         paint.draw(new Square());
         System.out.println();
         paint.draw(new Triangle());

@@ -14,7 +14,8 @@ public class PointTest {
     public void calculateDistanceBetweenTwoPoints() {
         Point a = new Point(0, 1);
         Point b = new Point(2, 5);
-        double result = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+        double result = sqrt(pow(a.getX() - b.getX(), 2)
+                + pow(a.getY() - b.getY(), 2));
         assertThat(result, closeTo(5.0, 5.0));
     }
 }

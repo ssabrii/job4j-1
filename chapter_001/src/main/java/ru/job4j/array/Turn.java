@@ -15,7 +15,7 @@ public class Turn {
      * @param array array.
      * @return backward array.
      */
-    public int[] back(int[] array) {
+    public final int[] back(final int[] array) {
         for (int index = 0; index < array.length / 2; index++) {
             int tmp;
             tmp = array[index];

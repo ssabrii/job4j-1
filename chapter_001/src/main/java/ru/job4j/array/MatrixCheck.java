@@ -14,7 +14,7 @@ public class MatrixCheck {
      * @param data array size.
      * @return result.
      */
-    public boolean mono(boolean[][] data) {
+    public final boolean mono(final boolean[][] data) {
         boolean result = true;
         for (int i = 0; i < data.length; i++) {
             if (data[0][0] != data[i][i]) {

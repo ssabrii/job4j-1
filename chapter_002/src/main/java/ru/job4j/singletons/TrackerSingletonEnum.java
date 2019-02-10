@@ -20,6 +20,7 @@ public enum TrackerSingletonEnum {
      * @param model model.
      * @return model.
      */
+    @SuppressWarnings("unused")
     public Item add(final Item model) {
         return model;
     }
@@ -29,6 +30,6 @@ public enum TrackerSingletonEnum {
      * @param args string.
      */
     public static void main(final String[] args) {
-        TrackerSingletonEnum tracker = TrackerSingletonEnum.INSTANCE;
+        var tracker = TrackerSingletonEnum.INSTANCE;
     }
 }

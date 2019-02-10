@@ -2,8 +2,22 @@ package ru.job4j.loop;
 
 import java.util.function.BiPredicate;
 
+/**
+ * Paint.
+ * It paints pyramid.
+ *
+ * @author Maxim Vanny.
+ * @version 1.0
+ * @since 0.1
+ */
 public class Pyramid {
-    public String rightTrl(int height) {
+    /**
+     * Right level.
+     *
+     * @param height height
+     * @return RL
+     */
+    public final String rightTrl(final int height) {
         return this.loopBy(
                 height,
                 height,
@@ -11,7 +25,13 @@ public class Pyramid {
         );
     }
 
-    public String leftTrl(int height) {
+    /**
+     * Left level.
+     *
+     * @param height height
+     * @return LL
+     */
+    public final String leftTrl(final int height) {
         return this.loopBy(
                 height,
                 height,
@@ -19,16 +39,32 @@ public class Pyramid {
         );
     }
 
-    public String pyramids(int height) {
+    /**
+     * bild Pyramid.
+     *
+     * @param height height
+     * @return pyramid
+     */
+    public final String pyramids(final int height) {
         return this.loopBy(
                 height,
                 2 * height - 1,
-                (row, column) -> row >= height - column - 1 && row + height - 1 >= column
+                (row, column) ->
+                        row >= height - column - 1 && row + height - 1 >= column
         );
     }
 
-    private String loopBy(int height, int weight, BiPredicate<Integer, Integer> predict) {
-        StringBuilder screen = new StringBuilder();
+    /**
+     * loopBy.
+     *
+     * @param height  height
+     * @param weight  weight
+     * @param predict predict
+     * @return screen
+     */
+    private String loopBy(final int height, final int weight,
+                          final BiPredicate<Integer, Integer> predict) {
+        var screen = new StringBuilder();
         for (int row = 0; row != height; row++) {
             for (int column = 0; column != weight; column++) {
                 if (predict.test(row, column)) {
@@ -42,3 +78,5 @@ public class Pyramid {
         return screen.toString();
     }
 }
+
+

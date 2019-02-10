@@ -1,5 +1,7 @@
 package ru.job4j.array;
 
+import java.util.stream.IntStream;
+
 /**
  * decorator for string.
  *
@@ -8,28 +10,28 @@ package ru.job4j.array;
  * @since 0.1
  */
 public class ArrayChar {
-    private char[] data;
+    /**
+     * source string.
+     */
+    private final char[] data;
 
-    public ArrayChar(String line) {
+    /**
+     * Constructor.
+     * @param line string
+     */
+    public ArrayChar(final String line) {
         this.data = line.toCharArray();
     }
 
     /**
-     * Проверяет. что слово начинается с префикса.
+     * Проверяет, что слово начинается с префикса.
      *
      * @param prefix префикс.
-     * @return если слово начинается с префикса
+     * @return boolean
      */
-    public boolean startWith(String prefix) {
-        boolean result = true;
-        char[] value = prefix.toCharArray();
-        // проверить. что массив data имеет первые элементы одинаковые с value
-        for (int index = 0; index < value.length; index++) {
-            if (data[index] != value[index]) {
-                result = false;
-                break;
-            }
-        }
-        return result;
+    public final boolean startWith(final String prefix) {
+        return IntStream.range(0, prefix.length())
+                .filter(z -> prefix.charAt(z) != this.data[z])
+                .noneMatch(z -> z != 0);
     }
 }

@@ -13,7 +13,7 @@ public class MenuOutException extends RuntimeException {
      *
      * @param message message for users.
      */
-    public MenuOutException(String message) {
+    public MenuOutException(final String message) {
         super(message);
     }
 }

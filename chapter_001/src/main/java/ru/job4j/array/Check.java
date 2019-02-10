@@ -7,7 +7,12 @@ package ru.job4j.array;
  * @since 0.1
  */
 public class Check {
-    public boolean mono(boolean[] data) {
+    /**
+     * Mono.
+     * @param data data
+     * @return result
+     */
+    public final boolean mono(final boolean[] data) {
         boolean result = true;
         for (boolean runner : data) {
             if (data[0] != runner) {

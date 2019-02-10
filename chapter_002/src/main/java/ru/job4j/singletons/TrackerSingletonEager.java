@@ -13,7 +13,8 @@ public final class TrackerSingletonEager {
     /**
      * Create link to TrackSingletonEager object.
      */
-    private static final TrackerSingletonEager INSTANCE = new TrackerSingletonEager();
+    private static final TrackerSingletonEager INSTANCE =
+            new TrackerSingletonEager();
 
     /**
      * Method get final static link to object TSE.
@@ -36,6 +37,7 @@ public final class TrackerSingletonEager {
      * @param model model.
      * @return model.
      */
+    @SuppressWarnings("unused")
     public Item add(final Item model) {
         return model;
     }
@@ -46,6 +48,6 @@ public final class TrackerSingletonEager {
      * @param args string.
      */
     public static void main(final String[] args) {
-        TrackerSingletonEager tracker = TrackerSingletonEager.getInstance();
+        var tracker = TrackerSingletonEager.getInstance();
     }
 }

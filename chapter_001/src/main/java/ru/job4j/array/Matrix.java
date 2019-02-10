@@ -14,7 +14,7 @@ public class Matrix {
      * @param size array size.
      * @return sorted array.
      */
-    public int[][] multiple(int size) {
+    public final int[][] multiple(final int size) {
         int[][] table = new int[size][size];
         for (int index = 0; index < table.length; index++) {
             for (int runner = 0; runner < table.length; runner++) {

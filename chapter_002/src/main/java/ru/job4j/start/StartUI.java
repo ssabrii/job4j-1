@@ -28,12 +28,12 @@ public class StartUI {
     /**
      * Конструтор.
      *
-     * @param input   ввод данных.
-     * @param tracker хранилище заявок.
+     * @param aInput   ввод данных.
+     * @param aTracker хранилище заявок.
      */
-    public StartUI(Input input, Tracker tracker) {
-        this.input = input;
-        this.tracker = tracker;
+    public StartUI(final Input aInput, final Tracker aTracker) {
+        this.input = aInput;
+        this.tracker = aTracker;
     }
 
     /**
@@ -47,7 +47,7 @@ public class StartUI {
      * Основой цикл программы.
      */
     public final void init() {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        var menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions(this);
         int[] range = menu.fillMenu(menu.getActionsSize());
         do {

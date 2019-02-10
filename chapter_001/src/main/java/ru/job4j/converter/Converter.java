@@ -1,7 +1,11 @@
 package ru.job4j.converter;
 
 /**
- * Currency converter.
+ * Converter.
+ *
+ * @author Maxim Vanny.
+ * @version 1.0
+ * @since 0.1
  */
 public class Converter {
     /**
@@ -51,15 +55,5 @@ public class Converter {
      */
     public final int euroToRuble(final int value) {
         return value * eur;
-    }
-
-    /**
-     * Main.
-     * the point's enter in program.
-     *
-     * @param args array string.
-     */
-    public static void main(final String[] args) {
-
     }
 }

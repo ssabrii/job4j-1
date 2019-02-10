@@ -39,6 +39,7 @@ public final class TrackerSingletonLazy {
      * @param model model.
      * @return model.
      */
+    @SuppressWarnings("unused")
     public Item add(final Item model) {
         return model;
     }
@@ -49,6 +50,7 @@ public final class TrackerSingletonLazy {
      * @param args string.
      */
     public static void main(final String[] args) {
-        TrackerSingletonLazy tracker = TrackerSingletonLazy.getInstance();
+        @SuppressWarnings("unused")
+        var tracker = TrackerSingletonLazy.getInstance();
     }
 }

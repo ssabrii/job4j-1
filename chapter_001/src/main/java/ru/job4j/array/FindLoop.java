@@ -1,6 +1,7 @@
 package ru.job4j.array;
+
 /**
- * Square.
+ * FindLoop.
  *
  * @author Max Vanny.
  * @version 1.0
@@ -10,11 +11,11 @@ public class FindLoop {
     /**
      * Method finds number in array.
      *
-     * @param data  array.
-     * @param el seek number.
-     * @return  index or -1.
+     * @param data array.
+     * @param el   seek number.
+     * @return index or -1.
      */
-    public int indexOf(int[] data, int el) {
+    public final int indexOf(final int[] data, final int el) {
         int rst = -1; // если элемента нет в массиве, то возвращаем -1.
         for (int index = 0; index < data.length; index++) {
             if (data[index] == el) {

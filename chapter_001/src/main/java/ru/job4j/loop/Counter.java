@@ -5,6 +5,8 @@ package ru.job4j.loop;
  * Simple counter.
  *
  * @author Maxim Vanny.
+ * @version 1.0
+ * @since 0.1
  */
 public class Counter {
     /**
@@ -14,7 +16,7 @@ public class Counter {
      * @param finish last number.
      * @return sum odd numbers.
      */
-    public int add(int start, int finish) {
+    public final int add(final int start, final int finish) {
         int sum = 0;
         for (int i = start; i <= finish; i++) {
             if (i % 2 == 0) {

@@ -57,6 +57,13 @@ public class BankTest {
         assertThat(result, is(true));
     }
 
+ /*   @Benchmark
+    public void measureName() throws NotExistStorageException {
+        this.bank.deleteUser(this.uHomeland);
+        boolean result = this.bank.getAllUser().contains(this.uHomeland);
+        assertThat(result, is(false));
+    }*/
+
     @Test(expected = ExistStorageException.class)
     public void whenAddUserFall() throws Exception {
         User uDARK = new User("Dark", "OO-555");
