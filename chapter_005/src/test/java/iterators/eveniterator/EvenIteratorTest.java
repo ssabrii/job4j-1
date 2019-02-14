@@ -82,5 +82,11 @@ public class EvenIteratorTest {
         assertThat(it.hasNext(), is(false));
         assertThat(it.next(), is(8));
     }
+
+    @Test
+    public void name() {
+        EvenIterator ev =  new EvenIterator(new int[]{3, 5});
+        assertThat(ev.hasNext(), is(false));
+    }
 }
 
