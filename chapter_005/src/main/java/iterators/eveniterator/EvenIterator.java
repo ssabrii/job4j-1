@@ -37,9 +37,17 @@ public class EvenIterator implements Iterator<Integer> {
         if (this.count == length && this.values[this.count] % 2 != 0) {
             is = false;
         }
-        if (this.count == length-1 && this.values[this.count] % 2 != 0) {
-            is = false;
+        int odd = 0;
+        for (int number : this.values) {
+            if (number % 2 != 0) {
+                odd++;
+                if (odd == this.values.length - 1) {
+                    is = false;
+                    break;
+                }
+            }
         }
+
         if (this.count > length) {
             is = false;
         }
