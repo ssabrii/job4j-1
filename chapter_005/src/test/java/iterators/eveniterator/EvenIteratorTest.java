@@ -84,9 +84,15 @@ public class EvenIteratorTest {
     }
 
     @Test
-    public void name() {
+    public void fullOdds() {
         EvenIterator ev = new EvenIterator(new int[]{3, 5, 11, 13});
         assertThat(ev.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenWhiteBirdEven() {
+        EvenIterator ev = new EvenIterator(new int[]{3, 2, 11, 13});
+        assertThat(ev.hasNext(), is(true));
     }
 }
 

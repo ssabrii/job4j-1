@@ -41,7 +41,7 @@ public class EvenIterator implements Iterator<Integer> {
         for (int number : this.values) {
             if (number % 2 != 0) {
                 odd++;
-                if (odd == this.values.length - 1) {
+                if (odd >= this.values.length) {
                     is = false;
                     break;
                 }
