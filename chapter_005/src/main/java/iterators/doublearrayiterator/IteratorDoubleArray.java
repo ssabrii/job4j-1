@@ -36,32 +36,20 @@ public class IteratorDoubleArray implements Iterator<Integer> {
 
     @Override
     public final boolean hasNext() {
-        boolean is = true;
-        if (this.rows == this.array.length) {
-            is = false;
-        }
-        return is;
+        return this.rows < this.array.length;
     }
 
     @Override
     public final Integer next() {
-        final int inSize = array[this.rows].length;
-        int tom = 0;
-        int jerry = 0;
         if (!this.hasNext()) {
             throw new NoSuchElementException();
         }
-        if (this.cells != inSize) {
-            tom = this.rows;
-            jerry = this.cells;
-            this.cells++;
-        }
-        if (this.cells == inSize) {
-            tom = this.rows;
-            this.cells = 0;
+        int result = this.array[this.rows][this.cells++];
+        if (this.cells == this.array[this.rows].length) {
             this.rows++;
+            this.cells = 0;
         }
-        return this.array[tom][jerry];
+        return result;
     }
 
     @Override
