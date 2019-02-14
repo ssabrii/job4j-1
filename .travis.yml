@@ -15,5 +15,5 @@ notifications:
   email:
     recipients:
       - david.klarson@mail.ru
-    on_success: never # default: change
+    on_success: never # default: changed
     on_failure: always # default: always
