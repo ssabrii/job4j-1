@@ -1,6 +1,8 @@
 package iterators.eveniterator;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
@@ -30,42 +32,46 @@ public class EvenIterator implements Iterator<Integer> {
         this.values = aValues;
     }
 
+    /**
+     * list evens.
+     */
+    private List<Integer> list;
+
+    /**
+     * loop for check evens.
+     */
+    private void loop() {
+        int index = 0;
+        this.list = new ArrayList<>();
+        for (int number : this.values) {
+            if (number % 2 == 0) {
+                this.list.add(index);
+            }
+            index++;
+        }
+    }
+
     @Override
     public final boolean hasNext() {
+
         boolean is = true;
-        int length = this.values.length - 1;
-        if (this.count == length && this.values[this.count] % 2 != 0) {
+        loop();
+        if (this.list.isEmpty()) {
             is = false;
         }
-        int odd = 0;
-        for (int number : this.values) {
-            if (number % 2 != 0) {
-                odd++;
-                if (odd >= this.values.length) {
-                    is = false;
-                    break;
-                }
-            }
-        }
-
-        if (this.count > length) {
+        if (this.count > list.size() - 1) {
             is = false;
         }
         return is;
     }
 
+
     @Override
     public final Integer next() {
-        int cells;
-        do {
-            if (!this.hasNext()) {
-                throw new NoSuchElementException();
-            }
-            cells = this.count;
-            this.count++;
+        if (!this.hasNext()) {
+            throw new NoSuchElementException();
         }
-        while (this.values[cells] % 2 != 0);
-        return this.values[cells];
+        return this.values[this.list.get(this.count++)];
     }
 
     @Override
