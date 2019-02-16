@@ -23,20 +23,17 @@ public class Converter {
 
             @Override
             public final boolean hasNext() {
-                boolean is = true;
-                if (!this.iter.hasNext() && !it.hasNext()) {
-                    is = false;
+                while (!this.iter.hasNext() && !it.hasNext()) {
+                    iter = it.next();
+                    break;
                 }
-                return is;
+                return this.iter.hasNext();
             }
 
             @Override
             public final Integer next() {
                 if (!this.hasNext()) {
                     throw new NoSuchElementException();
-                }
-                if (!this.iter.hasNext()) {
-                    this.iter = it.next();
                 }
                 return this.iter.next();
             }
