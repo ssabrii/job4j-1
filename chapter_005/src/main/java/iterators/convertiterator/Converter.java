@@ -1,6 +1,5 @@
 package iterators.convertiterator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -20,8 +19,7 @@ public class Converter {
      */
     final Iterator<Integer> convert(final Iterator<Iterator<Integer>> it) {
         return new Iterator<>() {
-            private Iterator<Integer> iter =
-                    new ArrayList<Integer>().iterator();
+            private Iterator<Integer> iter = it.next();
 
             @Override
             public final boolean hasNext() {
