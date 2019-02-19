@@ -15,7 +15,7 @@ public class SimpleArray<T> implements Iterable<T> {
     /**
      * array<T>.
      */
-    private T[] array;
+    private final T[] array;
     /**
      * size array.
      */
@@ -30,6 +30,11 @@ public class SimpleArray<T> implements Iterable<T> {
     public SimpleArray(final int cells) {
 
         this.array = (T[]) new Object[cells];
+     /*   Class<T> type = (Class<T>)
+          ((ParameterizedType) getClass().getGenericSuperclass())
+          getActualTypeArguments()[0];
+          System.out.println(type.getSimpleName());*/
+
     }
 
     /**
@@ -99,6 +104,7 @@ public class SimpleArray<T> implements Iterable<T> {
      *
      * @param index index object
      * @return T object
+     *
      * @throws NoSuchElementException exception
      */
     public final T get(final int index) {
