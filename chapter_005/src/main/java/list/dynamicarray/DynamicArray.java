@@ -23,10 +23,6 @@ public class DynamicArray<T> implements Iterable<T> {
      */
     private int size;
     /**
-     * Size iterator.
-     */
-    private int sizeIter;
-    /**
      * Count mode.
      */
     private int modCount;
@@ -83,13 +79,15 @@ public class DynamicArray<T> implements Iterable<T> {
     public final Iterator<T> iterator() {
         return new Iterator<>() {
             private final int expectedCountMod = modCount;
+            //сделал локальную переменную
+            private int cursor;
 
             @Override
             public boolean hasNext() {
                 if (modCount != this.expectedCountMod) {
                     throw new ConcurrentModificationException();
                 }
-                return sizeIter < size;
+                return this.cursor < size;
             }
 
             @SuppressWarnings("unchecked")
@@ -98,7 +96,7 @@ public class DynamicArray<T> implements Iterable<T> {
                 if (!this.hasNext()) {
                     throw new NoSuchElementException("Element missing");
                 }
-                return (T) container[sizeIter++];
+                return (T) container[this.cursor++];
             }
         };
     }
