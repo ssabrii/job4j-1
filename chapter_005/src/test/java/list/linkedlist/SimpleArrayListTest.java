@@ -22,14 +22,14 @@ public class SimpleArrayListTest {
     @Test
     public void deleteOK() {
         System.out.print("Before: ");
-        for (int i=0;i<this.list.getSize();i++){
-            System.out.print(this.list.get(i)+ " ");
+        for (int i = 0; i < this.list.getSize(); i++) {
+            System.out.print(this.list.get(i) + " ");
         }
         System.out.println();
         Integer result = list.delete();
         System.out.print("After: ");
-        for (int i=0;i<this.list.getSize();i++){
-            System.out.print(this.list.get(i)+" ");
+        for (int i = 0; i < this.list.getSize(); i++) {
+            System.out.print(this.list.get(i) + " ");
         }
         assertThat(result, is(2));
         assertThat(list.get(0), is(2));
