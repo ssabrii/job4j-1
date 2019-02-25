@@ -37,8 +37,7 @@ public class SimpleArrayList<T> {
      * @return new value.
      */
     public final T delete() {
-        Node<T> result = this.first;
-        this.first = result.next;
+        this.first = this.first.next;
         this.size--;
         return this.first.date;
     }
