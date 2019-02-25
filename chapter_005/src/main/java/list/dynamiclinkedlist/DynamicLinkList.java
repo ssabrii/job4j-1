@@ -59,9 +59,8 @@ public class DynamicLinkList<T> implements Iterable<T> {
     public final Iterator<T> iterator() {
         return new Iterator<>() {
             private final int modificationCountMod = countMod;
-            private final Node<T> result = first;
+            private Node<T> result = first;
             private int count = 0;
-            private T data;
 
             @Override
             public final boolean hasNext() {
@@ -76,8 +75,10 @@ public class DynamicLinkList<T> implements Iterable<T> {
                 if (!this.hasNext()) {
                     throw new UnsupportedOperationException();
                 }
+                // вот здесь как оформить переход по нодам
+                // для получения значения data следующего по порядку обьекта??
 
-                return result.next.data;
+                return this.result.data;
             }
         };
     }
