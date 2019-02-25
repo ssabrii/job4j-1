@@ -7,8 +7,8 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 
-public class SimpleStackTest {
-    private final SimpleStack stack = new SimpleStack(4);
+public class SimpleArrayStackTest {
+    private final SimpleArrayStack<Integer> stack = new SimpleArrayStack<>(4);
 
     @Before
     public void setUpBefore() {
@@ -25,14 +25,10 @@ public class SimpleStackTest {
         assertThat(result, is(4));
     }
 
-    @Test
-    public void whenPushDoubleSize() {
+    @Test(expected = UnsupportedOperationException.class)
+    public void whenPushUOE() {
         this.stack.push(4);
         this.stack.push(5);
-        var resultValue = this.stack.get(4);
-        assertThat(resultValue, is(5));
-        var resultSize = this.stack.getSize();
-        assertThat(resultSize, is(8));
     }
 
     @Test
