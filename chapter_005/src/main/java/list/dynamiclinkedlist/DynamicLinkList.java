@@ -11,15 +11,13 @@ import java.util.Iterator;
  * @version 5.0
  * @since 2/22/2019
  */
+@SuppressWarnings("Duplicates")
 public class DynamicLinkList<T> implements Iterable<T> {
     /**
-     * countMod.
+     * Cursor.
      */
-    private int countMod;
-    /**
-     * Size.
-     */
-    private int size;
+    private int cursor;
+
     /**
      * First Node.
      */
@@ -34,8 +32,7 @@ public class DynamicLinkList<T> implements Iterable<T> {
         Node<T> newNode = new Node<>(value);
         newNode.next = this.first;
         this.first = newNode;
-        this.size++;
-        this.countMod++;
+        this.cursor++;
     }
 
     /**
@@ -45,7 +42,7 @@ public class DynamicLinkList<T> implements Iterable<T> {
      * @return data
      */
     public final T get(final int index) {
-        if (index > this.size) {
+        if (index > this.cursor) {
             throw new UnsupportedOperationException("Element missing");
         }
         Node<T> result = this.first;
@@ -58,16 +55,15 @@ public class DynamicLinkList<T> implements Iterable<T> {
     @Override
     public final Iterator<T> iterator() {
         return new Iterator<>() {
-            private final int modificationCountMod = countMod;
-            private Node<T> result = first;
-            private int count = 0;
+            private final int modificationCountMod = cursor;
+            private Node<T> temp = first;
 
             @Override
             public final boolean hasNext() {
-                if (countMod != this.modificationCountMod) {
+                if (cursor != this.modificationCountMod) {
                     throw new ConcurrentModificationException();
                 }
-                return first.next != null;
+                return this.temp != null;
             }
 
             @Override
@@ -75,10 +71,9 @@ public class DynamicLinkList<T> implements Iterable<T> {
                 if (!this.hasNext()) {
                     throw new UnsupportedOperationException();
                 }
-                // вот здесь как оформить переход по нодам
-                // для получения значения data следующего по порядку обьекта??
-
-                return this.result.data;
+                T data = this.temp.data;
+                this.temp = this.temp.next;
+                return data;
             }
         };
     }
