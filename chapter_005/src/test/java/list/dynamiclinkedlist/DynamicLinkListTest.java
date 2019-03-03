@@ -35,6 +35,22 @@ public class DynamicLinkListTest {
     }
 
     @Test
+    public void removeOk() {
+        var result = this.dynamic.removeFirst();
+        assertThat(result, is(3));
+        assertThat(this.dynamic.get(0), is(2));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void removeFallUOE() {
+        this.dynamic.removeFirst();
+        this.dynamic.removeFirst();
+        this.dynamic.removeFirst();
+        this.dynamic.removeFirst();
+
+    }
+
+    @Test
     public void whenGetOk() {
         var result = this.dynamic.get(0);
         assertThat(result, is(3));

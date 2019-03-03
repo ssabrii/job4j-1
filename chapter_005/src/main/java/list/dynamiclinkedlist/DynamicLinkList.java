@@ -34,7 +34,19 @@ public class DynamicLinkList<T> implements Iterable<T> {
         this.first = newNode;
         this.cursor++;
     }
-
+    /**
+     * Method return and delete first element in stack.
+     *
+     * @return new value.
+     */
+    public final T removeFirst() {
+        if (this.first == null) {
+            throw new UnsupportedOperationException("Stack is empty");
+        }
+        T data = this.first.data;
+        this.first = this.first.next;
+        return data;
+    }
     /**
      * Method Get.
      *

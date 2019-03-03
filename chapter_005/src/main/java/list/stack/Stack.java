@@ -15,22 +15,14 @@ public class Stack<T> {
      * list.
      */
     private final DynamicLinkList<T> list = new DynamicLinkList<>();
-    /**
-     * field first.
-     */
-    private Node<T> first = null;
 
     /**
      * Method add.
      *
      * @param value value
      */
-    @SuppressWarnings("unchecked")
     public final void push(final T value) {
-        Node<T> temp = new Node<>(value);
-        temp.next = this.first;
-        this.first = temp;
-        this.list.add((T) this.first);
+        this.list.add(value);
     }
 
     /**
@@ -38,39 +30,7 @@ public class Stack<T> {
      *
      * @return new value.
      */
-    @SuppressWarnings("Duplicates")
     public final T poll() {
-        if (this.first == null) {
-            throw new UnsupportedOperationException("Stack is empty");
-        }
-        T data = this.first.data;
-        this.first = this.first.next;
-        return data;
+        return this.list.removeFirst();
     }
-
-    /**
-     * class Node.
-     *
-     * @param <T> any Т
-     */
-    private static class Node<T> {
-        /**
-         * field Node.
-         */
-        private Node<T> next;
-        /**
-         * field data.
-         */
-        private final T data;
-
-        /**
-         * Constructor.
-         *
-         * @param aData data
-         */
-        Node(final T aData) {
-            this.data = aData;
-        }
-    }
-
 }
