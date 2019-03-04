@@ -3,7 +3,7 @@ package list.dynamicarray;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.stream.IntStream;
 
 /**
  * DynamicArray.
@@ -42,12 +42,23 @@ public class DynamicArray<T> implements Iterable<T> {
      * @param value value
      */
     public final void add(final T value) {
-        Objects.requireNonNull(value, "must not be null");
         if (this.size == this.container.length - 1) {
             addSizeArray();
         }
         this.container[size++] = value;
         this.modCount++;
+    }
+
+    /**
+     * isExist.
+     *
+     * @param value value
+     * @return boolean
+     */
+    public final boolean isExist(final T value) {
+        return IntStream.range(0, this.size)
+                .anyMatch(i -> this.container[i] == value
+                        || this.container[i].equals(value));
     }
 
     /**
@@ -79,7 +90,6 @@ public class DynamicArray<T> implements Iterable<T> {
     public final Iterator<T> iterator() {
         return new Iterator<>() {
             private final int expectedCountMod = modCount;
-            //сделал локальную переменную
             private int cursor;
 
             @Override
