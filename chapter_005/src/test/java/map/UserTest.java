@@ -19,6 +19,8 @@ public class UserTest {
         catalog.put(one, "first");
         catalog.put(two, "second");
         System.out.println(catalog);
+        System.out.println(System.identityHashCode(one));
+        System.out.println(System.identityHashCode(two));
     }
 
 }
