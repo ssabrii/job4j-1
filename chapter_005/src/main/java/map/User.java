@@ -37,8 +37,23 @@ public class User {
         this.children = aChildren;
         this.birthday = aBirthday;
     }
+    //
     @Override
     public final int hashCode() {
         return Objects.hash(name, children, birthday);
+    }
+
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final User user = (User) o;
+        return children == user.children
+                && name.equals(user.name)
+                && birthday.equals(user.birthday);
     }
 }
