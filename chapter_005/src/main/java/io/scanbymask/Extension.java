@@ -22,6 +22,7 @@ public final class Extension {
      *
      * @param file source file
      * @param ext  source extension files
+     * @return result
      */
     public static boolean checkExtension(final File file,
                                          final List<String> ext) {
