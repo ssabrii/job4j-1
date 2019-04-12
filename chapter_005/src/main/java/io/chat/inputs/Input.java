@@ -1,4 +1,4 @@
-package io.bot.inputs;
+package io.chat.inputs;
 
 import java.io.IOException;
 
@@ -17,5 +17,5 @@ public interface Input {
      *
      * @throws IOException exception
      */
-    String askUser() throws IOException;
+    String fromUser() throws IOException;
 }

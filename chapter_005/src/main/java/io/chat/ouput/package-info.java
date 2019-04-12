@@ -1,9 +1,9 @@
 /**
  * ChatBot.
- * fInput, ConsoleInput, StubInput
+ * Log, Output, Out.
  *
  * @author Maxim Vanny.
  * @version 5.0
  * @since 0.1
  */
-package io.bot.inputs;
+package io.chat.ouput;

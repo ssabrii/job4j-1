@@ -1,4 +1,4 @@
-package io.bot.inputs;
+package io.chat.inputs;
 
 /**
  * StubInput.
@@ -23,19 +23,14 @@ public class StubInput implements Input {
     /**
      * Constructor.
      *
-     * @param aValue value
+     * @param aValue value for tests
      */
     public StubInput(final String[] aValue) {
         this.value = aValue;
     }
 
-    /**
-     * Method return side user dialog by step.
-     *
-     * @return side user dialog by step
-     */
     @Override
-    public final String askUser() {
+    public final String fromUser() {
         return this.value[this.position++];
     }
 

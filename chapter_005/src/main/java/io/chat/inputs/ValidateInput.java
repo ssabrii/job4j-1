@@ -1,4 +1,4 @@
-package io.bot.inputs;
+package io.chat.inputs;
 
 import java.io.IOException;
 
@@ -18,19 +18,14 @@ public class ValidateInput implements Input {
     /**
      * Constructor.
      *
-     * @param aInput input
+     * @param aInput input for main and test
      */
     public ValidateInput(final Input aInput) {
         this.input = aInput;
     }
 
-    /**
-     * Method return side user dialog.
-     *
-     * @return side user dialog
-     */
     @Override
-    public final String askUser() throws IOException {
-        return input.askUser();
+    public final String fromUser() throws IOException {
+        return input.fromUser();
     }
 }

@@ -1,4 +1,4 @@
-package io.bot.inputs;
+package io.chat.inputs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,13 +18,8 @@ public class ConsoleInput implements Input {
     private final BufferedReader reader =
             new BufferedReader(new InputStreamReader(System.in));
 
-    /**
-     * Method return side user dialog.
-     *
-     * @return side user dialog
-     */
     @Override
-    public final String askUser() throws IOException {
+    public final String fromUser() throws IOException {
         return reader.readLine();
     }
 }
