@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * SocketProperty.
@@ -14,23 +13,47 @@ import java.util.Objects;
  * @since 4/20/2019
  */
 public class PropertySocket implements Properties {
+    /**
+     * field path property file.
+     */
+    private final String property;
+
+    /**
+     * Constructor.
+     *
+     * @param path path to property file
+     */
+    public PropertySocket(final String path) {
+        // real path "config/manager.properties"
+        final Root root = new Root();
+        this.property = root.getUserDir() + path;
+    }
+
     @Override
     public final String port() {
-        String property = getPropertyFromFile("port");
-        return Objects.requireNonNullElse(property,
-                "Refuse.Missing field port.");
+        var answer = getPropertyFromFile("port");
+        if (answer.equals("") || answer.equals("abuse parameter.")) {
+            answer = "Refuse.Missing field port.";
+        }
+        return answer;
     }
 
     @Override
     public final String ip() {
-        String property = getPropertyFromFile("ip");
-        return Objects.requireNonNullElse(property,
-                "Refuse.Missing field ip.");
+        var answer = getPropertyFromFile("ip");
+        if (answer.equals("") || answer.equals("abuse parameter.")) {
+            answer = "Refuse.Missing field ip.";
+        }
+        return answer;
     }
 
-    @Override
-    public final String getRootCatalog() {
-        return getUserDir() + "chapter_005/src/main/java/io/manager";
+    /**
+     * Method gets the the path file of properties.
+     *
+     * @return the path file of properties
+     */
+    private String getPropertyCatalog() {
+        return this.property;
     }
 
     /**
@@ -39,10 +62,8 @@ public class PropertySocket implements Properties {
      * @param key key data in file
      * @return property for key
      */
-    private String getPropertyFromFile(final String key) {
-        final var props = "chapter_005/src/main/java/io"
-                + "/manager/properties/app.properties";
-        final var file = getUserDir() + props;
+    public final String getPropertyFromFile(final String key) {
+        final var file = this.getPropertyCatalog();
         String data = "";
         File prop = new File(file);
         if (!prop.exists() || prop.length() == 0) {
@@ -53,7 +74,13 @@ public class PropertySocket implements Properties {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.contains("=") && line.contains(key)) {
-                        data = line.split("=")[1];
+                        if (line.split("=").length >= 2) {
+                            data = line.split("=")[1];
+                            break;
+                        } else {
+                            data = "abuse parameter.";
+                            break;
+                        }
                     }
                 }
             } catch (IOException e) {
@@ -61,22 +88,5 @@ public class PropertySocket implements Properties {
             }
         }
         return data;
-    }
-
-    /**
-     * Method gets the path user dir for any OS.
-     *
-     * @return path
-     */
-    private String getUserDir() {
-        final var sp = File.separator;
-        var dir = System.getProperty("user.dir");
-        if (!dir.endsWith(sp)) {
-            dir += sp;
-        }
-        if (dir.contains("\\")) {
-            dir = dir.replace('\\', '/');
-        }
-        return dir;
     }
 }

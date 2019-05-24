@@ -2,13 +2,10 @@ package io.manager.tracker;
 
 import io.manager.menu.Menu;
 import io.manager.menu.MenuServer;
-import io.manager.properties.Properties;
-import io.manager.properties.PropertySocket;
+import io.manager.properties.Root;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -27,6 +24,10 @@ import java.util.stream.IntStream;
  */
 public class ServerAPI {
     /**
+     * field path root.
+     */
+    private final Root root = new Root();
+    /**
      * field server menu.
      */
     private final Menu menu = new MenuServer();
@@ -39,10 +40,6 @@ public class ServerAPI {
      * and helps build the current server path.
      */
     private final ComponentsAPI components = new ComponentsAPI();
-    /**
-     * field socket.
-     */
-    private Socket socket;
 
     /**
      * Method get query.
@@ -52,7 +49,7 @@ public class ServerAPI {
      */
     public final String query(final String query) {
         final var keys = query.trim().split(" ");
-        return this.catalog.get(keys[0]).execute(keys);
+        return this.catalog.getOrDefault(keys[0], new Refuse()).execute(keys);
     }
 
 
@@ -90,7 +87,12 @@ public class ServerAPI {
      * @param answer line for output
      */
     public final void out(final String answer) {
-        this.menu.out(answer);
+        final var ln = System.lineSeparator();
+        try {
+            this.menu.out(answer + ln);
+        } catch (IOException e) {
+            System.out.println("Mistake in-out.sAPI");
+        }
     }
 
     /**
@@ -110,57 +112,14 @@ public class ServerAPI {
      */
     public final void connect(final Socket aSocket) {
         this.menu.connect(aSocket);
-        this.socket = aSocket;
     }
 
     /**
      * Method set root catalog in server.
      */
     public final void setRoot() {
-        final Properties prop = new PropertySocket();
-        final String[] split = prop.getRootCatalog().split("/");
+        final String[] split = this.root.getRootCatalog().split("/");
         this.components.setPathComponents(split);
-    }
-
-    /**
-     * Method load file to server.
-     *
-     * @param path path
-     * @return status loading
-     */
-    public final String load(final String path) {
-        var answer = "False load.@";
-        try (DataInputStream dis = new DataInputStream(
-                this.socket.getInputStream());
-             FileOutputStream fos = new FileOutputStream(path)) {
-            while (dis.available() > 0) {
-                fos.write(dis.read());
-            }
-            answer = "Load OK.@";
-        } catch (IOException e) {
-            answer = "Mistake in-out.LOS.@";
-        }
-
-        return answer;
-    }
-
-    /**
-     * Method unloads file from server.
-     *
-     * @param path path
-     * @return status unloading
-     */
-    public final String unload(final String path) {
-        var answer = "Unload false.@";
-        try (DataOutputStream dos = new DataOutputStream(
-                this.socket.getOutputStream())) {
-            final var content = Files.readAllBytes(Path.of(path));
-            dos.write(content);
-            answer = "UnLoad OK.@";
-        } catch (IOException e) {
-            answer = "Mistake in-out.ULS.@";
-        }
-        return answer;
     }
 
     /**
@@ -187,8 +146,7 @@ public class ServerAPI {
             final var demand = checkValue(query);
             switch (demand) {
                 case "slash":
-                    final PropertySocket prop = new PropertySocket();
-                    path = prop.getRootCatalog();
+                    path = root.getRootCatalog();
                     break;
                 case "dot":
                     final var offset = 1;
@@ -229,17 +187,17 @@ public class ServerAPI {
 
     /**
      * Inner class Dir.
-     * Show files and directory for current path in server.
+     * Show files and directory path in server.
      */
     private class Dir extends BaseAction {
         @Override
         public final String execute(final String[] query) {
-            var path = components.collectByOffset(0);
+            final var path = components.collectByOffset(0);
             File dir = new File(path);
             var pack = "";
-            if (dir.length() != 0) {
-                File[] files = dir.listFiles();
-                for (final File file : Objects.requireNonNull(files)) {
+            File[] files = dir.listFiles();
+            if (Objects.requireNonNull(files).length != 0) {
+                for (final File file : files) {
                     if (file.isDirectory()) {
                         pack = pack.concat(file.getName() + " <DIR>@");
                     } else {
@@ -249,7 +207,7 @@ public class ServerAPI {
             } else {
                 pack = "Directory is empty.@";
             }
-            return pack + path;
+            return pack + root.getRootCatalog();
         }
     }
 
@@ -258,13 +216,31 @@ public class ServerAPI {
      * Loads the file to server.
      */
     private class Load extends BaseAction {
-
         @Override
         public final String execute(final String[] query) {
             var qFile = query[1];
-            var path = components.collectByOffset(0) + "/" + qFile;
+            final var qPath = components.collectByOffset(0);
+            var path = qPath + "/" + qFile;
             var status = load(path);
-            return status + path;
+            return status + qPath;
+        }
+
+        /**
+         * Method load file to server.
+         *
+         * @param path path
+         * @return status loading
+         */
+        private String load(final String path) {
+            var status = "False load.@";
+            try (BufferedWriter fos = Files.newBufferedWriter(Path.of(path))) {
+                fos.write(menu.in());
+                fos.flush();
+                status = "Load OK.@";
+            } catch (IOException e) {
+                status = "Mistake in-out.LOS.@";
+            }
+            return status;
         }
     }
 
@@ -275,10 +251,29 @@ public class ServerAPI {
     private class UnLoad extends BaseAction {
         @Override
         public final String execute(final String[] query) {
-            var qFile = query[1];
-            var path = components.collectByOffset(0) + "/" + qFile;
-            var status = unload(path);
-            return status + path;
+            final var qFile = query[1];
+            final var qDir = components.collectByOffset(0);
+            final var path = qDir + "/" + qFile;
+            final var status = unload(path);
+            return status + qDir;
+        }
+
+        /**
+         * Method unloads file from server.
+         *
+         * @param path path
+         * @return status unloading
+         */
+        private String unload(final String path) {
+            var status = "Unload false.@";
+            try {
+                final var content = Files.readString(Path.of(path));
+                menu.out(content);
+                status = "UnLoad OK.@";
+            } catch (IOException e) {
+                status = "Mistake in-out.ULS.@";
+            }
+            return status;
         }
     }
 
@@ -290,7 +285,12 @@ public class ServerAPI {
         @Override
         public final String execute(final String[] query) {
             var warn = "Refuse.Illegal command.@";
-            return warn + components.collectByOffset(0);
+            final var ln = System.lineSeparator();
+            return new StringBuilder()
+                    .append(warn)
+                    .append(components.collectByOffset(0))
+                    .append(ln)
+                    .toString();
         }
     }
 }

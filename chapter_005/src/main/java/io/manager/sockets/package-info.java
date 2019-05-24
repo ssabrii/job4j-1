@@ -1,5 +1,5 @@
 /**
- * SocketClient, SocketServer.
+ * SocketClient, SocketServer .
  *
  * @author Maxim Vanny.
  * @version 5.0

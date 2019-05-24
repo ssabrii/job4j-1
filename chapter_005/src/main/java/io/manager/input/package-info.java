@@ -1,5 +1,5 @@
 /**
- * Input, InputConsole, InputStub, InputValidate.
+ * Input, InputConsole, InputStub, InputValidate .
  *
  * @author Maxim Vanny.
  * @version 5.0

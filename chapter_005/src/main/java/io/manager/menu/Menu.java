@@ -15,16 +15,19 @@ public interface Menu {
     /**
      * Method get input.
      *
-     * @throws IOException io exception
      * @return input
+     *
+     * @throws IOException io exception
      */
     String in() throws IOException;
 
     /**
      * Method get output.
+     *
      * @param answer answer
+     * @throws IOException ioException
      */
-    void out(final String answer);
+    void out(final String answer) throws IOException;
 
     /**
      * Method print answer server or client.
@@ -32,6 +35,7 @@ public interface Menu {
      * @param line answer
      */
     void print(final String line);
+
     /**
      * Method set connect with server.
      *

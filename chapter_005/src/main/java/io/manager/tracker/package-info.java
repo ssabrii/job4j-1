@@ -1,5 +1,5 @@
 /**
- * Base, BaseAction, TrackerServer, TrackerComponents,ClientAPI.
+ * Base, BaseAction, TrackerServer, TrackerComponents,ClientAPI .
  *
  * @author Maxim Vanny.
  * @version 5.0

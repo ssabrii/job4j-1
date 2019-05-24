@@ -32,8 +32,9 @@ public interface Assembly {
      * Method get out line.
      *
      * @param fileName line for out
+     * @throws IOException ioException
      */
-    void outOutputWriter(String fileName);
+    void outOutputWriter(String fileName) throws IOException;
 
     /**
      * Method get in line.

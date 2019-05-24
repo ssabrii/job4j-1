@@ -1,6 +1,7 @@
 package io.manager.tracker;
 
 import com.google.common.collect.Lists;
+import io.manager.properties.Root;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -59,9 +60,10 @@ public class ComponentsAPI {
      * @return current server path
      */
     public final String collectByOffset(final int offset) {
+        Root root = new Root();
         var path = "";
         var warn = "";
-        final var rootSize = 9;
+        final var rootSize = root.getRootCatalog().split("/").length;
         final var compSize = components.size() - offset;
         if (compSize < rootSize) {
             warn = "Refuse.Root.@";

@@ -1,5 +1,5 @@
 /**
- * Menu, Menus, MenuServer, MenuClient.
+ * Menu, Menus, MenuServer, MenuClient .
  *
  * @author Maxim Vanny.
  * @version 5.0

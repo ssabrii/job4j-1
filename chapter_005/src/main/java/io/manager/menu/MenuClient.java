@@ -45,7 +45,7 @@ public class MenuClient extends Menus {
     }
 
     @Override
-    public final void out(final String answer) {
+    public final void out(final String answer) throws IOException {
         this.assembly.outOutputWriter(answer);
     }
 

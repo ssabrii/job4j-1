@@ -47,12 +47,8 @@ public class SocketServer {
             client = server.in();
             server.print(client);
             answer = server.query(client);
-            if (!answer.equals("exit")) {
-                server.out(answer);
-                server.print(answer);
-            } else {
-                server.print(answer);
-            }
+            server.out(answer);
+            server.print(answer);
         } while (!answer.equals("exit"));
         this.socket.close();
     }
@@ -64,7 +60,7 @@ public class SocketServer {
      * @throws IOException io exception
      */
     public static void main(final String[] args) throws IOException {
-        final Properties prop = new PropertySocket();
+        final Properties prop = new PropertySocket("config/manager.properties");
         final Socket socket = new ServerSocket(
                 Integer.valueOf(prop.port())).accept();
         new SocketServer(socket).startServer();

@@ -8,5 +8,4 @@ package io.manager.tracker;
  * @since 4/21/2019
  */
 public abstract class BaseAction implements Base {
-
 }

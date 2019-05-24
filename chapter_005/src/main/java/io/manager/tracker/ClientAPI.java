@@ -3,10 +3,8 @@ package io.manager.tracker;
 import io.manager.menu.Menu;
 import io.manager.menu.MenuClient;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.file.Files;
@@ -30,10 +28,6 @@ public class ClientAPI {
      * field keeper name command from client to server.
      */
     private Map<String, BaseAction> catalog = new HashMap<>();
-    /**
-     * field socket.
-     */
-    private Socket socket;
 
     /**
      * Method get query.
@@ -76,7 +70,6 @@ public class ClientAPI {
      */
     public final void connect(final Socket aSocket) {
         this.menu.connect(aSocket);
-        this.socket = aSocket;
     }
 
     /**
@@ -85,9 +78,14 @@ public class ClientAPI {
      * @param query query
      */
     private void outQuery(final String[] query) {
+        final var ln = System.lineSeparator();
         StringBuilder sb = new StringBuilder();
         Arrays.stream(query).forEach(s -> sb.append(s).append(" "));
-        this.menu.out(sb.toString());
+        try {
+            this.menu.out(sb.toString().trim() + ln);
+        } catch (IOException e) {
+            System.out.println("Mistake in-out.oQ");
+        }
 
     }
 
@@ -103,41 +101,15 @@ public class ClientAPI {
         } catch (IOException e) {
             System.out.println("Mistake in-out.getAnswer");
         }
+        if (!answer.equals("")) {
+            if (answer.equals("exit")) {
+                answer = "exit";
+            } else if (!(answer.length() < 2)) {
+                answer = answer.substring(1);
+            }
+        }
         return answer;
     }
-
-    /**
-     * Method loads file to server, client side.
-     *
-     * @param file file
-     */
-    private void load(final File file) {
-        try (DataOutputStream dos = new DataOutputStream(
-                this.socket.getOutputStream())) {
-            final var content = Files.readAllBytes(file.toPath());
-            dos.write(content);
-        } catch (IOException e) {
-            System.out.println("Mistake in-out.LOC.");
-        }
-    }
-
-    /**
-     * Method unloads file from server, client side.
-     *
-     * @param file file
-     */
-    private void unload(final File file) {
-        try (DataInputStream dis = new DataInputStream(
-                this.socket.getInputStream());
-             FileOutputStream fos = new FileOutputStream(file)) {
-            while (dis.available() > 0) {
-                fos.write(dis.read());
-            }
-        } catch (IOException e) {
-            System.out.println("Mistake in-out.ULC.");
-        }
-    }
-
 
     /**
      * Inner class Ext.
@@ -147,16 +119,13 @@ public class ClientAPI {
     private class Ext extends BaseAction {
         @Override
         public final String execute(final String[] query) {
-            var answer = "";
             final var sizeQuery = 1;
             if (query.length != sizeQuery) {
-                menu.out("refuse");
-                return getAnswer();
+                outRefuse();
             } else {
                 outQuery(query);
-                answer = "exit";
             }
-            return answer;
+            return getAnswer();
         }
     }
 
@@ -165,14 +134,12 @@ public class ClientAPI {
      * Check command and sent "cd" to server.
      * Shift path in server.
      */
-    @SuppressWarnings("Duplicates")
     private class Cd extends BaseAction {
         @Override
         public final String execute(final String[] query) {
             final var sizeQuery = 2;
             if (query.length != sizeQuery) {
-                menu.out("refuse");
-                return getAnswer();
+                outRefuse();
             } else {
                 outQuery(query);
             }
@@ -184,14 +151,12 @@ public class ClientAPI {
      * Inner class Dir.
      * Check command and sent "dir" to server.
      */
-    @SuppressWarnings("Duplicates")
     private class Dir extends BaseAction {
         @Override
         public final String execute(final String[] query) {
             final var sizeQuery = 1;
             if (query.length != sizeQuery) {
-                menu.out("refuse");
-                return getAnswer();
+                outRefuse();
             } else {
                 outQuery(query);
             }
@@ -204,12 +169,12 @@ public class ClientAPI {
      * Check command and sent "load" to server.
      */
     private class Load extends BaseAction {
+
         @Override
         public final String execute(final String[] query) {
             final var sizeQuery = 3;
             if (query.length != sizeQuery) {
-                menu.out("refuse");
-                return getAnswer();
+                outRefuse();
             } else {
                 final var qDir = query[2];
                 final var qFile = query[1];
@@ -220,6 +185,34 @@ public class ClientAPI {
                 }
             }
             return getAnswer();
+        }
+
+        /**
+         * Method loads file to server, client side.
+         *
+         * @param file file
+         */
+        private void load(final File file) {
+
+            try {
+                final var content = Files.readString(file.toPath());
+                menu.out(content);
+            } catch (IOException e) {
+                System.out.println("Mistake in-out.load cAPI.");
+            }
+
+        }
+
+    }
+
+    /**
+     * Method out line "refuse" to server.
+     */
+    private void outRefuse() {
+        try {
+            menu.out("refuse" + System.lineSeparator());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -232,17 +225,31 @@ public class ClientAPI {
         public final String execute(final String[] query) {
             final var sizeQuery = 3;
             if (query.length != sizeQuery) {
-                menu.out("refuse");
-                return getAnswer();
+                outRefuse();
             } else {
+                final var qFile = query[1];
                 final var qDir = query[2];
-                final File file = new File(qDir);
-                if (file.isDirectory()) {
+                final File file = new File(qDir + "/" + qFile);
+                final File dir = new File(qDir);
+                if (dir.isDirectory()) {
                     outQuery(query);
                     unload(file);
                 }
             }
             return getAnswer();
+        }
+
+        /**
+         * Method unloads file from server, client side.
+         *
+         * @param file file
+         */
+        private void unload(final File file) {
+            try (BufferedWriter fos = Files.newBufferedWriter(file.toPath())) {
+                fos.write(menu.in());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -253,7 +260,7 @@ public class ClientAPI {
     private class Refuse extends BaseAction {
         @Override
         public final String execute(final String[] query) {
-            menu.out("refuse");
+            outRefuse();
             return getAnswer();
         }
     }

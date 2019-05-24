@@ -1,5 +1,5 @@
 /**
- * AbsPath, Properties, PropertySocket.
+ * Root, Properties, PropertySocket.
  *
  * @author Maxim Vanny.
  * @version 5.0

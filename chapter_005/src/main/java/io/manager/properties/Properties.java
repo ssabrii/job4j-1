@@ -21,10 +21,5 @@ public interface Properties {
      * @return ip
      */
     String ip();
-    /**
-     * Method gets the current root path of the server.
-     *
-     * @return server root path
-     */
-    String getRootCatalog();
+
 }

@@ -78,7 +78,7 @@ public class SocketClient {
                         + "(unload to catalog client)")
                 .append(System.lineSeparator())
                 .toString();
-        System.out.println(command);
+        System.out.print(command);
     }
 
     /**
@@ -88,7 +88,7 @@ public class SocketClient {
      * @throws IOException io exception
      */
     public static void main(final String[] args) throws IOException {
-        final Properties prop = new PropertySocket();
+        final Properties prop = new PropertySocket("config/manager.properties");
         final Socket socket = new Socket(prop.ip(),
                 Integer.valueOf(prop.port()));
         new SocketClient(socket, new InputValidate(new InputConsole()))
