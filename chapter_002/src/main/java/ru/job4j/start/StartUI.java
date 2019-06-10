@@ -3,7 +3,7 @@ package ru.job4j.start;
 
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.MenuTracker;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.ITracker;
 
 /**
  * StartUI.
@@ -19,7 +19,7 @@ public class StartUI {
     /**
      * Функциональное Хранилище заявок.
      */
-    private final Tracker tracker;
+    private final ITracker tracker;
     /**
      * Флаг выхода.
      */
@@ -31,7 +31,7 @@ public class StartUI {
      * @param aInput   ввод данных.
      * @param aTracker хранилище заявок.
      */
-    public StartUI(final Input aInput, final Tracker aTracker) {
+    public StartUI(final Input aInput, final ITracker aTracker) {
         this.input = aInput;
         this.tracker = aTracker;
     }

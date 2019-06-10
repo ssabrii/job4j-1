@@ -22,7 +22,7 @@ public class MenuTracker {
     /**
      * Сылка на объект хранилища.
      */
-    private final Tracker tracker;
+    private final ITracker tracker;
     /**
      * Сылка на список типа UserAction.
      */
@@ -63,7 +63,7 @@ public class MenuTracker {
      * @param aInput   объект типа Input
      * @param aTracker объект типа Tracker
      */
-    public MenuTracker(final Input aInput, final Tracker aTracker) {
+    public MenuTracker(final Input aInput, final ITracker aTracker) {
         this.input = aInput;
         this.tracker = aTracker;
     }
@@ -154,7 +154,7 @@ public class MenuTracker {
          * @param aTracker объект типа Tracker.
          */
         @Override
-        public final void execute(final Input aInput, final Tracker aTracker) {
+        public final void execute(final Input aInput, final ITracker aTracker) {
             System.out.println("--------- Добавление новой заявки -----------");
             var name = aInput.ask("Введите имя заявки: ");
             var desc = aInput.ask("Введите описание заявки: ");
@@ -189,7 +189,7 @@ public class MenuTracker {
          * @param aTracker объект типа Tracker.
          */
         @Override
-        public final void execute(final Input aInput, final Tracker aTracker) {
+        public final void execute(final Input aInput, final ITracker aTracker) {
             System.out.println(Arrays.toString(aTracker.findAll()));
         }
     }
@@ -215,7 +215,7 @@ public class MenuTracker {
          * @param aTracker объект типа Tracker.
          */
         @Override
-        public final void execute(final Input aInput, final Tracker aTracker) {
+        public final void execute(final Input aInput, final ITracker aTracker) {
             var id = aInput.ask("Введите ID обновляемой заявки: ");
             var name = aInput.ask("Введите имя заявки: ");
             var desc = aInput.ask("Введите описание заявки: ");
@@ -248,7 +248,7 @@ public class MenuTracker {
          * @param aTracker объект типа Tracker.
          */
         @Override
-        public final void execute(final Input aInput, final Tracker aTracker) {
+        public final void execute(final Input aInput, final ITracker aTracker) {
             var id = aInput.ask("Введите ID удаляемой заявки: ");
             if (!aTracker.delete(id)) {
                 System.out.println("Заявка не удалена. Уточните ID заявки.");
@@ -279,7 +279,7 @@ public class MenuTracker {
          * @param aTracker объект типа Tracker.
          */
         @Override
-        public final void execute(final Input aInput, final Tracker aTracker) {
+        public final void execute(final Input aInput, final ITracker aTracker) {
             var id = aInput.ask("Поиск, введите ID заявки: ");
             var byId = aTracker.findById(id);
             if (byId == null) {
@@ -311,7 +311,7 @@ public class MenuTracker {
          * @param aTracker объект типа Tracker.
          */
         @Override
-        public final void execute(final Input aInput, final Tracker aTracker) {
+        public final void execute(final Input aInput, final ITracker aTracker) {
             var name = aInput.ask("Поиск, введите название заявки:");
             Item[] byNames = aTracker.findByName(name);
             if (byNames.length == 0) {
@@ -352,7 +352,7 @@ public class MenuTracker {
          */
         @Override
         public final void execute(final Input aInput,
-                                  final Tracker aTracker) {
+                                  final ITracker aTracker) {
             this.ui.stop();
         }
 

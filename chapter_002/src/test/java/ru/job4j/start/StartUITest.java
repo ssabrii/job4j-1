@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.models.Item;
+import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Input;
 import ru.job4j.tracker.StubInput;
 import ru.job4j.tracker.Tracker;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertThat;
  * @since 0.1
  */
 public class StartUITest {
-    private final Tracker tracker = new Tracker();
+    private final ITracker tracker = new Tracker();
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     private Input input;

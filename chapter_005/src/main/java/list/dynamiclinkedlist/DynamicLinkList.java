@@ -71,7 +71,7 @@ public class DynamicLinkList<T> implements Iterable<T> {
             private Node<T> temp = first;
 
             @Override
-            public final boolean hasNext() {
+            public boolean hasNext() {
                 if (cursor != this.modificationCountMod) {
                     throw new ConcurrentModificationException();
                 }
@@ -79,7 +79,7 @@ public class DynamicLinkList<T> implements Iterable<T> {
             }
 
             @Override
-            public final T next() {
+            public T next() {
                 if (!this.hasNext()) {
                     throw new UnsupportedOperationException();
                 }

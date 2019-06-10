@@ -22,7 +22,7 @@ public class Converter {
             private Iterator<Integer> iter = it.next();
 
             @Override
-            public final boolean hasNext() {
+            public boolean hasNext() {
                 while (it.hasNext() && !iter.hasNext()) {
                     iter = it.next();
                 }
@@ -30,7 +30,7 @@ public class Converter {
             }
 
             @Override
-            public final Integer next() {
+            public Integer next() {
                 if (!this.hasNext()) {
                     throw new NoSuchElementException();
                 }

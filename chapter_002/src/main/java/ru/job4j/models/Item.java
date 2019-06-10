@@ -41,12 +41,33 @@ public class Item {
     }
 
     /**
-     * констуртор заявки.
+     * Конструктор заявки.
      *
      * @param aName        название заявки.
      * @param aDescription описание заявки.
      */
     public Item(final String aName, final String aDescription) {
+        this.name = aName;
+        this.description = aDescription;
+    }
+
+    /**
+     * Конструктор заявки.
+     *
+     * @param aName название заявки.
+     */
+    public Item(final String aName) {
+        this.name = aName;
+        this.description = null;
+    }
+
+    /**
+     * Конструктор заявки.
+     *
+     * @param aName название заявки.
+     */
+    public Item(final String aId, final String aName, final String aDescription) {
+        this.id = aId;
         this.name = aName;
         this.description = aDescription;
     }
@@ -110,7 +131,7 @@ public class Item {
     @Override
     public final String toString() {
         return '\n'
-                + "Заявка: id '"
+                + "Заявка: id ='"
                 + id
                 + "', name='"
                 + name
