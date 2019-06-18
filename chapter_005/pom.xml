@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>chapter_005</artifactId>
-    <dependencies>
-    <dependency>
+
+    <dependencies>   <dependency>
         <groupId>ru.job4j</groupId>
         <artifactId>chapter_002</artifactId>
         <version>2.0</version>
@@ -27,7 +27,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -40,10 +40,33 @@
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>ru.job4j.chapter_005.src.main.
-                                        java.io.socket.connect.SocketServer.java </mainClass>
+                                        java.db.tracker.TrackerSQL</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
+                    <changeLogFile>${project.basedir}/src/main/java/db/master.xml</changeLogFile>
+                    <!-- вот здесь не понятно.
+                     откуда эти настройки подтянутся должны?
+                     db удалял результат тот же -->
+                    <url>${db.url}</url>
+                    <driver>${db.driver}</driver>
+                    <username>${db.username}</username>
+                    <password>${db.password}</password>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

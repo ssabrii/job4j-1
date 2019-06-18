@@ -1,5 +1,5 @@
 /**
- * TrackerSQL, NotExistTrackerException.
+ * TrackerSQL, ConnectionRollBack.
  *
  * @author Maxim Vanny.
  * @version 5.0

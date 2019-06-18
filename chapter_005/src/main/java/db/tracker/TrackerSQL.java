@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.Scanner;
 
 /**
  * TrackerSQL.
@@ -42,20 +41,30 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     /**
      * field connection to db.
      */
-    private Connection connection;
+    private final Connection connection;
+
+    /**
+     * Constructor.
+     *
+     * @param aConnection connection
+     */
+    public TrackerSQL(final Connection aConnection) {
+        this.connection = aConnection;
+
+    }
 
     /**
      * Method get and set connection to db.
      *
      * @return status connection
      */
-    public final boolean init() {
+    public final Connection init() {
         try (InputStream is = TrackerSQL.class.getClassLoader()
                 .getResourceAsStream(PROPS)) {
             Properties props = new Properties();
             props.load(Objects.requireNonNull(is));
             Class.forName(props.getProperty("driver-class-name"));
-            this.connection = DriverManager.getConnection(
+            return DriverManager.getConnection(
                     props.getProperty("url"),
                     props.getProperty("username"),
                     props.getProperty("password")
@@ -63,30 +72,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         } catch (Exception e) {
             throw new IllegalStateException("Invalid config file " + PROPS);
         }
-        createTableItem();
-        return this.connection != null;
     }
 
-    /**
-     * Method(inner) create table "item" if not exist.
-     */
-    private void createTableItem() {
-        StringBuilder query = new StringBuilder();
-        try (InputStream bis = TrackerSQL.class.getClassLoader()
-                .getResourceAsStream(SCHEMA)) {
-            Scanner scanner = new Scanner(Objects.requireNonNull(bis));
-            while (scanner.hasNext()) {
-                query.append(scanner.nextLine());
-            }
-            PreparedStatement ps = this.connection.prepareStatement(
-                    query.toString());
-            if (ps.executeUpdate() == 0) {
-                LOG.info(SCHEMA + " is break or empty.");
-            }
-        } catch (Exception e) {
-            throw new IllegalStateException("Invalid config file " + SCHEMA);
-        }
-    }
 
     @Override
     public final Item add(final Item item) {
