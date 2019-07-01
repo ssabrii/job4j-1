@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bank>
+    <Account type="current">
+        <Id>1001</Id>
+        <Name>Apple</Name>
+        <Balance>10</Balance>
+    </Account>
+    <Account type="current">
+        <Id>1002</Id>
+        <Name>Oracle</Name>
+        <Balance>20</Balance>
+    </Account>
+</Bank>
+
