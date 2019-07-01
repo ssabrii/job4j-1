@@ -1,5 +1,5 @@
 /**
- * XmlUsage.
+ * XmlUsage, Styler.
  *
  * @author Maxim Vanny.
  * @version 5.0
