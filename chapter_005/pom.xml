@@ -10,11 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>chapter_005</artifactId>
 
-    <dependencies>   <dependency>
-        <groupId>ru.job4j</groupId>
-        <artifactId>chapter_002</artifactId>
-        <version>2.0</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>ru.job4j</groupId>
+            <artifactId>chapter_002</artifactId>
+            <version>2.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -39,6 +40,12 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.3.0</version>
+        </dependency>
 
     </dependencies>
     <build>
@@ -54,13 +61,18 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>tracker</finalName>
+                            <finalName>vacancy</finalName>
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>ru.job4j.chapter_005.src.main.
-                                        java.db.tracker.TrackerSQL</mainClass>
+                                        java.parser.Main
+                                    </mainClass>
+                                    <manifestEntries>
+                                        <Multi-Release>true</Multi-Release>
+                                    </manifestEntries>
                                 </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             </transformers>
                         </configuration>
                     </execution>
@@ -70,19 +82,31 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.6.2</version>
-                <configuration>
-                    <changeLogFile>${project.basedir}/src/main/java/db/master.xml</changeLogFile>
-                    <!-- вот здесь не понятно.
-                     откуда эти настройки подтянутся должны?
-                     db удалял результат тот же -->
-                    <url>${db.url}</url>
-                    <driver>${db.driver}</driver>
-                    <username>${db.username}</username>
-                    <password>${db.password}</password>
-                </configuration>
                 <executions>
                     <execution>
+                        <id>vacancy</id>
                         <phase>process-resources</phase>
+                        <configuration>
+                            <changeLogFile>${project.basedir}/src/main/java/db/master.xml</changeLogFile>
+                            <url>jdbc:postgresql://localhost:5432/vacancy</url>
+                            <driver>org.postgresql.Driver</driver>
+                            <username>postgres</username>
+                            <password>postgres</password>
+                        </configuration>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>tracker</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <changeLogFile>${project.basedir}/src/main/java/db/master.xml</changeLogFile>
+                            <url>jdbc:postgresql://localhost:5432/tracker</url>
+                            <driver>org.postgresql.Driver</driver>
+                            <username>postgres</username>
+                            <password>postgres</password>
+                        </configuration>
                         <goals>
                             <goal>update</goal>
                         </goals>

@@ -6,10 +6,18 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="db.jdbc.tracker" level="trace" additivity="false">
+        <Logger name="db.jdbc.parser" level="trace" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
         <Root level="error">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+    <Loggers>
+        <Logger name="org.quartz" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="OFF">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

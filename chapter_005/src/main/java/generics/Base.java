@@ -23,7 +23,7 @@ public abstract class Base {
     }
 
     /**
-     * getId.
+     * getLastId.
      *
      * @return id.
      */
