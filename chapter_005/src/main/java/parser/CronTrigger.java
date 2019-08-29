@@ -1,9 +1,10 @@
 package parser;
 
+import org.jetbrains.annotations.NotNull;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
-import static parser.Postgres.init;
+import static parser.Sqlite.init;
 
 /**
  * CronTrigger.
@@ -22,7 +23,7 @@ public class CronTrigger implements Job {
     /**
      * field postgres.
      */
-    private final Postgres postgres = new Postgres(init());
+    private final Sqlite sqlite = new Sqlite(init());
 
     @Override
     public final void execute(final JobExecutionContext jobExecutionContext) {
@@ -31,27 +32,28 @@ public class CronTrigger implements Job {
         var page = 1;
         final var inPage = 50;
         final var code = 200;
-        final var db = this.postgres.getLastDateVacancy();
+        final var dateDb = this.sqlite.getLastDateVacancy();
         boolean check = false;
         while (parser.connPage(uri + page + "&")
                 .statusCode() == code && !check) {
-            System.out.println("START " + code);
+            System.out.println("Page: " + page + " Code: " + code);
             for (int index = 0; index < inPage; index++) {
-                final var date = parser.getDate(index);
-                if (db.equals("") || date.equals(db)) {
-                    if (!date.contains("19,") || date.equals(db)) {
+                final var dateSite = parser.getDate(index);
+                final var equalsDates = dateSite.equals(dateDb);
+                if (dateDb.equals("") || equalsDates) {
+                    if (!dateSite.contains("19,") || equalsDates) {
                         check = true;
                         break;
                     } else {
                         if (getOnlyJava(parser, index)) {
-                            addToSet(parser, index, date);
+                            addToSet(parser, index, dateSite);
                         }
                     }
                 }
             }
             page++;
         }
-        this.postgres.close();
+        this.sqlite.close();
     }
 
     /**
@@ -61,10 +63,10 @@ public class CronTrigger implements Job {
      * @param index  index
      * @param date   date
      */
-    private void addToSet(final ParserJSOUP parser,
+    private void addToSet(@NotNull final ParserJSOUP parser,
                           final int index, final String date) {
         final var link = parser.getLink(index);
-        this.postgres.getSet().add(new Vacancy(
+        this.sqlite.getSet().add(new Vacancy(
                 date,
                 parser.getName(index),
                 parser.getDescription(link),
@@ -78,7 +80,8 @@ public class CronTrigger implements Job {
      * @param z      index vacancy in page
      * @return boolean result
      */
-    private boolean getOnlyJava(final ParserJSOUP parser, final int z) {
+    private boolean getOnlyJava(@NotNull final ParserJSOUP parser,
+                                final int z) {
         return (parser.getName(z).contains("Java")
                 && !parser.getName(z).contains("Java script")
                 && !parser.getName(z).contains("Javascript")

@@ -44,7 +44,7 @@ public class SchedulerParser {
      *
      * @param aArgs a array of arguments
      */
-    public SchedulerParser(final String[] aArgs) {
+    SchedulerParser(final String[] aArgs) {
         args = aArgs;
     }
 
@@ -66,7 +66,7 @@ public class SchedulerParser {
      *
      * @return atime for scheduler.
      */
-    public final String getTimeScheduler() {
+    final String getTimeScheduler() {
         final String param = getParam();
         try (final InputStream is = SchedulerParser.class.getClassLoader()
                 .getResourceAsStream(param)) {
@@ -83,7 +83,7 @@ public class SchedulerParser {
      *
      * @param time the time to start the scheduler
      */
-    public final void getSchedulerStartDefault(final String time) {
+    final void getSchedulerStartDefault(final String time) {
         try {
             final JobDetail job = newJob(CronTrigger.class)
                     .withIdentity("CronTrigger")
@@ -103,7 +103,7 @@ public class SchedulerParser {
     /**
      * Method to shutdown the scheduler.
      */
-    public final void getSchedulerShutDown() {
+    final void getSchedulerShutDown() {
         try {
             this.scheduler.shutdown(true);
         } catch (SchedulerException e) {

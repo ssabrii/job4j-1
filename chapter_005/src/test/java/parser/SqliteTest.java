@@ -1,73 +1,79 @@
 package parser;
 
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static parser.Postgres.init;
+import static org.junit.Assert.*;
+import static parser.Sqlite.init;
 
-
-public class PostgresTest {
-
+@Ignore
+public class SqliteTest {
+    private final ByteArrayOutputStream bos = new ByteArrayOutputStream();
     private String getCommandLine() {
-        return new StringBuilder()
-                .append("app.properties")
-                .toString();
+        return "app.properties";
     }
 
+    @Before
+    public void addBeforeBos() {
+        System.setErr(new PrintStream(bos));
+    }
 
     @Test
     public void whenAddToSqlAndGeFirstId() throws InterruptedException {
         final String[] args = this.getCommandLine().split(" ");
         final SchedulerParser scheduler = new SchedulerParser(args);
-        final Postgres postgres = new Postgres(init());
-        postgres.dropTable();
-        postgres.createTable();
+        final Sqlite sqlite = new Sqlite(init());
+        sqlite.dropTable();
+        sqlite.createTable();
         final var time = scheduler.getTimeScheduler();
         scheduler.getSchedulerStartDefault(time);
         Thread.sleep(60000);
-        final Set<Vacancy> set = postgres.getSet();
+        final Set<Vacancy> set = sqlite.getSet();
         if (set != null) {
-            postgres.add(set);
+            sqlite.add(set);
         }
-        Vacancy vacancy = postgres.findVacancyById(postgres.getCountRowsInVacancy());
+        Vacancy vacancy = sqlite.findVacancyById(sqlite.getCountRowsInVacancy());
         assertThat(Objects.requireNonNull(vacancy).toString(), is(new StringJoiner(System.lineSeparator())
-                .add("id='" + postgres.getCountRowsInVacancy() + "'")
-                .add("date='4 янв 19, 10:04'")
+                .add("id='" + sqlite.getCountRowsInVacancy() + "'")
+                .add("date='04 янв 19, 10:04'")
                 .add("name='Ищем Java-разработчика'")
                 .add("desc='Крупная компания ище'")
                 .add("link='https://www.sql.ru/forum/1307410/ishhem-java-razrabotchika?hl=java'")
                 .toString()));
         scheduler.getSchedulerShutDown();
-        postgres.close();
+        sqlite.close();
     }
 
     @Test
     public void whenAddToSqlAndGetCountRowInTable() throws InterruptedException {
         final String[] args = this.getCommandLine().split(" ");
         final SchedulerParser scheduler = new SchedulerParser(args);
-        final Postgres postgres = new Postgres(init());
-        postgres.dropTable();
-        postgres.createTable();
+        final Sqlite sqlite = new Sqlite(init());
+        sqlite.dropTable();
+        sqlite.createTable();
         final var time = scheduler.getTimeScheduler();
         scheduler.getSchedulerStartDefault(time);
         Thread.sleep(60000);
-        Set<Vacancy> set = postgres.getSet();
+        Set<Vacancy> set = sqlite.getSet();
         if (set != null) {
-            postgres.add(set);
+            sqlite.add(set);
+            sqlite.getSet().clear();
         }
         Thread.sleep(60000);
-        set = postgres.getSet();
+        set = sqlite.getSet();
         if (set != null) {
-            postgres.add(set);
+            sqlite.add(set);
         }
         assertNotNull(set);
         scheduler.getSchedulerShutDown();
-        postgres.close();
+        sqlite.close();
     }
 }

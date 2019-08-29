@@ -2,6 +2,9 @@ package parser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,12 +30,12 @@ import static parser.SchedulerParser.getParam;
  * @version 5.0
  * @since 7/12/2019
  */
-public class Postgres implements AutoCloseable {
+public class Sqlite implements AutoCloseable {
     /**
      * field logger.
      */
     private static final Logger LOG = LogManager
-            .getLogger(Postgres.class.getName());
+            .getLogger(Sqlite.class.getName());
     /**
      * field connection to postgres.
      */
@@ -43,7 +46,8 @@ public class Postgres implements AutoCloseable {
      *
      * @param aConnection connection
      */
-    public Postgres(final Connection aConnection) {
+    @Contract(pure = true)
+    Sqlite(final Connection aConnection) {
         this.connection = aConnection;
     }
 
@@ -57,6 +61,7 @@ public class Postgres implements AutoCloseable {
      *
      * @return the Set
      */
+    @Contract(pure = true)
     public final Set<Vacancy> getSet() {
         return SET;
     }
@@ -64,22 +69,23 @@ public class Postgres implements AutoCloseable {
     /**
      * field the path prop file.
      */
-    public static final String SCHEMA = "vacancy.sql";
+    private static final String SCHEMA = "vacancy.sql";
 
     /**
      * Method get and set connection to postgres.
      *
      * @return the data of connection
      */
-    public static Connection init() {
+    static Connection init() {
+        Connection result;
         final String param = getParam();
-        try (InputStream is = Postgres.class.
+        try (InputStream is = Sqlite.class.
                 getClassLoader().
                 getResourceAsStream(param)) {
             Properties props = new Properties();
             props.load(Objects.requireNonNull(is));
             Class.forName(props.getProperty("driver-class-name"));
-            return DriverManager.getConnection(
+            result = DriverManager.getConnection(
                     props.getProperty("url"),
                     props.getProperty("username"),
                     props.getProperty("password")
@@ -88,13 +94,13 @@ public class Postgres implements AutoCloseable {
         } catch (IOException | SQLException | ClassNotFoundException e) {
             throw new IllegalStateException("Invalid config file " + param, e);
         }
-
+        return result;
     }
 
     /**
      * Method drop table in main.
      */
-    public final void dropTable() {
+    final void dropTable() {
         try (final PreparedStatement ps = this.connection
                 .prepareStatement("DROP TABLE IF EXISTS vacancy")) {
             ps.executeUpdate();
@@ -108,10 +114,11 @@ public class Postgres implements AutoCloseable {
      *
      * @return the data from sql file
      */
+    @NotNull
     private String getSqlCreateTable() {
         StringBuilder sb = new StringBuilder();
         try (var in = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(Postgres.class.getClassLoader()
+                Objects.requireNonNull(Sqlite.class.getClassLoader()
                         .getResourceAsStream(SCHEMA))))) {
             in.lines().forEach(sb::append);
         } catch (IOException e) {
@@ -123,7 +130,7 @@ public class Postgres implements AutoCloseable {
     /**
      * Method create table in main.
      */
-    public final void createTable() {
+    final void createTable() {
         try (final PreparedStatement ps = this.connection
                 .prepareStatement(this.getSqlCreateTable())) {
             ps.executeUpdate();
@@ -137,11 +144,11 @@ public class Postgres implements AutoCloseable {
      *
      * @return if empty return "", if not to return the last date
      */
-    public final String getLastDateVacancy() {
+    final String getLastDateVacancy() {
         String date = "";
         try (final PreparedStatement ps = this.connection
                 .prepareStatement("SELECT date_vacancy FROM vacancy"
-                        + " WHERE id =?")) {
+                        + " WHERE ROWID =?")) {
             ps.setInt(1, 1);
             final ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -158,10 +165,10 @@ public class Postgres implements AutoCloseable {
      *
      * @return the last id of the vacancy
      */
-    public final int getCountRowsInVacancy() {
+    final int getCountRowsInVacancy() {
         int id = -1;
         try (final PreparedStatement ps = this.connection
-                .prepareStatement("SELECT COUNT(*) FROM vacancy")) {
+                .prepareStatement("SELECT COUNT(ROWID) FROM vacancy")) {
             final ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -177,7 +184,7 @@ public class Postgres implements AutoCloseable {
      *
      * @param vacancies the Set of vacancies
      */
-    public final void add(final Set<Vacancy> vacancies) {
+    public final void add(@NotNull final Set<Vacancy> vacancies) {
         for (Vacancy vac : vacancies) {
             try (PreparedStatement pst = this.connection.prepareStatement(
                     "INSERT INTO vacancy (date_vacancy,"
@@ -204,14 +211,15 @@ public class Postgres implements AutoCloseable {
      * @param id the id of vacancy
      * @return the vacancy
      */
-    public final Vacancy findVacancyById(final int id) {
+    @Nullable
+    final Vacancy findVacancyById(final int id) {
         try (PreparedStatement ps = this.connection.prepareStatement(
-                "SELECT * FROM vacancy WHERE id =?")) {
+                "SELECT * FROM vacancy WHERE ROWID =?")) {
             ps.setInt(1, id);
             final ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Vacancy(
-                        rs.getString("id"),
+                        String.valueOf(id),
                         rs.getString("date_vacancy"),
                         rs.getString("name_vacancy"),
                         rs.getString("desc_vacancy"),

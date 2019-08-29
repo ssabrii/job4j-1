@@ -1,5 +1,7 @@
 package parser;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -41,9 +43,10 @@ public class Vacancy {
      * @param aLink link vacancy
      * @param aDate date vacancy
      */
-    public Vacancy(final String aId, final String aDate,
-                   final String aName, final String aDesc,
-                   final String aLink) {
+    @Contract(pure = true)
+    Vacancy(final String aId, final String aDate,
+            final String aName, final String aDesc,
+            final String aLink) {
         this.id = aId;
         this.date = aDate;
         this.name = aName;
@@ -59,8 +62,9 @@ public class Vacancy {
      * @param aDesc desc vacancy
      * @param aLink link vacancy
      */
-    public Vacancy(final String aDate, final String aName,
-                   final String aDesc, final String aLink) {
+    @Contract(pure = true)
+    Vacancy(final String aDate, final String aName,
+            final String aDesc, final String aLink) {
         this.id = null;
         this.date = aDate;
         this.name = aName;
@@ -73,6 +77,7 @@ public class Vacancy {
      *
      * @return id vacancy
      */
+    @Contract(pure = true)
     public final String getId() {
         return this.id;
     }
@@ -82,6 +87,7 @@ public class Vacancy {
      *
      * @return name vacancy
      */
+    @Contract(pure = true)
     public final String getName() {
         return this.name;
     }
@@ -91,7 +97,8 @@ public class Vacancy {
      *
      * @return description vacancy
      */
-    public final String getDescription() {
+    @Contract(pure = true)
+    final String getDescription() {
         return this.desc;
     }
 
@@ -100,7 +107,8 @@ public class Vacancy {
      *
      * @return link vacancy
      */
-    public final String getLink() {
+    @Contract(pure = true)
+    final String getLink() {
         return this.link;
     }
 
@@ -109,10 +117,12 @@ public class Vacancy {
      *
      * @return date vacancy
      */
-    public final String getDate() {
+    @Contract(pure = true)
+    final String getDate() {
         return this.date;
     }
 
+    @Contract(value = "null -> false", pure = true)
     @Override
     public final boolean equals(final Object o) {
         if (this == o) {

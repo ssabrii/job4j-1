@@ -2,6 +2,7 @@ package parser;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,7 +31,7 @@ public class ParserJSOUP {
      * field logger.
      */
     private static final Logger LOG = LogManager
-            .getLogger(Postgres.class.getName());
+            .getLogger(Sqlite.class.getName());
     /**
      * fields the table.
      */
@@ -45,7 +46,7 @@ public class ParserJSOUP {
      *
      * @return the link.
      */
-    public final String getBaseLink() {
+    final String getBaseLink() {
         final String file = getParam();
         try (InputStream is = Thread.currentThread()
                 .getContextClassLoader()
@@ -64,7 +65,7 @@ public class ParserJSOUP {
      * @param url a link to parser a page
      * @return the DOM a parser page
      */
-    public final Connection.Response connPage(final String url) {
+    final Connection.Response connPage(final String url) {
         Connection.Response response = null;
         final int out = 4000;
         final String agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
@@ -89,7 +90,7 @@ public class ParserJSOUP {
      * @param url a url link description a vacancy
      * @return the DOM a description page
      */
-    public final Connection.Response connDesc(final String url) {
+    private Connection.Response connDesc(final String url) {
         Connection.Response response = null;
         final int out = 4000;
         final String agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
@@ -113,7 +114,7 @@ public class ParserJSOUP {
      * @param url the url of description vacancy page
      * @return the description of vacancy
      */
-    public final String getDescription(final String url) {
+    final String getDescription(final String url) {
         String result = null;
         final int sub = 20;
         final int code = 200;
@@ -144,7 +145,7 @@ public class ParserJSOUP {
      * @param event number event vacancy in page
      * @return the link of page a vacancy
      */
-    public final String getLink(final int event) {
+    final String getLink(final int event) {
         return this.table.get(event)
                 .select("td")
                 .get(0)
@@ -174,13 +175,10 @@ public class ParserJSOUP {
      * @param event number event vacancy in page
      * @return the date to set a vacancy
      */
-    public final String getDate(final int event) {
+    @NotNull
+    final String getDate(final int event) {
         final int index = 4;
         String date = this.table.get(event).select("td").get(index).text();
-        final int length = 16;
-        if (date.toCharArray().length < length) {
-            date = "0" + date;
-        }
         String day;
         final LocalDate today = LocalDate.now();
         final LocalDate yesterday = today.minusDays(1);
@@ -188,12 +186,18 @@ public class ParserJSOUP {
             final var time = date.substring(7, 12);
             day = yesterday.format(DateTimeFormatter.ofPattern(
                     "dd MMM yy", new Locale("ru", "RU")));
-            date = day + "," + time;
+            day = day.replace(". ", " ");
+            date = day + ", " + time;
         } else if (date.contains("сегодня")) {
             final var time = date.substring(10, 15);
             day = today.format(DateTimeFormatter.ofPattern(
                     "dd MMM yy", new Locale("ru", "RU")));
-            date = day + "," + time;
+            day = day.replace(". ", " ");
+            date = day + ", " + time;
+        }
+        final int length = 16;
+        if (date.toCharArray().length < length) {
+            date = "0" + date;
         }
         return date;
     }
