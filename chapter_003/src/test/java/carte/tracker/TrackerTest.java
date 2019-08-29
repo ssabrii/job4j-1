@@ -1,6 +1,7 @@
 package carte.tracker;
 
 import carte.models.Item;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertThat;
  * @version 2.0
  * @since 0.1
  */
+@Ignore
 public class TrackerTest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {

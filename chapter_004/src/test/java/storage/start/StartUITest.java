@@ -2,6 +2,7 @@ package storage.start;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import storage.models.Item;
 import storage.tracker.Input;
@@ -29,6 +30,7 @@ import static org.junit.Assert.assertThat;
  * @version 4.0
  * @since 0.1
  */
+@Ignore
 public class StartUITest {
     private final Tracker tracker = new Tracker();
     private Input input;

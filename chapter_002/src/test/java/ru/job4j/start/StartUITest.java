@@ -2,6 +2,7 @@ package ru.job4j.start;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.models.Item;
 import ru.job4j.tracker.ITracker;
@@ -25,6 +26,7 @@ import static org.junit.Assert.assertThat;
  * @version 2.0
  * @since 0.1
  */
+@Ignore
 public class StartUITest {
     private final ITracker tracker = new Tracker();
     private final PrintStream stdout = System.out;
