@@ -35,7 +35,7 @@ public class Sorter {
         Objects.requireNonNull(list, "list must not be null");
         Comparator<User> compByNameLength = new Comparator<User>() {
             @Override
-            public final int compare(final User o1, final User o2) {
+            public int compare(final User o1, final User o2) {
                 return o1.getName().length() - o2.getName().length();
             }
         };
@@ -52,15 +52,15 @@ public class Sorter {
      */
     public final List<User> sortByNameAndAge(final List<User> list) {
         Objects.requireNonNull(list, "list must not be null");
-        Comparator<User> compByName = new Comparator<User>() {
+        final Comparator<User> compByName = new Comparator<User>() {
             @Override
-            public final int compare(final User o1, final User o2) {
+            public int compare(final User o1, final User o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         };
-        Comparator<User> compByAge = new Comparator<User>() {
+        final Comparator<User> compByAge = new Comparator<User>() {
             @Override
-            public final int compare(final User o1, final User o2) {
+            public int compare(final User o1, final User o2) {
                 return o1.getAge() - o2.getAge();
             }
         };

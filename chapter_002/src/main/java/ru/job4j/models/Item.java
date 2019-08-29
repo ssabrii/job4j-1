@@ -62,11 +62,14 @@ public class Item {
     }
 
     /**
-     * Конструктор заявки.
-     *
-     * @param aName название заявки.
+     * Constructor.
+     * @param aId id
+     * @param aName name
+     * @param aDescription description
      */
-    public Item(final String aId, final String aName, final String aDescription) {
+    public Item(final String aId,
+                final String aName,
+                final String aDescription) {
         this.id = aId;
         this.name = aName;
         this.description = aDescription;

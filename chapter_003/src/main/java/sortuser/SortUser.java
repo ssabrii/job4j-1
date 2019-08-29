@@ -31,7 +31,7 @@ public class SortUser {
     public final List<User> sortNameLength(final List<User> list) {
         list.sort(new Comparator<User>() {
             @Override
-            public final int compare(final User o1, final User o2) {
+            public int compare(final User o1, final User o2) {
                 int name1 = o1.getName().toCharArray().length;
                 int name2 = o2.getName().toCharArray().length;
                 return name1 - name2;
@@ -49,7 +49,7 @@ public class SortUser {
     public final List<User> sortByAllFields(final List<User> list) {
         list.sort(new Comparator<User>() {
             @Override
-            public final int compare(final User o1, final User o2) {
+            public int compare(final User o1, final User o2) {
 
                 String name1 = o1.getName();
                 String name2 = o2.getName();
