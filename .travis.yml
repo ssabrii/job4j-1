@@ -14,15 +14,16 @@ before_install:
       name_vacancy character varying(2000) UNIQUE NOT NULL,
       desc_vacancy text,
       link_vacancy character varying(2000) NOT NULL
-      );"
+      );"> vacancy.sql
     - echo "CREATE TABLE IF NOT EXISTS item
       (
       id        serial primary key,
       id_item   character varying(2000) NOT NULL,
       name_item character varying(2000) NOT NULL,
       desc_item text
-      );
-      "
+      );"> schema.sql
+    - sqlite3 test.db -init vacancy.sql ".exit"
+    - sqlite3 test.db -init schema.sql ".exit"
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
 after_success:
