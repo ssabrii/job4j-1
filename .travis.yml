@@ -5,13 +5,24 @@ jdk: openjdk11
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
-services:
-  - postgresql
-
 before_install:
-  - psql -c 'create database tracker;' -U postgres
-  - psql -c 'create database vacancy;' -U postgres
-
+    - sudo apt-get install sqlite3
+    - echo "CREATE TABLE IF NOT EXISTS vacancy
+      (
+      id           serial primary key,
+      date_vacancy character varying(20)   NOT NULL,
+      name_vacancy character varying(2000) UNIQUE NOT NULL,
+      desc_vacancy text,
+      link_vacancy character varying(2000) NOT NULL
+      );"
+    - echo "CREATE TABLE IF NOT EXISTS item
+      (
+      id        serial primary key,
+      id_item   character varying(2000) NOT NULL,
+      name_item character varying(2000) NOT NULL,
+      desc_item text
+      );
+      "
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
 after_success:
