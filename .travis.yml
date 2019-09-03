@@ -1,13 +1,13 @@
 # используем язык java. Travis CI поддерживает другие языки тоже.
 language: java
 jdk: openjdk11
-
+services:
+ - xvfb
 
 # используем режим обычного пользователя для сборки проекта.
 sudo: false
 
 before_install:
-    - export DISPLAY=:0.0
     - sudo apt-get install sqlite3
     - echo "CREATE TABLE IF NOT EXISTS vacancy
       (
